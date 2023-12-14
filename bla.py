@@ -5,3 +5,5 @@ for i in range(10):
 
 
     print("its maharaf")
+    
+    print('one way data flow')
