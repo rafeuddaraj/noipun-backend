@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# Custom user model initiate
+AUTH_USER_MODEL = "core.CustomUser"
+
 
 # Application definition
 
@@ -54,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "corsheaders.middleware.CorsMiddleware"
-    
+
 ]
 
 ROOT_URLCONF = 'noipun.urls'
@@ -134,4 +137,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Cors origin all permission
 
 CORS_ALLOWED_ORIGINS_ALL = True
-
