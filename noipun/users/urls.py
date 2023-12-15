@@ -5,5 +5,5 @@ from .views import GetUsers
 
 urlpatterns = [
     path('', GetUsers.as_view(), name='user'),
-    path('login/', obtain_auth_token, name='login')
+    path('login/',obtain_auth_token)
 ]
