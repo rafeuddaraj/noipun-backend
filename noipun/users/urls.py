@@ -7,3 +7,4 @@ urlpatterns = [
     path('', GetUsers.as_view(), name='user'),
     path('login/',obtain_auth_token)
 ]
+ 
