@@ -20,7 +20,8 @@ class CustomUser(AbstractBaseUser):
         editable=False, auto_now_add=True, verbose_name="createdAt")
     modified = models.DateTimeField(
         auto_now=True, editable=False, verbose_name="modified")
-
+    shop_name = models.CharField(max_length=30,default='',verbose_name='sellerShopName')
+    address = models.TextField(default='sellerAddress')
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

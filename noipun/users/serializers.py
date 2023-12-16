@@ -3,7 +3,7 @@ from rest_framework.serializers import ModelSerializer, CharField, EmailField, V
 from core.models import CustomUser
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
-
+from allauth.account.utils import send_email_confirmation
 
 class UserSerializer(ModelSerializer):
     class Meta:
@@ -35,4 +35,6 @@ class RegisterSerializer(ModelSerializer):
         account.account_status = 'buyer'
         account.set_password(password)
         account.save()
+        # Send email confirmation
+        send_email_confirmation(self.context['request'], account)
         return account

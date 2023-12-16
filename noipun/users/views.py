@@ -37,6 +37,15 @@ class Login(ObtainAuthToken):
             'avatar':user.avatar
         },status=HTTP_200_OK)
 
+class Logout(APIView):
+    def post(self, request, *args, **kwargs):
+        print(request.user)
+        if(request.user.auth_token):
+            request.user.auth_token.delete()
+            return Response({'message':"Logout successful"},status=HTTP_200_OK)
+        return Response({"There was a error!"},status=HTTP_400_BAD_REQUEST)
+            
+
 
 class RegisterView(APIView):
     def post(self,request):
