@@ -11,7 +11,7 @@ class NID(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,verbose_name='createdAt')
     
     def __str__(self) -> str:
-         return self.seller
+         return self.seller.email
     
     class Meta:
          verbose_name_plural = 'National ID Cards'

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .managers import UserManager
+from category.models import Category
 # Create your models here.
 
 
@@ -27,6 +28,8 @@ class CustomUser(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
+    category = models.ManyToManyField(to=Category, related_name='seller',verbose_name='category',blank=True)
+    
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["name"]
