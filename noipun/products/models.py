@@ -23,6 +23,7 @@ class Images(models.Model):
 
 class Offers(models.Model):
     # Discount id will be auto generated 
+    
 
     discount_name =  models.CharField( max_length=100,null=False,blank=False,verbose_name="Discount_Name")   
     discount_description = models.TextField(verbose_name="Discount_Description", null = True,blank=True)
