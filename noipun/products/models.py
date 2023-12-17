@@ -23,7 +23,7 @@ class Images(models.Model):
 
 class Offers(models.Model):
     # Discount id will be auto generated 
-    
+
 
     discount_name =  models.CharField( max_length=100,null=False,blank=False,verbose_name="Discount_Name")   
     discount_description = models.TextField(verbose_name="Discount_Description", null = True,blank=True)
@@ -40,7 +40,7 @@ class Product(models.Model):
     product_title = models.CharField( max_length=100,null=False,blank=False,verbose_name="Product_Title")
     image = models.ForeignKey(Images, verbose_name="images", on_delete=models.CASCADE)
     description = models.TextField(null=False,blank=False,verbose_name="Product_Description")
-    offers = models.ManyToManyField(Offers, verbose_name="offers")
+    offers = models.ForeignKey(Offers, verbose_name="offers",on_delete=models.CASCADE,related_name="product")
     # offers = models.ManyToManyField("app.Model", verbose_name=_(""))
     price = models.FloatField(default=0,null=False,blank=False,verbose_name="Price")
     seller_id = models.ForeignKey(CustomUser, verbose_name="sellerId", on_delete=models.CASCADE)
