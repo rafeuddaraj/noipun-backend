@@ -1,18 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% if status and not invalid %}
-      <h1>Hey {{name}} your account is active </h1>
-    {% elif status == False and not invalid %}
-      <h1>This link is expired</h1>
-    {% elif invalid %}
-      <h1>This token are doesn't exist</h1>
-    {% endif %}
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Account Verification</title>
+    </head>
+    <body
+        style="
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        ">
+        {% if status and not invalid %}
+        <div
+            style="
+                max-width: 400px;
+                margin: 0 auto;
+                background-color: #fff;
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            ">
+            <img
+                src="https://lh3.googleusercontent.com/pw/ABLVV86gZGC0FzF75qrnTd4AhJLmhzJ9g3jsisY2IJP7uCPYgUHGffB3Cv-A49mVsgMjbOMAUk_G6Qd0o15wLBf7bmcW_4ddLu40g62tV7W3oK4fxZhTJU_FHfh67t8RkU4kC4PLwGJRZ3_nBipmeYEDRwCe=w512-h512-s-no-gm?authuser=0"
+                alt="Verified Icon"
+                style="width: 80px; height: 80px; margin-bottom: 20px" />
 
-</body>
+            <h2 style="color: #4caf50">Account Verified, {{name}}!</h2>
+
+            <p style="color: #555; font-size: 16px; line-height: 1.6">
+                Congratulations! Your account has been successfully verified.
+                You can now enjoy a seamless shopping experience.
+            </p>
+
+            <a
+                href="#"
+                style="
+                    display: inline-block;
+                    background-color: #4caf50;
+                    color: #fff;
+                    text-decoration: none;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    margin-top: 20px;
+                    font-weight: bold;
+                "
+                >Start Shopping</a
+            >
+
+            <p style="margin-top: 20px; color: #777; font-size: 14px">
+                Powered by Altrazen
+            </p>
+        </div>
+        {% elif status == False and not invalid %}
+        <h1>This link is expired</h1>
+        {% elif invalid %}
+        <h1>This token are doesn't exist</h1>
+        {% endif %}
+    </body>
 </html>
