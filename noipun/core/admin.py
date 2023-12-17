@@ -11,7 +11,7 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Account Status', {'fields': ('account_status',)}),
+        ('Account Status', {'fields': ('account_status','is_verified')}),
         ('Personal Info', {'fields': ('name', 'phone_number')}),
         ('Profile Picture', {'fields': ('avatar',)}),
         ('Permissions', {
@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'name', 'phone_number', 'avatar', 'password1', 'password2'),
+            'fields': ('email', 'name', 'password1', 'password2'),
         }),
     )
 

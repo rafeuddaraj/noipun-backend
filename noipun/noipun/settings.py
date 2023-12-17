@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'core',
     'orders',
     'products',
@@ -137,3 +138,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Cors origin all permission
 
 CORS_ALLOWED_ORIGINS_ALL = True
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'rafeuddaraj2@gmail.com'
+EMAIL_HOST_PASSWORD = 'dkpi gpgz zxvq llle'
+
+
+# DOMAIN 
+DOMAIN_NAME = 'http://localhost:8000'
