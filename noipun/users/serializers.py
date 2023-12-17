@@ -1,5 +1,5 @@
 from core.models import CustomUser
-from rest_framework.serializers import ModelSerializer, CharField, EmailField, ValidationError,URLField
+from rest_framework.serializers import ModelSerializer,Serializer, CharField, EmailField, ValidationError,URLField,IntegerField
 from core.models import CustomUser
 from .models import NID
 from products.models import Category
@@ -7,6 +7,9 @@ from django.core.mail import send_mail,EmailMessage
 from django.conf import settings
 import os
 from .utils import generate_key
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.tokens import default_token_generator
 
 
 
@@ -63,7 +66,7 @@ class RegisterSerializer(ModelSerializer):
             email_content = file.read()
 
             email_content = email_content.replace('{{ name }}', account.name)
-            email_content = email_content.replace('{{ activeLink }}', f'{settings.DOMAIN_NAME}/{key + str(account.id)}/{account.name}/{ids}-id-{str(account.id)}-{key+key}')
+            email_content = email_content.replace('{{ activeLink }}', f'{settings.DOMAIN_NAME}/users/email-verification/{key + str(account.id)}/{account.name}/{ids}-id-{str(account.id)}-{key+key}')
             
         email_from = settings.EMAIL_HOST_USER
         
@@ -120,7 +123,7 @@ class SellerRegistrationSerializer(ModelSerializer):
             email_content = file.read()
 
             email_content = email_content.replace('{{ name }}', account.name)
-            email_content = email_content.replace('{{ activeLink }}', f'{settings.DOMAIN_NAME}/{key + str(account.id)}/{account.name}/{ids}-id-{str(account.id)}-{key+key}')
+            email_content = email_content.replace('{{ activeLink }}', f'{settings.DOMAIN_NAME}/users/email-verification/{key + str(account.id)}/{account.name}/{ids}-id-{str(account.id)}-{key+key}')
             
         email_from = settings.EMAIL_HOST_USER
         
@@ -129,3 +132,25 @@ class SellerRegistrationSerializer(ModelSerializer):
         mail.send()
         
         return account
+    
+class ForgetEmailInputSerializer(Serializer):
+    email = EmailField(write_only=True)
+    
+
+
+class ForgetPasswordSerializer(Serializer):
+    password = CharField(write_only=True)
+    password2 = CharField(write_only=True)
+
+    def validate(self, data):
+        password = data.get('password')
+        password2 = data.get('password2')
+
+        if password != password2:
+            raise ValidationError("Passwords don't match")
+
+        return data
+
+    def save(self, user):
+        user.set_password(self.validated_data['password'])
+        user.save()

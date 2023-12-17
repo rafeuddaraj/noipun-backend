@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
-from .views import Login,RegisterView,Logout,GetUsers,SellerRegistrationView,SellerLogin
+from .views import Login,RegisterView,Logout,GetUsers,SellerRegistrationView,SellerLogin,ForgetEmailInputView,ForgetPasswordView,EmailVerificationView
 
 
 urlpatterns = [
@@ -9,6 +9,9 @@ urlpatterns = [
     path('seller-login/',SellerLogin.as_view(),name='seller-login'),
     path('logout/',Logout.as_view(),name='logout'),
     path('registration/',RegisterView.as_view(),name='registration'),
+    path('forget-email-input/',ForgetEmailInputView.as_view(),name='email-input'),
+    path('forget-password/<int:id>/<str:token>/',ForgetPasswordView.as_view(),name='forget'),
+    path('email-verification/<str:key>/<str:name>/<str:id>/',EmailVerificationView.as_view(),name='email-verification'),
     path('seller-registration/',SellerRegistrationView.as_view(),name='seller-registration'),
 ]
  
