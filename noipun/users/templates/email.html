@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification - Noipun</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333333;
+        }
+
+        p {
+            color: #666666;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Email Verification - Noipun</h1>
+        <p>Dear {{ name }},</p>
+        <p>Thank you for choosing Noipun, powered by Altrazen! We're thrilled to have you on board. To complete your registration and activate your account, please click the link below:</p>
+        <p><a href="{{ activeLink }}" class="btn">Activate Your Account</a></p>
+        <p>If you are unable to click the link, please copy and paste the following URL into your browser's address bar:</p>
+        <p>{{ activeLink }}</p>
+        <p>This link will expire in 2 hours, so please make sure to activate your account at your earliest convenience.</p>
+        <p>Thank you for trusting Noipun, powered by Altrazen!</p>
+        <p>Best regards,<br>The Noipun Team<br>Powered by Altrazen</p>
+    </div>
+</body>
+
+</html>
