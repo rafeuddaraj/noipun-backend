@@ -9,6 +9,6 @@ urlpatterns = [
     path('seller-login/',SellerLogin.as_view(),name='seller-login'),
     path('logout/',Logout.as_view(),name='logout'),
     path('registration/',RegisterView.as_view(),name='registration'),
-    path('seller-registration/',SellerRegistrationView.as_view(),name='seller-registration')
+    path('seller-registration/',SellerRegistrationView.as_view(),name='seller-registration'),
 ]
  

@@ -6,6 +6,8 @@ from products.models import Category
 from django.core.mail import send_mail,EmailMessage
 from django.conf import settings
 import os
+from .utils import generate_key
+
 
 
 class CategorySerializer(ModelSerializer):
@@ -52,19 +54,20 @@ class RegisterSerializer(ModelSerializer):
         account.save()
         subject = 'Activate Your Account - Email Verification with Noipun'
         users_folder_path = os.path.join(settings.BASE_DIR, 'users','templates')
-
+        key = generate_key()
+        ids = str(key[::-1])
         # Construct the path to the 'email.txt' file within the 'users' folder
         email_txt_path = os.path.join(users_folder_path, 'email.html')
+        
         with open(email_txt_path) as file:
             email_content = file.read()
 
             email_content = email_content.replace('{{ name }}', account.name)
-            email_content = email_content.replace('{{ activeLink }}', 'https://www.google.com/')
+            email_content = email_content.replace('{{ activeLink }}', f'{settings.DOMAIN_NAME}/{key + str(account.id)}/{account.name}/{ids}-id-{str(account.id)}-{key+key}')
             
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = ['rafeuddaraj2@gmail.com', ]
         
-        mail = EmailMessage(subject,email_content,settings.EMAIL_HOST_USER,['rafeuddaraj2@gmail.com'])
+        mail = EmailMessage(subject,email_content,email_from,[account.email])
         mail.content_subtype = 'html'
         mail.send()
         return account
@@ -105,6 +108,24 @@ class SellerRegistrationSerializer(ModelSerializer):
         account.save()
         nid = NID(seller=account,front=front,back=back)
         nid.save()
-        # Send email confirmation
-        # send_email_confirmation(self.context['request'], account)
+        
+        subject = 'Activate Your Account - Email Verification with Noipun'
+        users_folder_path = os.path.join(settings.BASE_DIR, 'users','templates')
+        key = generate_key()
+        ids = str(key[::-1])
+        # Construct the path to the 'email.txt' file within the 'users' folder
+        email_txt_path = os.path.join(users_folder_path, 'email.html')
+        
+        with open(email_txt_path) as file:
+            email_content = file.read()
+
+            email_content = email_content.replace('{{ name }}', account.name)
+            email_content = email_content.replace('{{ activeLink }}', f'{settings.DOMAIN_NAME}/{key + str(account.id)}/{account.name}/{ids}-id-{str(account.id)}-{key+key}')
+            
+        email_from = settings.EMAIL_HOST_USER
+        
+        mail = EmailMessage(subject,email_content,email_from,[account.email])
+        mail.content_subtype = 'html'
+        mail.send()
+        
         return account
