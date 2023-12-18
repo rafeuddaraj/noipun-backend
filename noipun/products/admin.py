@@ -6,6 +6,12 @@ from .models import Category,Images,Offers,Product,Reviews
 #     class Meta:
 #         model = Category 
 #         fields = '__all__'
+
+class ProductAdmin(admin.ModelAdmin):
+    class Meta:
+        model = Product
+        fields = '__all__'
+        prepopulated_fields = {'slug':('product_title',)}
         
 admin.site.register(Category)
 admin.site.register(Images)
