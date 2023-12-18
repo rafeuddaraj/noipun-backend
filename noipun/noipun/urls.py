@@ -16,11 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from users.views import EmailVerificationView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
-    path('order/',include('orders.urls')),
-    path('<str:key>/<str:name>/<str:id>/',EmailVerificationView.as_view(),name='email-verification'),
+    path('<str:key>/<str:name>/<str:id>/',EmailVerificationView.as_view(),name='email-verification')
 ]

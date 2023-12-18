@@ -4,13 +4,20 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from core.permissions import Private
 from rest_framework.response import Response
-from .serializers import UserSerializer, RegisterSerializer, SellerRegistrationSerializer
+from .serializers import UserSerializer, RegisterSerializer, SellerRegistrationSerializer,ForgetEmailInputSerializer,ForgetPasswordSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
+from django.contrib.auth.tokens import default_token_generator
 from . import signals
 from django.shortcuts import render
 from django.views import View
-from .utils import id_maker
+from .utils import id_maker,generate_key
+from django.core.mail import EmailMessage
+from django.conf import settings
+import os
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+from rest_framework.serializers import ValidationError
 # Create your views here.
 
 
@@ -98,9 +105,61 @@ class RegisterView(APIView):
             }, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
+class ForgetEmailInputView(APIView):
+    def post(self,request):
+        serializer = ForgetEmailInputSerializer(data=request.data)
+        if(serializer.is_valid()):
+            email = serializer.validated_data['email']
+            try:
+                account = CustomUser.objects.get(email=email)
+            except:
+                return Response({"message":"Invalid email!"},status=HTTP_400_BAD_REQUEST)
 
+            token = default_token_generator.make_token(account)
 
+            # Include the token in the email for password reset link
+            
+            reset_link = f"{settings.DOMAIN_NAME}/users/forget-password/{account.id}/{token}/"
 
+            # Send the reset link to the user's email
+            
+            subject = 'Forget Your Password - with Noipun'
+            users_folder_path = os.path.join(settings.BASE_DIR, 'users','templates')
+            # key = generate_key()
+            # ids = str(key[::-1])
+            # Construct the path to the 'email.txt' file within the 'users' folder
+            email_txt_path = os.path.join(users_folder_path, 'passwordChange.html')
+            
+            with open(email_txt_path) as file:
+                email_content = file.read()
+
+                email_content = email_content.replace('{{ name }}', account.name)
+                email_content = email_content.replace('{{ activeLink }}', reset_link)
+                
+            email_from = settings.EMAIL_HOST_USER
+            
+            mail = EmailMessage(subject,email_content,email_from,[account.email])
+            mail.content_subtype = 'html'
+            mail.send()
+            
+        
+            return Response({'message': 'Password reset link sent successfully.'}, status=HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+class ForgetPasswordView(APIView):
+    def post(self, request, id, token, *args, **kwargs):
+        serializer = ForgetPasswordSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        user = get_object_or_404(get_user_model(), id=id)
+        
+        if not default_token_generator.check_token(user, token):
+            raise ValidationError('Invalid token')
+
+        serializer.save(user)
+
+        return Response({'message': 'Password successfully changed'}, status=HTTP_200_OK)
 class EmailVerificationView(View):
     template_name = 'activation.html'
 
