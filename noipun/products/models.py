@@ -57,7 +57,7 @@ class Product(models.Model):
     total_buyed =  models.IntegerField(default = 0,verbose_name="totalBuyed")
     delivery_is_free = models.BooleanField(default=False,verbose_name="deliveryStatus")
     weight =  models.FloatField(default = 0,verbose_name="weight",null=True,blank=True)
-    # slug i cant understand
+    slug=models.SlugField(verbose_name = "slugField",max_length = 100,default=None)
     created_at = models.DateTimeField( auto_now=False, auto_now_add=True,editable=False,verbose_name="CreatedAt")
     modified = models.DateTimeField(auto_now=False, editable=False,verbose_name='lastModified')
     class Meta:

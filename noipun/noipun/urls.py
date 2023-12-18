@@ -21,5 +21,6 @@ from users.views import EmailVerificationView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
-    path('<str:key>/<str:name>/<str:id>/',EmailVerificationView.as_view(),name='email-verification')
+    path('order/',include('orders.urls')),
+    path('<str:key>/<str:name>/<str:id>/',EmailVerificationView.as_view(),name='email-verification'),
 ]
