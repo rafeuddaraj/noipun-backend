@@ -25,6 +25,8 @@ class Images(models.Model):
     image = models.URLField(verbose_name="image",max_length=1000,null=True,blank=True)
     created_at = models.DateTimeField( auto_now=False, auto_now_add=True,editable=False,verbose_name="Created_At")
     modified = models.DateTimeField(auto_now=False, auto_now_add=True, editable=False,verbose_name='Last_Modified')
+    class Meta:
+        verbose_name_plural = "Images"
 
 class Offers(models.Model):
     # Discount id will be auto generated 
@@ -40,6 +42,8 @@ class Offers(models.Model):
     created_at = models.DateTimeField( auto_now=False, auto_now_add=True,editable=False,verbose_name="Created_At")
     modified = models.DateTimeField(auto_now=False, editable=False,verbose_name='Last_Modified')
     active =  models.BooleanField(default=False)
+    class Meta:
+        verbose_name_plural = "Offers"
 
 class Product(models.Model):
     product_id  = models.AutoField(primary_key=True)
@@ -60,6 +64,8 @@ class Product(models.Model):
     # slug i cant understand
     created_at = models.DateTimeField( auto_now=False, auto_now_add=True,editable=False,verbose_name="Created_At")
     modified = models.DateTimeField(auto_now=False, editable=False,verbose_name='Last_Modified')
+    class Meta:
+        verbose_name_plural = "Products"
 
 class Reviews(models.Model):
     review_id =  models.AutoField(primary_key=True)
@@ -68,6 +74,9 @@ class Reviews(models.Model):
     review =  models.TextField(null=True,blank=True)
     created_at = models.DateTimeField( auto_now=False, auto_now_add=True,editable=False,verbose_name="Created_At")
     modified = models.DateTimeField(auto_now=False, editable=False,verbose_name='Last_Modified')
+    
+    class Meta:
+        verbose_name_plural = "Reviews"
 
 
 
