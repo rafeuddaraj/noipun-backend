@@ -10,7 +10,7 @@ from .utils import generate_key
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.tokens import default_token_generator
-
+from rest_framework.authtoken.models import Token
 
 
 class CategorySerializer(ModelSerializer):
@@ -43,7 +43,6 @@ class RegisterSerializer(ModelSerializer):
         name = self.validated_data['name']
         password = self.validated_data['password']
         password2 = self.validated_data['password2']
-
         if (password != password2):
             raise ValidationError("Password doesn't match!")
 
@@ -55,18 +54,16 @@ class RegisterSerializer(ModelSerializer):
         account.account_status = 'buyer'
         account.set_password(password)
         account.save()
+        token,create = Token.objects.get_or_create(user=account)
         subject = 'Activate Your Account - Email Verification with Noipun'
         users_folder_path = os.path.join(settings.BASE_DIR, 'users','templates')
-        key = generate_key()
-        ids = str(key[::-1])
         # Construct the path to the 'email.txt' file within the 'users' folder
         email_txt_path = os.path.join(users_folder_path, 'email.html')
-        
         with open(email_txt_path) as file:
             email_content = file.read()
 
             email_content = email_content.replace('{{ name }}', account.name)
-            email_content = email_content.replace('{{ activeLink }}', f'{settings.DOMAIN_NAME}/users/email-verification/{key + str(account.id)}/{account.name}/{ids}-id-{str(account.id)}-{key+key}')
+            email_content = email_content.replace('{{ activeLink }}', f'{settings.DOMAIN_NAME}/users/email-verification/{account.name.replace(" ","").lower()}/{account.id}/{token.key}')
             
         email_from = settings.EMAIL_HOST_USER
         
@@ -111,19 +108,18 @@ class SellerRegistrationSerializer(ModelSerializer):
         account.save()
         nid = NID(seller=account,front=front,back=back)
         nid.save()
-        
+        token,create = Token.objects.get_or_create(user=account)
         subject = 'Activate Your Account - Email Verification with Noipun'
         users_folder_path = os.path.join(settings.BASE_DIR, 'users','templates')
-        key = generate_key()
-        ids = str(key[::-1])
         # Construct the path to the 'email.txt' file within the 'users' folder
         email_txt_path = os.path.join(users_folder_path, 'email.html')
         
+
         with open(email_txt_path) as file:
             email_content = file.read()
 
             email_content = email_content.replace('{{ name }}', account.name)
-            email_content = email_content.replace('{{ activeLink }}', f'{settings.DOMAIN_NAME}/users/email-verification/{key + str(account.id)}/{account.name}/{ids}-id-{str(account.id)}-{key+key}')
+            email_content = email_content.replace('{{ activeLink }}', f'{settings.DOMAIN_NAME}/users/email-verification/{account.name.replace(" ","").lower()}/{account.id}/{token.key}')
             
         email_from = settings.EMAIL_HOST_USER
         

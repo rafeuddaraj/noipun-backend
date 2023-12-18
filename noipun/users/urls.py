@@ -11,7 +11,7 @@ urlpatterns = [
     path('registration/',RegisterView.as_view(),name='registration'),
     path('forget-email-input/',ForgetEmailInputView.as_view(),name='email-input'),
     path('forget-password/<int:id>/<str:token>/',ForgetPasswordView.as_view(),name='forget'),
-    path('email-verification/<str:key>/<str:name>/<str:id>/',EmailVerificationView.as_view(),name='email-verification'),
+    path('email-verification/<str:name>/<int:id>/<str:token>/',EmailVerificationView.as_view(),name='email-verification'),
     path('seller-registration/',SellerRegistrationView.as_view(),name='seller-registration'),
 ]
  
