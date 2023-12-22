@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+jhuatpksv@dwm@s1nqr&*d+(2=47-uif=34geuoo^e3m13^gi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'products',
     'users',
     "corsheaders",
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -60,6 +61,9 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.security.SecurityMiddleware', #after this line
+    'whitenoise.middleware.WhiteNoiseMiddleware', #add it exactlyhere
+    'django.contrib.sessions.middleware.SessionMiddleware', #before this
 
 ]
 
@@ -160,3 +164,7 @@ EMAIL_HOST_PASSWORD = 'dkpi gpgz zxvq llle'
 DOMAIN_NAME = 'http://localhost:8000'
 
 APPEND_SLASH=True
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
