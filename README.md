@@ -1,7 +1,7 @@
 # noipun-backend
 it's noipun backend services. powered by altrazen
 
-<!-- How to Static file admin panel debug false problem solve? -->
+## How to Static file admin panel debug false problem solve?
 
 From here I took help by mixing a few answers. Here, I am adding my whole parts. **[I am doing this for a beginners help and for my future use as well]**
 
