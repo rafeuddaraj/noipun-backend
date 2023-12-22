@@ -57,7 +57,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "corsheaders.middleware.CorsMiddleware"
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 
 ]
 
@@ -137,7 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Cors origin all permission
 
-CORS_ALLOWED_ORIGINS_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 REST_FRAMEWORK = {
@@ -156,3 +158,5 @@ EMAIL_HOST_PASSWORD = 'dkpi gpgz zxvq llle'
 
 # DOMAIN 
 DOMAIN_NAME = 'http://localhost:8000'
+
+APPEND_SLASH=True

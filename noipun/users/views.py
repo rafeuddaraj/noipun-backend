@@ -43,7 +43,10 @@ class Login(ObtainAuthToken):
             'email': user.email,
             'accountStatus': user.account_status,
             'name': user.name,
-            'avatar': user.avatar
+            'isVerified':user.is_verified,
+            'avatar': user.avatar,
+            'password':user.password,
+            
         }, status=HTTP_200_OK)
 
 
@@ -96,11 +99,12 @@ class RegisterView(APIView):
         if (serializer.is_valid()):
             user = serializer.save()
             return Response({
-                'accessToken': Token.objects.get(user=user).key,
+                'accessToken':  Token.objects.get(user=user).key,
+                'user_id': user.pk,
                 'email': user.email,
-                'name': user.name,
                 'accountStatus': user.account_status,
-                'isVerified': user.is_verified
+                'name': user.name,
+                'avatar': user.avatar
             }, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
