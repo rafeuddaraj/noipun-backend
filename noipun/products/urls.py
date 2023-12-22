@@ -1,28 +1,47 @@
 from django.contrib import admin
 from django.urls import path
-from .views import CreateCategory,CategeoryDetails,CreateImages,ImagesDetails,CreateOffers,OffersDetails,CreateReviews,ReviewDetails,CreateProduct,ProductDetails
+from .views import Category,Images,Offers,Reviews,Product
+
+
+def full_list(obj):
+    list = obj.as_view({
+        'get': 'list',
+        'post': 'create',
+    })
+    return list
+
+def single_list(obj):
+    single = obj.as_view({
+        'get': 'retrieve',
+        'put': 'update',
+        'patch': 'partial_update',
+        'delete': 'destroy'
+    })
+    
+    return single
+
 
 
 urlpatterns = [
     # url for Category
-    path('category-create/',CreateCategory.as_view(),name="categoryCreate"),
-    path('category-details/<int:pk>/',CategeoryDetails.as_view(),name="categpryDetails"),
+    path('category/',full_list(Category),name="categpryDetails"),
+    path('category/<int:pk>/',single_list(Category),name="categpryDetails"),
 
     # url for Images
-    path('images-create/',CreateImages.as_view(),name="imagesCreate"),
-    path('images-details/<int:pk>/',ImagesDetails.as_view(),name="imagesDetails"),
+    path('images/',full_list(Images),name="imagesDetails"),
+    path('images/<int:pk>/',single_list(Images),name="imagesDetails"),
 
     # url for Reviews
-    path('reviews-create/',CreateReviews.as_view(),name="reviewsCreate"),
-    path('reviews-details/<int:pk>/',ReviewDetails.as_view(),name="reviewsDetails"),
+    path('reviews/',full_list(Reviews),name="reviewsCreate"),
+    path('reviews/<int:pk>/',single_list(Reviews),name="reviewsDetails"),
 
     # url for Offers
-    path('offers-create/',CreateOffers.as_view(),name="offersCreate"),
-    path('offers-details/<int:pk>/',OffersDetails.as_view(),name="offersDetails"),
+    path('offers/',full_list(Offers),name="offersDetails"),
+    path('offers/<int:pk>/',single_list(Offers),name="offersDetails"),
 
     # url for Products
-    path('product-create/',CreateProduct.as_view(),name="productCreate"),
-    path('product-details/<int:pk>/',ProductDetails.as_view(),name="productDetails"),
+    path('product/',full_list(Product),name="productDetails"),
+    path('product/<int:pk>/',single_list(Product),name="productDetails"),
 
 
 
