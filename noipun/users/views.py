@@ -9,7 +9,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.tokens import default_token_generator
 from . import signals
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse,redirect
 from django.views import View
 from .utils import id_maker, generate_key
 from django.core.mail import EmailMessage
@@ -18,6 +18,7 @@ import os
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework.serializers import ValidationError
+from .forms import ForgetPasswordForm
 # Create your views here.
 
 
@@ -156,21 +157,50 @@ class ForgetEmailInputView(APIView):
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
-class ForgetPasswordView(APIView):
-    def post(self, request, id, token, *args, **kwargs):
-        serializer = ForgetPasswordSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+# class ForgetPasswordView(APIView):
+#     def post(self, request, id, token, *args, **kwargs):
+#         serializer = ForgetPasswordSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
 
+#         user = get_object_or_404(get_user_model(), id=id)
+
+#         if not default_token_generator.check_token(user, token):
+#             raise ValidationError('Invalid token')
+
+#         serializer.save(user)
+
+#         return Response({'message': 'Password successfully changed'}, status=HTTP_200_OK)
+
+class ForgetPasswordView(View):
+    template_name = 'forget.html'
+    error_template_name = 'error_page.html'  # Create an error page template
+    success_redirect_url = 'http://localhost:5173/login'  # Replace with your actual redirect URL
+
+    def get(self, request, id, token, *args, **kwargs):
+        form = ForgetPasswordForm()
         user = get_object_or_404(get_user_model(), id=id)
 
         if not default_token_generator.check_token(user, token):
-            raise ValidationError('Invalid token')
+            return render(request, self.error_template_name, {'error_message': 'Invalid token or user'})
 
-        serializer.save(user)
+        return render(request, self.template_name, {'form': form, 'user_name': user.name})
 
-        return Response({'message': 'Password successfully changed'}, status=HTTP_200_OK)
+    def post(self, request, id, token, *args, **kwargs):
+        form = ForgetPasswordForm(request.POST)
+        user = get_object_or_404(get_user_model(), id=id)
 
+        if not default_token_generator.check_token(user, token):
+            return render(request, self.template_name, {'form': form, 'error_message': 'Invalid token'})
 
+        if form.is_valid():
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            return redirect(self.success_redirect_url)
+
+        return render(request, self.template_name, {'form': form, 'user_name': user.name})
+
+    
+    
 class EmailVerificationView(View):
     template_name = 'activation.html'
 

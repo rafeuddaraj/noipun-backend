@@ -1,70 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noipun Forget Password</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 400px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4caf50;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>পাসওয়ার্ড ভুলে গেছেন</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h2>Forget Password</h2>
-        <form action="#" method="post" id="forgetPasswordForm">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-
-            <button type="submit">Reset Password</button>
-        </form>
+<body class="">
+    <div class="mt-40 relative mx-auto w-full max-w-md bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10">
+        <div class="w-full">
+            {% if user_name %}
+            <div class="text-center">
+                <h1 class="text-left text-sm font-semibold text-gray-900">
+                    আপনি কোথায় হারিয়েছেন, {{ user_name }}? আসুন আপনাকে ফিরিয়ে আনি!
+                </h1>
+            </div>
+            <p class="mt-2 text-gray-500">আপনার পাসওয়ার্ড রিসেট করুন এবং আপনার অ্যাকাউন্টে পুনরুদ্ধার করুন।</p>
+            {% endif %}
+            <div class="mt-5">
+                <form method="post" class="mt-5">
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 w-full">
+                            <strong>ভুল:</strong>
+                            <ul>
+                                {% for error in form.non_field_errors %}
+                                    <li class="list-disc list-inside">
+                                        {{ error }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <div class="relative mt-6">
+                        {{ form.password.label_tag }} {{ form.password }}
+                        {% if form.password.errors %}
+                            <ul class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 w-full">
+                                {% for error in form.password.errors %}
+                                    <li class="list-disc list-inside">
+                                        {{ error }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    <div class="relative mt-6">
+                        {{ form.password2.label_tag }} {{ form.password2 }}
+                        {% if form.password2.errors %}
+                            <ul class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 w-full">
+                                {% for error in form.password2.errors %}
+                                    <li class="list-disc list-inside">
+                                        {{ error }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    <div class="my-6">
+                        <button type="submit" class="w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none">
+                            অ্যাক্সেস পুনরুদ্ধার করুন
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>
