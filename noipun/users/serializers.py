@@ -7,10 +7,11 @@ from django.core.mail import send_mail,EmailMessage
 from django.conf import settings
 import os
 from .utils import generate_key
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model,password_validation
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.tokens import default_token_generator
 from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import update_last_login
 
 
 class CategorySerializer(ModelSerializer):
@@ -132,7 +133,42 @@ class SellerRegistrationSerializer(ModelSerializer):
 class ForgetEmailInputSerializer(Serializer):
     email = EmailField(write_only=True)
     
+# // Change Password from user
 
+class PasswordChangeSerializer(Serializer):
+    old_password = CharField(required=True)
+    new_password = CharField(required=True)
+    confirm_password = CharField(required=True)
+
+    def validate_old_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise ValidationError("Incorrect old password.")
+        return value
+
+    def validate(self, data):
+        if data['new_password'] != data['confirm_password']:
+            raise ValidationError("New password and confirm password do not match.")
+        return data
+
+    def validate_new_password(self, value):
+        password_validation.validate_password(value)
+        return value
+
+    def save(self):
+        user = self.context['request'].user
+        user.set_password(self.validated_data['new_password'])
+        user.save()
+        
+        # Invalidate existing token (if any)
+        try:
+            token = Token.objects.get(user=user)
+            token.delete()
+        except Token.DoesNotExist:
+            pass
+        
+        update_last_login(None, user)
+        return user
 
 class ForgetPasswordSerializer(Serializer):
     password = CharField(write_only=True)

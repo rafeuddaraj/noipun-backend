@@ -4,12 +4,12 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from core.permissions import Private
 from rest_framework.response import Response
-from .serializers import UserSerializer, RegisterSerializer, SellerRegistrationSerializer, ForgetEmailInputSerializer, ForgetPasswordSerializer
+from .serializers import UserSerializer, RegisterSerializer, SellerRegistrationSerializer, ForgetEmailInputSerializer, ForgetPasswordSerializer, PasswordChangeSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.tokens import default_token_generator
 from . import signals
-from django.shortcuts import render,HttpResponse,redirect
+from django.shortcuts import render, HttpResponse, redirect
 from django.views import View
 from .utils import id_maker, generate_key
 from django.core.mail import EmailMessage
@@ -19,6 +19,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework.serializers import ValidationError
 from .forms import ForgetPasswordForm
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
@@ -44,10 +45,10 @@ class Login(ObtainAuthToken):
             'email': user.email,
             'accountStatus': user.account_status,
             'name': user.name,
-            'isVerified':user.is_verified,
+            'isVerified': user.is_verified,
             'avatar': user.avatar,
-            'password':user.password,
-            
+            'password': user.password,
+
         }, status=HTTP_200_OK)
 
 
@@ -174,7 +175,8 @@ class ForgetEmailInputView(APIView):
 class ForgetPasswordView(View):
     template_name = 'forget.html'
     error_template_name = 'error_page.html'  # Create an error page template
-    success_redirect_url = 'http://localhost:5173/login'  # Replace with your actual redirect URL
+    # Replace with your actual redirect URL
+    success_redirect_url = 'http://localhost:5173/login'
 
     def get(self, request, id, token, *args, **kwargs):
         form = ForgetPasswordForm()
@@ -199,12 +201,34 @@ class ForgetPasswordView(View):
 
         return render(request, self.template_name, {'form': form, 'user_name': user.name})
 
-    
-    
+
+# Password Change from user
+
+# views.py
+# from rest_framework import status
+# from rest_framework.response import Response
+# from rest_framework.views import APIView
+
+
+# from .serializers import
+
+
+class PasswordChangeView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = PasswordChangeSerializer(
+            data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'detail': 'Password changed successfully.'}, status=HTTP_200_OK)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+
 class EmailVerificationView(View):
     template_name = 'activation.html'
 
-    def get(self, request,name, token, id, *args, **kwargs):
+    def get(self, request, name, token, id, *args, **kwargs):
         context = {}
         try:
             tkn = Token.objects.filter(key=token).exists()
