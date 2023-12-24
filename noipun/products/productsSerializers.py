@@ -19,6 +19,7 @@ class OffersSerializers(serializers.ModelSerializer):
         fields ='__all__'
 
 class ProductSerializers(serializers.ModelSerializer):
+    image = ImagesSerializers(many=True)
     class Meta:
         model = Product
         fields ='__all__'

@@ -21,12 +21,17 @@ class Category(models.Model):
 
 class Images(models.Model):
     image_id = models.AutoField(primary_key=True)
+    # seller_id =
+
     image = models.URLField(verbose_name="image",max_length=1000,null=True,blank=True)
     product = models.ForeignKey("Product", verbose_name="Product", on_delete=models.CASCADE,related_name="image")
     created_at = models.DateTimeField( auto_now_add=True,editable=False,verbose_name="createdAt")
     modified = models.DateTimeField(auto_now=True, editable=False,verbose_name='lastModified')
     class Meta:
         verbose_name_plural = 'Images'
+    
+    def __str__(self):
+        return self.image
 
 
 class Offers(models.Model):
@@ -38,8 +43,8 @@ class Offers(models.Model):
     discount_percent = models.IntegerField(null=True,blank=True,verbose_name="discount") 
     discount_start = models.DateTimeField( auto_now=False, auto_now_add=False,editable=True,verbose_name="discountStart")
     discount_end = models.DateTimeField( auto_now=False, auto_now_add=False,editable=True,verbose_name="discountEnd")
-    created_at = models.DateTimeField( auto_now_add=True,editable=False,verbose_name="createdAt")
-    modified = models.DateTimeField(auto_now=True, editable=False,verbose_name='lastModified')
+    created_at = models.DateTimeField( auto_now=False, auto_now_add=True,editable=False,verbose_name="createdAt")
+    modified = models.DateTimeField(auto_now=False, editable=False,verbose_name='lastModified')
     active =  models.BooleanField(default=False)
 
     class Meta:
@@ -51,16 +56,15 @@ class Product(models.Model):
     description = models.TextField(null=True,blank=True,verbose_name="productDescription")
     price = models.FloatField(default=0,null=True,blank=True,verbose_name="price",)
     seller_id = models.ForeignKey(CustomUser, verbose_name="sellerId", on_delete=models.CASCADE)
-    tags = models.ForeignKey(Category, verbose_name="Category", on_delete=models.CASCADE)
+    tags = models.ForeignKey(Category, verbose_name="product", on_delete=models.CASCADE)
     ratting =models.FloatField(default=0,verbose_name="ratting")
     is_available = models.BooleanField(default=True,verbose_name="availableStatus",null=True,blank=True)
     total_buyed =  models.IntegerField(default = 0,verbose_name="totalBuyed")
     delivery_is_free = models.BooleanField(default=False,verbose_name="deliveryStatus")
     weight =  models.FloatField(default = 0,verbose_name="weight",null=True,blank=True)
     slug=models.SlugField(verbose_name = "slugField",max_length = 100,default=None)
-    created_at = models.DateTimeField(  auto_now_add=True,editable=False,verbose_name="CreatedAt")
-    modified = models.DateTimeField(auto_now=True, editable=False,verbose_name='lastModified')
-
+    created_at = models.DateTimeField( auto_now=False, auto_now_add=True,editable=False,verbose_name="CreatedAt")
+    modified = models.DateTimeField(auto_now=False, editable=False,verbose_name='lastModified')
     class Meta:
         verbose_name_plural = 'Products'
 
@@ -69,8 +73,8 @@ class Reviews(models.Model):
     user = models.ForeignKey(CustomUser, verbose_name="user", on_delete=models.CASCADE)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE,related_name = "review_product")
     review =  models.TextField(null=True,blank=True)
-    created_at = models.DateTimeField( auto_now_add=True,editable=False,verbose_name="createdAt")
-    modified = models.DateTimeField(auto_now=True, editable=False,verbose_name='lastModified')
+    created_at = models.DateTimeField( auto_now=False, auto_now_add=True,editable=False,verbose_name="createdAt")
+    modified = models.DateTimeField(auto_now=False, editable=False,verbose_name='lastModified')
     class Meta:
         verbose_name_plural = 'Reviews'
 
