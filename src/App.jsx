@@ -26,7 +26,7 @@ export default function App() {
                             element={<ProductDetails />}
                         />
                         <Route path="/wishlist" element={<Wishlist />} />
-                        <Route path="/cart/:id" element={<Cart />} />
+                        <Route path="/cart" element={<Cart />} />
                         <Route path="/checkout" element={<Checkout />} />
                         <Route path="/login" element={<SignIn />} />
                         <Route path="/signup" element={<Signup />} />

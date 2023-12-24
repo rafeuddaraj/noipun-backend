@@ -8,6 +8,7 @@ import {
     FaMicroblog,
     FaPlus,
     FaSearch,
+    FaCartPlus 
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -25,8 +26,8 @@ import { useSelector } from "react-redux";
 import { accountSelector } from "../features/accountSlice/accountSelector";
 
 const Static_nav = () => {
-    const [selectLang, setSelectLang] = useState(1);
-    const [lgdroper, setLgdroper] = useState(false);
+    // const [selectLang, setSelectLang] = useState(1);
+    // const [lgdroper, setLgdroper] = useState(false);
     const [cateDroper, setCateDroper] = useState(false);
     const [searchQuerys, setSearchQuerys] = useState("");
     const [isVisableOnSearching, setIsVisableOnSearching] = useState(false);
@@ -37,8 +38,8 @@ const Static_nav = () => {
     const auth = useAuth()
     const {user} = useSelector(accountSelector)
     const {avatar,name} = user || {}
-    const language = ["English", "Bangla"];
-    const nm = language?.find((lg, i) => i === selectLang);
+    // const language = ["English", "Bangla"];
+    // const nm = language?.find((lg, i) => i === selectLang);
     
     const navigate = useNavigate()
 
@@ -79,7 +80,7 @@ const Static_nav = () => {
                     </Link>
                     <div className="flex items-center gap-2">
                         {/* xl,lg */} {/* language */}
-                        <div className="w-[100px] h-[30px] items-center justify-center gap-1 relative z-10 xl:flex lg:flex min-[360px]:hidden">
+                        {/* <div className="w-[100px] h-[30px] items-center justify-center gap-1 relative z-10 xl:flex lg:flex min-[360px]:hidden">
                             <span
                                 className="text-[1.1rem] text-[#111] tracking-[1px] font-[400] cursor-pointer"
                                 onClick={() => setLgdroper(!lgdroper)}>
@@ -109,9 +110,16 @@ const Static_nav = () => {
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </div> */}
                         <div className="flex items-center justify-center gap-2">
                             {/* Auth sm */}
+                            
+                            <div className=" min-[360px]:block bg-[#fde102] rounded-full p-3">
+                                <Link to={"/cart"}>
+                                    <FaCartPlus   className="text-[1.3rem] text-[#fffce6] duration-[.5s] cursor-pointer" />
+                                </Link>
+                            </div>
+
                             <div className="xl:hidden lg:hidden min-[360px]:block">
                                 <Link to={"/login"}>
                                     <MdLogin className="text-[1.3rem] text-[#d1cfcf] duration-[.5s] cursor-pointer" />
@@ -150,10 +158,14 @@ const Static_nav = () => {
                 <div className="h-[72px] flex items-center justify-between xl:px-[80px] lg:px-[80px] min-[360px]:px-[20px]">
                     {/* xl,lg */} {/* link and product droper */}
                     <div className="h-full items-center  justify-center gap-8 xl:flex lg:flex min-[360px]:hidden">
-                        <Link className="text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px]">
+                        <Link
+                        to={'/'}
+                         className="text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px]">
                             Home
                         </Link>
-                        <Link className="text-[.950rem] leading-[70px]  h-full text-[#111] font-[500] tracking-[1px]">
+                        <Link
+                        to={'/contact'}
+                         className="text-[.950rem] leading-[70px]  h-full text-[#111] font-[500] tracking-[1px]">
                             Contact
                         </Link>
                         <div className="text-[.950rem] h-full text-[#111] font-[500] tracking-[1px] flex items-center cursor-pointer group">
@@ -234,9 +246,9 @@ const Static_nav = () => {
                                 </div>
                             </label>
                         </div>
-                        <Link className="text-[.950rem] h-full leading-[70px] text-[#111] font-[500] tracking-[1px]">
+                        {/* <Link className="text-[.950rem] h-full leading-[70px] text-[#111] font-[500] tracking-[1px]">
                             Blog
-                        </Link>
+                        </Link> */}
                     </div>
                     <div className="flex items-center justify-center gap-[2px]">
                         {/* lg,xl */} {/* category droper */}
@@ -408,7 +420,7 @@ const Static_nav = () => {
                                     <ul className="absolute w-[100%]">
                                         <li className="flex items-center gap-2 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <FaHome className="text-[1.5rem]" />
-                                            <Link className="w-[100%] h-[100%]">
+                                            <Link to={'/'} className="w-[100%] h-[100%]">
                                                 Home
                                             </Link>
                                         </li>
@@ -517,7 +529,9 @@ const Static_nav = () => {
                                         <hr className="my-1 h-[.5px] bg-[#fff]" />
                                         <li className="flex items-center gap-1 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <MdShoppingBasket className="text-[1.5rem]" />
-                                            <Link className="w-[100%] h-[100%]">
+                                            <Link
+                                            to={'/cart'}
+                                             className="w-[100%] h-[100%]">
                                                 Cart
                                             </Link>
                                         </li>
