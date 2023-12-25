@@ -169,6 +169,18 @@ class PasswordChangeSerializer(Serializer):
         
         update_last_login(None, user)
         return user
+# Update profile from user
+
+class UpdateProfileSerializer(ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['name', 'avatar']
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.avatar = validated_data.get('avatar', instance.avatar)
+        instance.save()
+        return instance
 
 class ForgetPasswordSerializer(Serializer):
     password = CharField(write_only=True)

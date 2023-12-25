@@ -1,10 +1,10 @@
 from core.models import CustomUser
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import UpdateAPIView
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from core.permissions import Private
 from rest_framework.response import Response
-from .serializers import UserSerializer, RegisterSerializer, SellerRegistrationSerializer, ForgetEmailInputSerializer, ForgetPasswordSerializer, PasswordChangeSerializer
+from .serializers import UserSerializer, RegisterSerializer, SellerRegistrationSerializer, ForgetEmailInputSerializer, ForgetPasswordSerializer, PasswordChangeSerializer,UpdateProfileSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.tokens import default_token_generator
@@ -204,15 +204,6 @@ class ForgetPasswordView(View):
 
 # Password Change from user
 
-# views.py
-# from rest_framework import status
-# from rest_framework.response import Response
-# from rest_framework.views import APIView
-
-
-# from .serializers import
-
-
 class PasswordChangeView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -224,6 +215,25 @@ class PasswordChangeView(APIView):
             return Response({'detail': 'Password changed successfully.'}, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
+# Profile Update from user
+
+class UpdateProfileView(UpdateAPIView):
+    serializer_class = UpdateProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
+    def perform_update(self, serializer):
+        updated_user = serializer.save()
+
+        # Get the updated data after saving
+        updated_data = serializer.validated_data
+
+        # Create a dictionary with only the updated fields
+        response_data = {field: updated_data.get(field, None) for field in serializer.fields.keys()}
+
+        return Response(response_data, status=HTTP_200_OK)
 
 class EmailVerificationView(View):
     template_name = 'activation.html'
