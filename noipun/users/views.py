@@ -1,10 +1,10 @@
 from core.models import CustomUser
 from rest_framework.views import APIView
 from rest_framework.generics import UpdateAPIView
-from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST,HTTP_401_UNAUTHORIZED
 from core.permissions import Private
 from rest_framework.response import Response
-from .serializers import UserSerializer, RegisterSerializer, SellerRegistrationSerializer, ForgetEmailInputSerializer, ForgetPasswordSerializer, PasswordChangeSerializer,UpdateProfileSerializer
+from .serializers import UserSerializer, RegisterSerializer, SellerRegistrationSerializer, ForgetEmailInputSerializer, ForgetPasswordSerializer, PasswordChangeSerializer, UpdateProfileSerializer,UserVerifiedSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.tokens import default_token_generator
@@ -217,6 +217,7 @@ class PasswordChangeView(APIView):
 
 # Profile Update from user
 
+
 class UpdateProfileView(UpdateAPIView):
     serializer_class = UpdateProfileSerializer
     permission_classes = [IsAuthenticated]
@@ -231,9 +232,11 @@ class UpdateProfileView(UpdateAPIView):
         updated_data = serializer.validated_data
 
         # Create a dictionary with only the updated fields
-        response_data = {field: updated_data.get(field, None) for field in serializer.fields.keys()}
+        response_data = {field: updated_data.get(
+            field, None) for field in serializer.fields.keys()}
 
         return Response(response_data, status=HTTP_200_OK)
+
 
 class EmailVerificationView(View):
     template_name = 'activation.html'
@@ -268,3 +271,79 @@ class EmailVerificationView(View):
                 "invalid": True
             }
         return render(request, self.template_name, context=context)
+
+
+# class RequestEmailVerification(APIView):
+#     def post(self, request):
+#         serializer = UserVerifiedSerializer(data=request.data)
+        
+#         if serializer.is_valid():
+#             email = serializer.validated_data['email']
+#             print(email)
+#             try:
+#                 account = CustomUser.objects.get(email=email)
+#             except CustomUser.DoesNotExist:
+#                 return Response({"message": "Invalid email!"}, status=HTTP_400_BAD_REQUEST)
+
+#             if account.is_verified:
+#                 return Response({'message': 'User is already verified.'}, status=HTTP_400_BAD_REQUEST)
+
+#             token = default_token_generator.make_token(account)
+#             verification_link = f"{settings.DOMAIN_NAME}/users/email-verification/{account.name.replace(' ', '').lower()}/{account.id}/{token.key}/"
+
+#             subject = 'Activate Your Account - Email Verification with Noipun'
+#             users_folder_path = os.path.join(settings.BASE_DIR, 'users', 'templates')
+#             email_html_path = os.path.join(users_folder_path, 'email.html')
+
+#             with open(email_html_path) as file:
+#                 email_content = file.read()
+
+#                 email_content = email_content.replace('{{ name }}', account.name)
+#                 email_content = email_content.replace('{{ activeLink }}', verification_link)
+
+#             email_from = settings.EMAIL_HOST_USER
+
+#             mail = EmailMessage(subject, email_content, email_from, [account.email])
+#             mail.content_subtype = 'html'
+#             mail.send()
+
+#             return Response({'message': 'Verification link sent successfully.'}, status=HTTP_200_OK)
+#         else:
+#             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+
+class RequestEmailVerification(APIView):
+    def post(self, request):
+        user = request.user  # Assuming the user is logged in
+
+        if user.is_authenticated and not user.is_verified:
+            # Retrieve the user's authentication token
+            try:
+                token = Token.objects.get(user=user)
+            except Token.DoesNotExist:
+                # Handle the case where the user does not have a token yet
+                token = Token.objects.create(user=user)
+
+            verification_link = f"{settings.DOMAIN_NAME}/users/email-verification/{user.name.replace(' ', '').lower()}/{user.id}/{token.key}/"
+
+            subject = 'Activate Your Account - Email Verification with Noipun'
+            users_folder_path = os.path.join(settings.BASE_DIR, 'users', 'templates')
+            email_html_path = os.path.join(users_folder_path, 'email.html')
+
+            with open(email_html_path) as file:
+                email_content = file.read()
+
+                email_content = email_content.replace('{{ name }}', user.name)
+                email_content = email_content.replace('{{ activeLink }}', verification_link)
+
+            email_from = settings.EMAIL_HOST_USER
+
+            mail = EmailMessage(subject, email_content, email_from, [user.email])
+            mail.content_subtype = 'html'
+            mail.send()
+
+            return Response({'message': 'Verification link sent successfully.'}, status=HTTP_200_OK)
+        elif not user.is_authenticated:
+            return Response({'error': 'User not authenticated.'}, status=HTTP_401_UNAUTHORIZED)
+        else:
+            return Response({'message': 'User is already verified.'}, status=HTTP_400_BAD_REQUEST)

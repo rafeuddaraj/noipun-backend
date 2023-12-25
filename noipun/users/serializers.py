@@ -32,6 +32,11 @@ class UserSerializer(ModelSerializer):
         exclude = ('password',)
 
 
+class UserVerifiedSerializer (ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('is_verified','email')
+
 class RegisterSerializer(ModelSerializer):
     password2 = CharField(style={"input_type": "password"}, write_only=True)
 
@@ -133,7 +138,7 @@ class SellerRegistrationSerializer(ModelSerializer):
 class ForgetEmailInputSerializer(Serializer):
     email = EmailField(write_only=True)
     
-# // Change Password from user
+# Change Password from user
 
 class PasswordChangeSerializer(Serializer):
     old_password = CharField(required=True)
