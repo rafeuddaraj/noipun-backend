@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    user: {}
+    user: {},
+    recentlyRegister: false
 }
 
 const accountSlice = createSlice({
@@ -15,9 +16,12 @@ const accountSlice = createSlice({
         logout: (state) => {
             state.user = {}
             localStorage.removeItem('noipunAuth')
+        },
+        register: (state,action)=>{
+            state.recentlyRegister = action.payload
         }
     }
 })
 
-export const { login, logout } = accountSlice.actions
+export const { login, logout,register } = accountSlice.actions
 export default accountSlice.reducer

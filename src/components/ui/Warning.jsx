@@ -10,6 +10,7 @@ export default function Warning({message,description}) {
     return (
         <div className="space-y-5">
             <Alert
+            className="fixed top-44 left-1/3 z-20 bg-[#ffc107]"
                 onDismiss={onDismiss}
                 dismiss={showAlert}
                 rounded={true}

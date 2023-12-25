@@ -1,48 +1,90 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignupMutation } from "../../features/accountSlice/accountApi";
+import { login, register } from "../../features/accountSlice/accountSlice";
+import Error from "../ui/Error";
 
 export default function Registration() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [signupServer, { isLoading }] = useSignupMutation();
+    const [signupServer, { isLoading, isError, error }] = useSignupMutation();
+    const [isMatchedPassword, setIsMatchedPassword] = useState(true);
+    let showError = useRef(null);
     const [input, setInput] = useState({
         email: "",
         password: "",
         password2: "",
         name: "",
     });
-    // console.log(data);
 
     const handleSignup = (e) => {
         e.preventDefault();
-        const signupData = {...input};
+        const signupData = { ...input };
         signupServer(signupData)
             .unwrap()
             .then((data) => {
-                localStorage.setItem("noipunAuth", JSON.stringify({...data,password:signupData.password}));
+                localStorage.setItem(
+                    "noipunAuth",
+                    JSON.stringify({
+                        ...data,
+                        password: signupData.password,
+                    })
+                );
+                dispatch(login({ ...data, password: signupData.password }));
+                dispatch(register(true))
                 navigate("/");
-            })
-            .catch((err) => {
-                console.log(err);
             });
     };
+
+    useEffect(() => {
+        if (
+            input.password === "" ||
+            (input.password && input.password2 === "") ||
+            input.password === input.password2
+        ) {
+            showError.current = null;
+            setIsMatchedPassword(true);
+        } else {
+            setIsMatchedPassword(false);
+            showError.current = <Error message={"আপনার পাসওয়ার্ড ঠিক করুন"} />;
+        }
+    },[input.password,input.password2]);
+
+    if (isError) {
+        let message = "";
+        if (error?.status === 400) {
+            message =
+                error?.email &&
+                `আরে ${input.name} আপনি তো নৈপুনের রেজিস্ট্রারকৃত একজন ইউজার। আবার কেনো রেজিস্টার করবেন। আপনি লগইন করুন।  `;
+        } else if (error?.status === "FETCH_ERROR") {
+            message = "সার্ভারের ত্রুটি হয়েছে দয়া করে আবার ট্রাই করুন।";
+        }
+        showError.current = <Error message={message} />;
+    }
 
     const handleInput = (e) => {
         setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
-
     return (
         <>
             <section className="mx-auto mt-10 w-full flex-grow mb-10 max-w-[1200px] px-5">
                 <div className="container mx-auto border px-5 py-5 shadow-sm md:w-1/2">
+                    {/* {isError && (
+                        <Success
+                            message={"আপনার একাউন্টি সভল ভাবে তৈরি করা হয়েছে।"}
+                            description={`আপনি যেহেতু নৈপুনে একাউন্ট করেছেন আমরা ধরেই নিচ্ছি আপনি একজন সঠিক ইউজার। তাই আমরা আপনাকে সঠিক বলে প্রমাণ করার জন্য এক্টিভেশন লিংক পাঠিয়েছি আপনার এই ${input.email} এই ইমেইলে। আপনি যদি ভেরিফাইট ইউজার না হোন তাহলে আপনি নৈপুন থেকে কোনো পণ্য ক্রয় করতে পারবেন না।`}
+                        />
+                    )} */}
+                    {showError.current && showError.current}
                     <div className="">
                         <p className="text-4xl font-bold">CREATE AN ACCOUNT</p>
                         <p>Register for new customer</p>
                     </div>
 
-                    <form className="mt-6 flex flex-col" onSubmit={handleSignup}>
+                    <form
+                        className="mt-6 flex flex-col"
+                        onSubmit={handleSignup}>
                         <label htmlFor="name">Full Name</label>
                         <input
                             className="mb-3 mt-3 border px-4 py-2"
@@ -50,6 +92,7 @@ export default function Registration() {
                             name="name"
                             value={input.name}
                             onChange={handleInput}
+                            required
                             placeholder="Bogdan Bulakh"
                         />
 
@@ -62,6 +105,7 @@ export default function Registration() {
                             name="email"
                             value={input.email}
                             onChange={handleInput}
+                            required
                             placeholder="user@mail.com"
                         />
 
@@ -74,6 +118,7 @@ export default function Registration() {
                             name="password"
                             value={input.password}
                             onChange={handleInput}
+                            required
                             placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                         />
 
@@ -89,18 +134,21 @@ export default function Registration() {
                             placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                         />
                         <div className="flex gap-2">
-                            <input type="checkbox" />
+                            <input type="checkbox" 
+                            required/>
                             <label htmlFor="checkbox">
                                 I have read and agree with
-                                <a href="#" className="text-violet-900">
+                                <Link
+                                    to={"/terms-and-condition"}
+                                    className="text-violet-900">
                                     terms &amp; conditions
-                                </a>
+                                </Link>
                             </label>
                         </div>
                         <button
-                            disabled={isLoading}
+                            disabled={isLoading || !isMatchedPassword}
                             type="submit"
-                            className="my-5 w-full bg-violet-900 py-2 text-white">
+                            className="my-5 w-full disabled:cursor-default cursor-pointer bg-violet-900 py-2 text-white disabled:bg-gray-400">
                             CREATE ACCOUNT
                         </button>
                     </form>

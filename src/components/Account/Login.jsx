@@ -5,7 +5,7 @@ import {
 } from "../../features/accountSlice/accountApi";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/accountSlice/accountSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ForgetModal from "./ForgetModal";
 import { validateEmail } from "../../utils/validateEmail";
 
@@ -126,9 +126,9 @@ export default function Login() {
 
                     <p className="text-center">
                         Don`t have account?
-                        <a href="sign-up.html" className="text-violet-900">
+                        <Link to={'/signup'} className="text-violet-900">
                             Register now
-                        </a>
+                        </Link>
                     </p>
                 </div>
             </section>
