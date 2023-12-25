@@ -13,7 +13,7 @@ from .orderSerializers import OrdersSerializers,AllOrdersSerializers,CartsSerial
 class Order(viewsets.ModelViewSet):
     queryset = Orders.objects.all()
     serializer_class = OrdersSerializers
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 
 
@@ -22,7 +22,7 @@ class Order(viewsets.ModelViewSet):
 class OrderDetails(viewsets.ModelViewSet):
     queryset = All_Orders.objects.all()
     serializer_class = AllOrdersSerializers
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 
 
@@ -31,11 +31,11 @@ class OrderDetails(viewsets.ModelViewSet):
 class ShippingDetails(viewsets.ModelViewSet):
     queryset = Shipping.objects.all()
     serializer_class = ShippingSerializers
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 
 # api for   Cart 
 class CartsDetails(viewsets.ModelViewSet):
     queryset = Carts.objects.all()
     serializer_class = CartsSerializers
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
