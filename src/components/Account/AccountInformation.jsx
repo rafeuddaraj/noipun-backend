@@ -1,11 +1,113 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { accountSelector } from "../../features/accountSlice/accountSelector";
+import { useEffect, useRef, useState } from "react";
+import { useUpdateProfileMutation } from "../../features/accountSlice/accountApi";
+import { updateUserData } from "../../features/accountSlice/accountSlice";
+import { useAvatarUploadMutation } from "../../features/imgbbSlice/imgbbAPI";
+import useHandleModal from "../../Hooks/useHandleModal";
+import VerifiedModal from "./VerifiedModal";
+
+const editInfo = {
+    name: "",
+    avatar: "",
+};
 
 export default function AccountInformation() {
+    const modal = useHandleModal();
     const { user } = useSelector(accountSelector);
     const { name, email, avatar, isVerified } = user || {};
-    const data = JSON.parse(localStorage.getItem('noipunAuth')) || {}
+    const [updateProfile, { isError, isLoading, isSuccess }] =
+        useUpdateProfileMutation();
+    const dispatch = useDispatch();
+    const [
+        uploadAvatar,
+        {
+            isLoading: avatarIsLoading,
+            isError: avatarIsError,
+            isSuccess: avatarIsSuccess,
+        },
+    ] = useAvatarUploadMutation();
+
     
+
+    const [input, setInput] = useState(editInfo);
+    const [isEdit, setIsEdit] = useState(false);
+    const [updatedLocal, setUpdatedLocal] = useState(false);
+    const avatarRef = useRef(null);
+
+    useEffect(() => {
+        if (name) {
+            setInput((prev) => ({ ...prev, name, avatar }));
+            setUpdatedLocal(true);
+        }
+    }, [avatar, name]);
+
+    useEffect(() => {
+        if (name && updatedLocal) {
+            setIsEdit(input.name !== name && input.name.length > 0);
+        }
+    }, [input.name, name, isSuccess, updatedLocal]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await updateProfile({
+                name: input.name,
+            }).unwrap();
+
+            dispatch(updateUserData({ ...user, ...response }));
+            localStorage.setItem(
+                "noipunAuth",
+                JSON.stringify({ ...user, ...response })
+            );
+        } catch (error) {
+            console.error("Error updating profile:", error);
+            setInput((prev) => ({ ...prev, name, email }));
+        } finally {
+            setIsEdit(false);
+            setUpdatedLocal(false);
+        }
+    };
+    const handleImageChange = async (e) => {
+        const image = e.target.files[0];
+        console.log("Test");
+        console.log(e.target.files);
+
+        try {
+            const formData = new FormData();
+            formData.append("image", image);
+
+            const responseAvatar = await uploadAvatar(formData);
+
+            if (responseAvatar.data.status === 200) {
+                const responseUpdateProfile = await updateProfile({
+                    avatar: responseAvatar.data?.data?.display_url,
+                });
+
+                // console.log(responseUpdateProfile);
+
+                dispatch(
+                    updateUserData({
+                        ...user,
+                        avatar: responseUpdateProfile?.data?.avatar,
+                    })
+                );
+                localStorage.setItem(
+                    "noipunAuth",
+                    JSON.stringify({
+                        ...user,
+                        avatar: responseUpdateProfile?.data?.avatar,
+                    })
+                );
+                avatarRef.current.reset();
+            } else {
+                console.log(responseAvatar.error);
+            }
+        } catch (error) {
+            console.error("Error uploading image:", error);
+        }
+    };
 
     return (
         <>
@@ -23,7 +125,7 @@ export default function AccountInformation() {
                                 alt="Sarah Johnson image"
                             />
 
-                            <form>
+                            <form ref={avatarRef}>
                                 <div>
                                     <label className="block">
                                         <span className="sr-only">
@@ -32,8 +134,7 @@ export default function AccountInformation() {
                                         <input
                                             type="file"
                                             className="mx-auto ml-5 flex w-full justify-center border-yellow-400 text-sm outline-none file:mr-4 file:bg-amber-400 file:py-2 file:px-4 file:text-sm file:font-semibold"
-                                            onChange={()=>{}}
-                                            
+                                            onChange={handleImageChange}
                                         />
                                     </label>
                                 </div>
@@ -41,7 +142,9 @@ export default function AccountInformation() {
                         </div>
                     </div>
 
-                    <form className="flex w-full flex-col gap-3" action="">
+                    <form
+                        className="flex w-full flex-col gap-3"
+                        onSubmit={handleSubmit}>
                         <div className="flex w-full flex-col">
                             <label className="flex" htmlFor="name">
                                 Name
@@ -50,8 +153,16 @@ export default function AccountInformation() {
                             <input
                                 className="w-full border px-4 py-2 lg:w-1/2"
                                 type="text"
-                                value={name}
-                                onChange={()=>{}}
+                                name="name"
+                                value={input.name}
+                                required
+                                maxLength={30}
+                                onChange={(e) =>
+                                    setInput((prev) => ({
+                                        ...prev,
+                                        name: e.target.value,
+                                    }))
+                                }
                                 placeholder="Sarah"
                             />
                         </div>
@@ -66,7 +177,7 @@ export default function AccountInformation() {
                                 type="email"
                                 value={email}
                                 disabled={true}
-                                onChange={()=>{}}
+                                onChange={() => {}}
                                 placeholder="Johnson"
                             />
                         </div>
@@ -75,11 +186,13 @@ export default function AccountInformation() {
 
                         <div>
                             <div className="text-start">
-                            <label className="flex" htmlFor="name">
-                                Verification
-                                <span className="block text-sm font-medium text-slate-700 after:ml-0.5 after:text-red-500 after:content-['*']"></span>
-                            </label>
-                                <div className="flex items-start justify-start mb-6 w-full border px-4 py-2 lg:w-1/2 cursor-pointer">
+                                <label className="flex" htmlFor="name">
+                                    Verification
+                                    <span className="block text-sm font-medium text-slate-700 after:ml-0.5 after:text-red-500 after:content-['*']"></span>
+                                </label>
+                                <div
+                                    onClick={modal.handleShowModal}
+                                    className="flex items-start justify-start mb-6 w-full border px-4 py-2 lg:w-1/2 cursor-pointer">
                                     {isVerified ? (
                                         <svg
                                             className="w-6 h-6 text-green-500"
@@ -108,11 +221,25 @@ export default function AccountInformation() {
                                         </svg>
                                     )}
                                     <span className="ml-2 cursor-pointer">
-                                        {isVerified ? "ভেরিফাইড" : "ভেরিফাইড করুন"}
+                                        {isVerified
+                                            ? "ভেরিফাইড"
+                                            : "ভেরিফাইড করুন"}
                                     </span>
                                 </div>
                             </div>
                         </div>
+
+                        {isEdit && (
+                            <div>
+                                <button
+                                    disabled={isLoading}
+                                    style={{ backgroundColor: "#22c55e" }}
+                                    type="submit"
+                                    className="text-white py2 px-4">
+                                    Save
+                                </button>
+                            </div>
+                        )}
 
                         {/* Test end */}
 
@@ -142,6 +269,14 @@ export default function AccountInformation() {
                     </form>
                 </div>
             </section>
+            {!isVerified && (
+                <VerifiedModal
+                    email={email}
+                    name={name}
+                    handleShowModal={modal.handleShowModal}
+                    showModal={modal.showModal}
+                />
+            )}
         </>
     );
 }

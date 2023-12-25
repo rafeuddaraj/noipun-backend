@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import image from '../../assets/images/product-sofa.png' 
 
 import { Card } from 'flowbite-react';
@@ -10,11 +10,11 @@ export default function Product() {
       imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
       imgSrc={image}
     >
-      <Link to={"/products/"+parseInt(Math.random()*1000)}>
+      <NavLink to={"/products/"+parseInt(Math.random()*1000)}>
         <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
           Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
         </h5>
-      </Link>
+      </NavLink>
       <div className="mb-5 mt-2.5 flex items-center">
         <svg
           className="h-5 w-5 text-white"

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSignupMutation } from "../../features/accountSlice/accountApi";
 import { login, register } from "../../features/accountSlice/accountSlice";
 import Error from "../ui/Error";
@@ -138,11 +138,11 @@ export default function Registration() {
                             required/>
                             <label htmlFor="checkbox">
                                 I have read and agree with
-                                <Link
+                                <NavLink
                                     to={"/terms-and-condition"}
                                     className="text-violet-900">
                                     terms &amp; conditions
-                                </Link>
+                                </NavLink>
                             </label>
                         </div>
                         <button
@@ -166,9 +166,9 @@ export default function Registration() {
 
                     <p className="text-center">
                         Already have an account?
-                        <Link to="/login" className="text-violet-900">
+                        <NavLink to="/login" className="text-violet-900">
                             Login now
-                        </Link>
+                        </NavLink>
                     </p>
                 </div>
             </section>

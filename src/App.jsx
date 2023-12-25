@@ -22,7 +22,6 @@ export default function App() {
     const checkAuth = useAuthCheck();
     const {user,recentlyRegister} = useSelector(accountSelector)
     const {name,email} = user || {}
-    console.log(recentlyRegister);
     return (
         <>
             {checkAuth && (

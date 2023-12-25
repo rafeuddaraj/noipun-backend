@@ -8,9 +8,9 @@ import {
     FaMicroblog,
     FaPlus,
     FaSearch,
-    FaCartPlus 
+    FaCartPlus,
 } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
     MdContactPhone,
     MdKeyboardArrowDown,
@@ -35,13 +35,13 @@ const Static_nav = () => {
     const [isTrim, setIsTrim] = useState(false);
     const [isMenu, setIsMenu] = useState(false);
     const [searchValue, setSearchValue] = useState("");
-    const auth = useAuth()
-    const {user} = useSelector(accountSelector)
-    const {avatar,name} = user || {}
+    const auth = useAuth();
+    const { user } = useSelector(accountSelector);
+    const { avatar, name } = user || {};
     // const language = ["English", "Bangla"];
     // const nm = language?.find((lg, i) => i === selectLang);
-    
-    const navigate = useNavigate()
+
+    const navigate = useNavigate();
 
     // lg xl searching
     const handleSearching = (value) => {
@@ -64,7 +64,13 @@ const Static_nav = () => {
         <div className="w-[100%] h-[140px] bg-[#fffce6] sticky mb-30 left-0 top-0 z-10">
             <div className="xl:max-w-[2000px] lg:max-w-[2000px] min-[360px]:max-w=[100%] h-[140px] mx-auto bg-[#fde102] pt-2">
                 <div className="h-[60px] bg-[#fffce6] flex items-center justify-between xl:px-[100px] lg:px-[100px] min-[360px]:px-[20px]">
-                    <Link to="/">
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                            `flex items-center gap-2 font-medium  ${
+                                isActive && "text-green-400"
+                            } `
+                        }>
                         <div className="flex items-center justify-center gap-[2px]">
                             <div className="w-[50px] h-[50px]">
                                 <img
@@ -77,7 +83,7 @@ const Static_nav = () => {
                                 Noipun
                             </h1>
                         </div>
-                    </Link>
+                    </NavLink>
                     <div className="flex items-center gap-2">
                         {/* xl,lg */} {/* language */}
                         {/* <div className="w-[100px] h-[30px] items-center justify-center gap-1 relative z-10 xl:flex lg:flex min-[360px]:hidden">
@@ -113,36 +119,57 @@ const Static_nav = () => {
                         </div> */}
                         <div className="flex items-center justify-center gap-2">
                             {/* Auth sm */}
-                            
+
                             <div className=" min-[360px]:block bg-[#fde102] rounded-full p-3">
-                                <Link to={"/cart"}>
-                                    <FaCartPlus   className="text-[1.3rem] text-[#fffce6] duration-[.5s] cursor-pointer" />
-                                </Link>
+                                <NavLink
+                                    to={"/cart"}
+                                    className={({ isActive }) =>
+                                        `font-medium  ${
+                                            isActive && "text-green-400"
+                                        } `
+                                    }>
+                                    <FaCartPlus className="text-[1.3rem] text-[#fffce6] duration-[.5s] cursor-pointer" />
+                                </NavLink>
                             </div>
 
                             <div className="xl:hidden lg:hidden min-[360px]:block">
-                                <Link to={"/login"}>
+                                <NavLink
+                                    to={"/login"}
+                                    className={({ isActive }) =>
+                                        `font-medium  ${
+                                            isActive && "text-green-400"
+                                        } `
+                                    }>
                                     <MdLogin className="text-[1.3rem] text-[#d1cfcf] duration-[.5s] cursor-pointer" />
-                                </Link>
+                                </NavLink>
                             </div>
                             {/* Auth lg ,xl */}
                             <div className="xl:block lg:block min-[360px]:hidden">
                                 {auth ? (
                                     <>
-                                        <div onClick={()=>navigate('/account')} className="w-[40px] h-[40px] rounded-[50%] bg-[#6868687c] cursor-pointer active:bg-[#68686897] duration-[.5s] transition-colors flex items-center justify-center">
+                                        <div
+                                            onClick={() => navigate("/account")}
+                                            className="w-[40px] h-[40px] rounded-[50%] bg-[#6868687c] cursor-pointer active:bg-[#68686897] duration-[.5s] transition-colors flex items-center justify-center">
                                             <img
                                                 className="w-[90%] h-[90%] rounded-[50%]"
-                                                src={avatar}
+                                                src={
+                                                    avatar ||
+                                                    "https://i.ibb.co/hV3TMVY/avatar-nobody.png"
+                                                }
                                                 alt={name}
                                             />
                                         </div>
                                     </>
                                 ) : (
-                                    <Link
+                                    <NavLink
                                         to={"/login"}
-                                        className="text-[.950rem] text-[#60a1e1] hover:text-[#288aed] duration-[.4s] tracking-[1px]">
+                                        className={({ isActive }) =>
+                                            `font-medium text-[.950rem] text-[#60a1e1] hover:text-[#288aed] duration-[.4s] tracking-[1px]  ${
+                                                isActive && "text-green-400"
+                                            } `
+                                        }>
                                         Login
-                                    </Link>
+                                    </NavLink>
                                 )}
                             </div>
                             <span className="text-[1rem] text-[#828282] mb-1">
@@ -158,16 +185,24 @@ const Static_nav = () => {
                 <div className="h-[72px] flex items-center justify-between xl:px-[80px] lg:px-[80px] min-[360px]:px-[20px]">
                     {/* xl,lg */} {/* link and product droper */}
                     <div className="h-full items-center  justify-center gap-8 xl:flex lg:flex min-[360px]:hidden">
-                        <Link
-                        to={'/'}
-                         className="text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px]">
+                        <NavLink
+                            to={"/"}
+                            className={({ isActive }) =>
+                                `font-medium text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px]  ${
+                                    isActive && "text-green-400"
+                                } `
+                            }>
                             Home
-                        </Link>
-                        <Link
-                        to={'/contact'}
-                         className="text-[.950rem] leading-[70px]  h-full text-[#111] font-[500] tracking-[1px]">
+                        </NavLink>
+                        <NavLink
+                            to={"/contact"}
+                            className={({ isActive }) =>
+                                ` text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px] ${
+                                    isActive && "text-green-400"
+                                } `
+                            }>
                             Contact
-                        </Link>
+                        </NavLink>
                         <div className="text-[.950rem] h-full text-[#111] font-[500] tracking-[1px] flex items-center cursor-pointer group">
                             Our Products{" "}
                             <MdKeyboardArrowDown className="text-[1.1rem] h-full text-[#111] ml-1 mt-1 duration-[.4s] transition rotate-[180deg] group-hover:rotate-[0deg]" />
@@ -246,9 +281,9 @@ const Static_nav = () => {
                                 </div>
                             </label>
                         </div>
-                        {/* <Link className="text-[.950rem] h-full leading-[70px] text-[#111] font-[500] tracking-[1px]">
+                        {/* <NavLink className="text-[.950rem] h-full leading-[70px] text-[#111] font-[500] tracking-[1px]">
                             Blog
-                        </Link> */}
+                        </NavLink> */}
                     </div>
                     <div className="flex items-center justify-center gap-[2px]">
                         {/* lg,xl */} {/* category droper */}
@@ -420,23 +455,42 @@ const Static_nav = () => {
                                     <ul className="absolute w-[100%]">
                                         <li className="flex items-center gap-2 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <FaHome className="text-[1.5rem]" />
-                                            <Link to={'/'} className="w-[100%] h-[100%]">
+                                            <NavLink
+                                                to={"/"}
+                                                className={({ isActive }) =>
+                                                    `w-[100%] h-[100%] ${
+                                                        isActive &&
+                                                        "text-green-400"
+                                                    } `
+                                                }>
                                                 Home
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                         <hr className="my-1 h-[.5px] bg-[#fde102]" />
                                         <li className="flex items-center gap-2 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#fffce6] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <MdContactPhone className="text-[1.5rem]" />
-                                            <Link className="w-[100%] h-[100%]">
+                                            <NavLink
+                                                className={({ isActive }) =>
+                                                    `w-[100%] h-[100%]${
+                                                        isActive &&
+                                                        "text-green-400"
+                                                    } `
+                                                }>
                                                 Contact
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                         <hr className="my-1 h-[.5px] bg-[#fde102]" />
                                         <li className="flex items-center gap-2 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <FaMicroblog className="text-[1.5rem]" />
-                                            <Link className="w-[100%] h-[100%]">
+                                            <NavLink
+                                                className={({ isActive }) =>
+                                                    `w-[100%] h-[100%]${
+                                                        isActive &&
+                                                        "text-green-400"
+                                                    } `
+                                                }>
                                                 Blog
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                         <hr className="my-1 h-[.5px] bg-[#fff]" />
                                         <li>
@@ -529,11 +583,16 @@ const Static_nav = () => {
                                         <hr className="my-1 h-[.5px] bg-[#fff]" />
                                         <li className="flex items-center gap-1 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <MdShoppingBasket className="text-[1.5rem]" />
-                                            <Link
-                                            to={'/cart'}
-                                             className="w-[100%] h-[100%]">
+                                            <NavLink
+                                                to={"/cart"}
+                                                className={({ isActive }) =>
+                                                    `w-[100%] h-[100%]${
+                                                        isActive &&
+                                                        "text-green-400"
+                                                    } `
+                                                }>
                                                 Cart
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                         <hr className="my-1 h-[.5px] bg-[#fff]" />
                                         <li className="flex items-center gap-1 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
