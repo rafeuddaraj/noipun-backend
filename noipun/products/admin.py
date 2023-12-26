@@ -9,12 +9,10 @@ from .models import Category,Images,Offers,Product,Reviews
 
 class ProductAdmin(admin.ModelAdmin):
     class Meta:
-        model = Product
-        fields = '__all__'
         prepopulated_fields = {'slug':('product_title',)}
         
 admin.site.register(Category)
 admin.site.register(Images)
 admin.site.register(Offers)
-admin.site.register(Product)
+admin.site.register(Product,ProductAdmin)
 admin.site.register(Reviews)

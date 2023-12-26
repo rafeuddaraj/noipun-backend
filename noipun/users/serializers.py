@@ -1,8 +1,7 @@
 from core.models import CustomUser
 from rest_framework.serializers import ModelSerializer,Serializer, CharField, EmailField, ValidationError,URLField,IntegerField
 from core.models import CustomUser
-from .models import NID
-from products.models import Category
+from .models import NID, UserCategory
 from django.core.mail import send_mail,EmailMessage
 from django.conf import settings
 import os
@@ -14,9 +13,9 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import update_last_login
 
 
-class CategorySerializer(ModelSerializer):
+class UserCategorySerializer(ModelSerializer):
     class Meta:
-        model = Category
+        model = UserCategory
         exclude = ('user','created_at','modified')
 
 class NIDSerializer(ModelSerializer):
@@ -25,7 +24,7 @@ class NIDSerializer(ModelSerializer):
         exclude = ('seller','created_at')
 
 class UserSerializer(ModelSerializer):
-    category = CategorySerializer(many=True,read_only=True)
+    userCategory = UserCategorySerializer(many=True,read_only=True)
     nid_seller = NIDSerializer(many=True,read_only=True)
     class Meta:
         model = CustomUser

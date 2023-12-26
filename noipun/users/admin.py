@@ -1,10 +1,13 @@
 from django.contrib import admin
-from .models import NID
+from .models import NID, UserCategory
 # Register your models here.
 
+
+@admin.register(NID)
 class NIDAdmin(admin.ModelAdmin):
-    class Meta:
-        model = NID
-        fields = ('nid_id','seller','created_at')
-        
-admin.site.register(NID,NIDAdmin)
+    list_display = ('nid_id', 'seller', 'created_at')
+
+
+@admin.register(UserCategory)
+class UserCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'created_at', 'modified')

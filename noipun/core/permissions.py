@@ -15,17 +15,28 @@ class Private(BasePermission):
 
 class SellerOrReadOnly(BasePermission):
     def has_permission(self, request, view):
-        if request.method in ('GET', 'HEAD', 'OPTIONS'):
+        if (request.method in SAFE_METHODS):
+            return True
+        try:
+            # Check if the user is authenticated and is a seller
+            return request.user.is_authenticated and request.user.account_status == 'seller'
+        except AttributeError:
+            # Handle the case where the user is anonymous or does not have account_status
             return True
 
-        return (
-            request.user.is_authenticated
-            and str(request.user.id) == view.kwargs.get('pk', '')
-        )
+# class SellerOrReadOnly(BasePermission):
+#     def has_permission(self, request, view):
+#         if request.method in SAFE_METHODS:
+#             # Allow read-only access for any request
+#             return True
+#         return request.user and request.user.account_status == 'seller'
 
 
 class ReviewOrReadOnly(BasePermission):
-    def has_object_permission(self, request, view, obj):
+    def has_permission(self, request, view):
+        # Allow GET, HEAD, and OPTIONS requests for all users
         if request.method in SAFE_METHODS:
             return True
-        return bool(obj.user == request.user)
+
+        # Check if the user is a seller for other methods (POST, PUT, DELETE)
+        return request.user and request.user.account_status == 'seller'

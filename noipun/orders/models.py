@@ -11,15 +11,18 @@ class Orders(models.Model):
     quantity =  models.IntegerField(default=0,null = False, verbose_name = "quantity")
     created_at = models.DateTimeField( auto_now=False, auto_now_add=True,editable=False,verbose_name="createdAt")
     modified = models.DateTimeField(auto_now=True, editable=False,verbose_name='lastModified')
+    class Meta:
+        verbose_name_plural = 'Orders'
 
 
 class Carts(models.Model):
     cart_id = models.AutoField(primary_key=True,verbose_name="carstId")
     user_id = models.ForeignKey(CustomUser, verbose_name="userId", on_delete=models.CASCADE)
-    order_item = models.ForeignKey(Orders, verbose_name="orderItem", on_delete=models.CASCADE)
+    order_item = models.ManyToManyField(Orders, verbose_name="orderItem")
     created_at = models.DateTimeField(  auto_now_add=True,editable=False,verbose_name="CreatedAt")
     modified = models.DateTimeField(auto_now=True, editable=False,verbose_name='castModified')
-
+    class Meta:
+        verbose_name_plural = 'Carts'
 
 
 class Shipping(models.Model):
@@ -32,14 +35,16 @@ class Shipping(models.Model):
     details_adress = models.TextField(null=False,blank= False,verbose_name="detailsAdress")
     created_at = models.DateTimeField( auto_now=False, auto_now_add=True,editable=False,verbose_name="createdAt")
     modified = models.DateTimeField(auto_now=True, editable=False,verbose_name='lastModified')
-
+    class Meta:
+        verbose_name_plural = 'Shopping'
 
 class All_Orders(models.Model):
     all_orders_id =  models.AutoField(primary_key=True,verbose_name="allOrdersId")
     orders = models.ForeignKey(Orders, verbose_name="orders", on_delete=models.CASCADE)
     created_at = models.DateTimeField( auto_now=False, auto_now_add=True,editable=False,verbose_name="createdAt")
     modified = models.DateTimeField(auto_now=True, editable=False,verbose_name='lastModified')
-
+    class Meta:
+        verbose_name_plural = 'AllOrders'
 
 
 
