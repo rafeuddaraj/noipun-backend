@@ -18,13 +18,14 @@ class OffersSerializers(serializers.ModelSerializer):
         model = Offers
         fields ='__all__'
 
-class ProductSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields ='__all__'
-
-        
 class ReviewsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Reviews
+        fields ='__all__'
+
+class ProductSerializers(serializers.ModelSerializer):
+    image = ImagesSerializers(many=True,read_only=True)
+    review_product = ReviewsSerializers(many=True,read_only=True)
+    class Meta:
+        model = Product
         fields ='__all__'
