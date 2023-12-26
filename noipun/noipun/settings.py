@@ -87,10 +87,21 @@ WSGI_APPLICATION = 'noipun.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'noipunco_testdjango',
+        'USER': 'noipunco_testdjango',
+        'PASSWORD': 'noipun@1234',
+        'HOST': '65.109.69.35',  # Set to your MySQL server host
+        'PORT': '3306',      # Set to your MySQL server port
     }
 }
 
