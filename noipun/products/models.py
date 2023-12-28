@@ -13,7 +13,7 @@ class Category(models.Model):
         verbose_name="description")
     created_at = models.DateTimeField(
         auto_now_add=True, editable=False, verbose_name="createdAt")
-    modified = models.DateTimeField(editable=False, verbose_name='lastModified')
+    modified = models.DateTimeField(auto_now=True,editable=False, verbose_name='lastModified')
 
     def __str__(self):
         return self.name

@@ -172,6 +172,6 @@ EMAIL_HOST_PASSWORD = os.environ.get("SMTP_USER_PASSWORD")
 
 
 # DOMAIN 
-DOMAIN_NAME = 'http://localhost:8000'
+DOMAIN_NAME = 'http://development.noipun.com'
 
 APPEND_SLASH=True

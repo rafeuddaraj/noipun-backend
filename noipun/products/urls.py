@@ -41,7 +41,7 @@ urlpatterns = [
 
     # url for Products
     path('product/',full_list(Product),name="productDetails"),
-    path('product/<int:pk>/',single_list(Product),name="productDetails"),
+    path('product/<str:pk>/',single_list(Product),name="productDetails"),
 
 
 
