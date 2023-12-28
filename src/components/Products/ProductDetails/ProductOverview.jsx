@@ -2,12 +2,12 @@ import { useParams } from "react-router-dom";
 import { useGetCategoryQuery } from "../../../features/categorySlice/categoryApi";
 
 export default function ProductOverview({id,product}) {
-    const {product_title,description,is_available,price,weight,review_product,category} = product || {}
+    const {product_title,description,is_available,price,review_product,category} = product || {}
     const {data,isSuccess} = useGetCategoryQuery(category || null)
     return (
         <>
             <div className="mx-auto px-5 lg:px-5">
-                <h2 className="pt-3 text-2xl font-bold lg:pt-0">
+                <h2 className="pt-3 text-2xl font-bold lg:pt-0 w-96">
                     {product_title}
                 </h2>
                 <div className="mt-1">
