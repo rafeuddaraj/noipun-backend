@@ -22,6 +22,7 @@ class NID(models.Model):
     front = models.URLField(verbose_name='front')
     back = models.URLField(verbose_name='back')
     created_at = models.DateTimeField(auto_now_add=True,verbose_name='createdAt')
+    address = models.TextField(verbose_name="address")
     
     def __str__(self) -> str:
          return self.seller.email

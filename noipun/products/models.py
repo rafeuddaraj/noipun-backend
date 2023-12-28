@@ -8,14 +8,12 @@ from django.utils.text import slugify
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, null=True,
-                            blank=True, verbose_name="name")
+    name = models.CharField(max_length=50, verbose_name="name")
     description = models.TextField(
-        verbose_name="description", null=True, blank=True)
+        verbose_name="description")
     created_at = models.DateTimeField(
         auto_now_add=True, editable=False, verbose_name="createdAt")
-    modified = models.DateTimeField(
-        auto_now=True, editable=False, verbose_name='lastModified')
+    modified = models.DateTimeField(editable=False, verbose_name='lastModified')
 
     def __str__(self):
         return self.name
@@ -26,8 +24,7 @@ class Category(models.Model):
 
 class Images(models.Model):
     image_id = models.AutoField(primary_key=True)
-    image = models.URLField(verbose_name="image",
-                            max_length=1000, null=True, blank=True)
+    image = models.URLField(verbose_name="image",max_length=1000)
     product = models.ForeignKey(
         "Product", verbose_name="Product", on_delete=models.CASCADE, related_name="image")
     created_at = models.DateTimeField(
@@ -45,14 +42,13 @@ class Images(models.Model):
 class Offers(models.Model):
     discount_id = models.AutoField(primary_key=True, verbose_name="discountId")
     discount_name = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name="discountName")
+        max_length=100, verbose_name="discountName")
     discount_description = models.TextField(
-        verbose_name="discountDescription", null=True, blank=True)
+        verbose_name="discountDescription")
     # Category discount
     product = models.ManyToManyField(
         "Product", verbose_name="product")
-    discount_percent = models.IntegerField(
-        null=True, blank=True, verbose_name="discount")
+    discount_percent = models.IntegerField( verbose_name="discount")
     discount_start = models.DateTimeField(
         auto_now=False, auto_now_add=False, editable=True, verbose_name="discountStart")
     discount_end = models.DateTimeField(
@@ -71,25 +67,23 @@ class Offers(models.Model):
 
 
 class Product(models.Model):
-    product_id = models.AutoField(primary_key=True, verbose_name="productName")
     product_title = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name="productTitle")
-    description = models.TextField(
-        null=True, blank=True, verbose_name="productDescription")
-    price = models.FloatField(default=0, null=True,
-                              blank=True, verbose_name="price",)
+        max_length=100,verbose_name="productTitle")
+    description = models.TextField( verbose_name="productDescription")
+    price = models.FloatField(verbose_name="price",)
     seller_id = models.ForeignKey(
         CustomUser, verbose_name="sellerId", on_delete=models.CASCADE)
     ratting = models.FloatField(default=0, verbose_name="ratting")
     is_available = models.BooleanField(
-        default=True, verbose_name="availableStatus", null=True, blank=True)
+        default=True, verbose_name="availableStatus")
     total_buyed = models.IntegerField(default=0, verbose_name="totalBuyed")
+    quantity = models.PositiveBigIntegerField()
     delivery_is_free = models.BooleanField(
         default=False, verbose_name="deliveryStatus")
     weight = models.FloatField(
-        default=0, verbose_name="weight", null=True, blank=True)
+        default=0, verbose_name="weight")
     slug = models.SlugField(verbose_name="slugField",
-                            max_length=100, default=None,unique=True)
+                            max_length=100,unique=True,primary_key=True)
     created_at = models.DateTimeField(
         auto_now_add=True, editable=False, verbose_name="createdAt")
     modified = models.DateTimeField(
@@ -114,7 +108,7 @@ class Reviews(models.Model):
         CustomUser, verbose_name="user", on_delete=models.CASCADE)
     product_id = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="review_product")
-    review = models.TextField(null=True, blank=True)
+    review = models.TextField()
     created_at = models.DateTimeField(
         auto_now_add=True, editable=False, verbose_name="createdAt")
     modified = models.DateTimeField(

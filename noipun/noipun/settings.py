@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 
+import os
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -87,20 +90,13 @@ WSGI_APPLICATION = 'noipun.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'noipunco_testdjango',
-        'USER': 'noipunco_testdjango',
-        'PASSWORD': 'noipun@1234',
-        'HOST': '65.109.69.35',  # Set to your MySQL server host
+        'NAME':os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER_NAME"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'HOST': os.environ.get("DB_HOST"),  # Set to your MySQL server host
         'PORT': '3306',      # Set to your MySQL server port
     }
 }
@@ -142,6 +138,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -159,12 +156,19 @@ REST_FRAMEWORK = {
     ],
 }
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'rafeuddaraj2@gmail.com'
+# EMAIL_HOST_PASSWORD = 'dkpi gpgz zxvq llle'
+# 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'mail.noipun.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'rafeuddaraj2@gmail.com'
-EMAIL_HOST_PASSWORD = 'dkpi gpgz zxvq llle'
+EMAIL_HOST_USER = os.environ.get("SMTP_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("SMTP_USER_PASSWORD")
 
 
 # DOMAIN 
