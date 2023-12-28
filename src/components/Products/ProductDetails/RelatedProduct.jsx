@@ -24,7 +24,7 @@ export default function RelatedProduct() {
     }
     if (!isLoading && !isError && products?.length > 0) {
         content = products.map((product) => (
-            <Product key={product.product_id} product={product} />
+            <Product key={product.slug} product={product} />
         ));
     }
     return (

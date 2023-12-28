@@ -3,11 +3,12 @@ import ImageGalley from "./ImageGalley";
 import ProductDescription from "./ProductDescription";
 import ProductOverview from "./ProductOverview";
 import RelatedProduct from "./RelatedProduct";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useGetProductQuery } from "../../../features/productSlice/productApi";
 
-export default function ProductDetails({ id }) {
-    const { data: product, isSuccess } = useGetProductQuery(id);
+export default function ProductDetails() {
+    const {slug} = useParams()
+    const { data: product, isSuccess } = useGetProductQuery(slug);
 
     const { pathname } = useLocation();
     useEffect(() => {
@@ -19,7 +20,7 @@ export default function ProductDetails({ id }) {
                 {isSuccess && (
                     <>
                         <ImageGalley images={product.image}/>
-                        <ProductOverview id={id} product={product}/>
+                        <ProductOverview slug={slug} product={product}/>
                         <ProductDescription product={product}/>
                     </>
                 )}

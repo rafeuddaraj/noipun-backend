@@ -1,10 +1,10 @@
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { Card } from 'flowbite-react';
 import { useGetCategoryQuery } from '../../features/categorySlice/categoryApi';
 
 export default function Product({product}) {
-  const {image:images,product_title,price,ratting,slug,category,product_id} = product || {}
+  const {image:images,product_title,price,ratting,slug,category} = product || {}
   let img = images[0]?.image || 'https://img.freepik.com/premium-photo/no-entry-sign_698953-2427.jpg'
   const {data} = useGetCategoryQuery(category || null)
   return (
@@ -13,7 +13,7 @@ export default function Product({product}) {
       imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
       imgSrc={img}
     >
-      <NavLink to={`/products/${data?.name}/${slug}/${product_id}`}>
+      <NavLink to={`/products/${data?.name}/${slug}`}>
         <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
           {product_title}
         </h5>

@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useGetCategoryQuery } from "../../../features/categorySlice/categoryApi";
 
-export default function ProductOverview({id,product}) {
-    const {product_title,description,is_available,price,review_product,category} = product || {}
+export default function ProductOverview({slug,product}) {
+    const {product_title,description,is_available,price,review_product,category,quantity} = product || {}
     const {data,isSuccess} = useGetCategoryQuery(category || null)
     return (
         <>
@@ -76,6 +76,9 @@ export default function ProductOverview({id,product}) {
                     </div>
                 </div>
 
+                {/* <p className="mt-5 font-bold">
+                    Quantity: <span className="text-green-600">{quantity}</span>
+                </p> */}
                 <p className="mt-5 font-bold">
                     Availability: <span className="text-green-600">{is_available ? "In Stock" :"Out of stock"}</span>
                 </p>
@@ -93,7 +96,7 @@ export default function ProductOverview({id,product}) {
                 </p>
 
                 <div className="mt-6">
-                    <p className="pb-2 text-xs text-gray-500">Quantity <span className="font-extrabold text-lg">1</span> </p>
+                    <p className="pb-2 text-xs text-gray-500">Quantity <span className="font-extrabold text-lg">{quantity}</span> </p>
 
                 </div>
 
