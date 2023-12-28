@@ -64,7 +64,7 @@ export default function Product({product}) {
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-3xl font-bold text-gray-900 dark:text-white">$599</span>
+        <span className="text-3xl font-bold text-gray-900 dark:text-white">{price}</span>
         <a
           href="#"
           style={{background:"#fffce6",color:'#111'}}
