@@ -1,8 +1,35 @@
 import { useState } from "react";
 import Product from "../Products/Product";
 import Sidebar from "./Sidebar";
+import { useGetProductsQuery } from "../../features/productSlice/productApi";
+import ProductSkeleton from "../ui/ProductSkeleton";
 
 export default function AllProduct() {
+    const {
+        data: products,
+        isSuccess,
+        isLoading,
+        isError,
+        error,
+    } = useGetProductsQuery();
+
+    let content = null;
+
+    if (isLoading) {
+        content = <><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/><ProductSkeleton/></>
+    }
+    if (!isLoading && isError) {
+        content = <h1>Error Occurred.</h1>;
+    }
+    if (!isLoading && !isError && products?.length <= 0) {
+        content = <h1>Product not found</h1>;
+    }
+    if (!isLoading && !isError && products?.length > 0) {
+        content = products.map((product) => (
+            <Product key={product.product_id} product={product} />
+        ));
+    }
+
     return (
         <main className="mx-auto justify-center flex-grow max-w-[1400px] border-b py-5 lg:flex lg:flex-row lg:py-10">
             <Sidebar />
@@ -46,16 +73,7 @@ export default function AllProduct() {
                 </div>
 
                 <section className="mx-auto gap-3 justify-center w-full grid max-w-[1200px] grid:cols-1 md:grid-cols-2 px-5 pb-10 lg:grid-cols-4">
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
+                    {content}
                 </section>
             </div>
         </main>

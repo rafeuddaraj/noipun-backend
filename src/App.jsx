@@ -16,7 +16,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import { useSelector } from "react-redux";
 import Success from "./components/ui/Success";
 import { accountSelector } from "./features/accountSlice/accountSelector";
-
+import './styles/styles.css'
 
 export default function App() {
     const checkAuth = useAuthCheck();
@@ -31,7 +31,7 @@ export default function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/products" element={<Product />} />
                             <Route
-                                path="/products/:id"
+                                path="/products/:category/:slug/:id"
                                 element={<ProductDetails />}
                             />
                             <Route path="/wishlist" element={<Wishlist />} />

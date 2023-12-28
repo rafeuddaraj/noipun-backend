@@ -1,11 +1,14 @@
 import { useParams } from "react-router-dom";
+import { useGetCategoryQuery } from "../../../features/categorySlice/categoryApi";
 
-export default function ProductOverview({id}) {
+export default function ProductOverview({id,product}) {
+    const {product_title,description,is_available,price,weight,review_product,category} = product || {}
+    const {data,isSuccess} = useGetCategoryQuery(category || null)
     return (
         <>
             <div className="mx-auto px-5 lg:px-5">
                 <h2 className="pt-3 text-2xl font-bold lg:pt-0">
-                    {id} BIG ITALIAN SOFA
+                    {product_title}
                 </h2>
                 <div className="mt-1">
                     <div className="flex items-center">
@@ -69,33 +72,24 @@ export default function ProductOverview({id}) {
                             />
                         </svg>
 
-                        <p className="ml-3 text-sm text-gray-400">(150 reviews)</p>
+                        <p className="ml-3 text-sm text-gray-400">({review_product.length})</p>
                     </div>
                 </div>
 
                 <p className="mt-5 font-bold">
-                    Availability: <span className="text-green-600">In Stock</span>
+                    Availability: <span className="text-green-600">{is_available ? "In Stock" :"Out of stock"}</span>
                 </p>
                 <p className="font-bold">
-                    Brand: <span className="font-normal">Apex</span>
-                </p>
-                <p className="font-bold">
-                    Cathegory: <span className="font-normal">Sofa</span>
-                </p>
-                <p className="font-bold">
-                    SKU: <span className="font-normal">BE45VGTRK</span>
+                    Category: <span className="font-normal">{isSuccess && data.name}</span>
                 </p>
 
                 <p className="mt-4 text-4xl font-bold text-violet-900">
-                    $450{" "}
-                    <span className="text-xs text-gray-400 line-through">$550</span>
+                    {price}
+                    {/* <span className="text-xs text-gray-400 line-through">$550</span> */}
                 </p>
 
                 <p className="pt-5 text-sm leading-5 text-gray-500">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Quidem exercitationem voluptate sint eius ea assumenda
-                    provident eos repellendus qui neque! Velit ratione illo
-                    maiores voluptates commodi eaque illum, laudantium non!
+                    {`${description.slice(0,150)}.....`}
                 </p>
 
                 <div className="mt-6">

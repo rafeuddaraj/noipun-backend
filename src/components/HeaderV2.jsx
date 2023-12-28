@@ -195,13 +195,13 @@ const Static_nav = () => {
                             Home
                         </NavLink>
                         <NavLink
-                            to={"/contact"}
+                            to={"/products"}
                             className={({ isActive }) =>
                                 ` text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px] ${
                                     isActive && "text-green-400"
                                 } `
                             }>
-                            Contact
+                            Products
                         </NavLink>
                         <div className="text-[.950rem] h-full text-[#111] font-[500] tracking-[1px] flex items-center cursor-pointer group">
                             Our Products{" "}
@@ -470,13 +470,14 @@ const Static_nav = () => {
                                         <li className="flex items-center gap-2 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#fffce6] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <MdContactPhone className="text-[1.5rem]" />
                                             <NavLink
+                                                to={'/products'}
                                                 className={({ isActive }) =>
                                                     `w-[100%] h-[100%]${
                                                         isActive &&
                                                         "text-green-400"
                                                     } `
                                                 }>
-                                                Contact
+                                                Products
                                             </NavLink>
                                         </li>
                                         <hr className="my-1 h-[.5px] bg-[#fde102]" />
