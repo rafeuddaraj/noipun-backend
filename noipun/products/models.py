@@ -2,6 +2,7 @@ from django.db import models
 from core.models import CustomUser
 from django.utils import timezone
 from django.utils.text import slugify
+from utils import banglaToBanglish,createSlug
 
 
 # Create your models here.
@@ -93,7 +94,7 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.product_title)
+            self.slug = createSlug.create_slug(banglaToBanglish.bangla_to_banglish(self.product_title))
         super().save(*args, **kwargs)
 
     class Meta:

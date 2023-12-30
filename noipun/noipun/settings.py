@@ -92,14 +92,21 @@ WSGI_APPLICATION = 'noipun.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':os.environ.get("DB_NAME"),
-        'USER': os.environ.get("DB_USER_NAME"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': os.environ.get("DB_HOST"),  # Set to your MySQL server host
-        'PORT': '3306',      # Set to your MySQL server port
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME':os.environ.get("DB_NAME"),
+#         'USER': os.environ.get("DB_USER_NAME"),
+#         'PASSWORD': os.environ.get("DB_PASSWORD"),
+#         'HOST': os.environ.get("DB_HOST"),  # Set to your MySQL server host
+#         'PORT': '3306',      # Set to your MySQL server port
+#     }
+# }
 
 
 # Password validation
