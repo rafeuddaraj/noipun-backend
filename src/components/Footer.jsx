@@ -114,7 +114,7 @@ export default function Footer() {
 
             <section className="h-11 bg-amber-400">
                 <div className="mx-auto flex max-w-[1200px] items-center justify-between px-4 pt-2">
-                    <p>&copy; All right reserved by Altrazen</p>
+                    <p className="xl:text-[1.1rem] lg:text-[1.1rem] min-[300px]:text-[.600rem]">&copy; All right reserved by Altrazen</p>
                     <div className="flex items-center space-x-3">
                         <img
                             className="h-8"

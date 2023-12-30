@@ -6,21 +6,22 @@ import RelatedProduct from "./RelatedProduct";
 import { useLocation } from "react-router-dom";
 
 
-export default function ProductDetails({id}){
-  const {pathname} = useLocation()
+export default function ProductDetails({ id }) {
+  const { pathname } = useLocation()
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
   return (
     <>
       <section
         className="container flex-grow mx-auto max-w-[1200px] border-b py-5 lg:grid lg:grid-cols-2 lg:py-10"
       >
-        <ImageGalley/>
-        <ProductOverview id={id}/>
-        <ProductDescription/>
+        <ImageGalley />
+        <ProductOverview id={id} />
+        <ProductDescription />
       </section>
-      <RelatedProduct/>
+      <RelatedProduct />
     </>
   );
 }

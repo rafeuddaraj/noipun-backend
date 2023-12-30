@@ -1,6 +1,7 @@
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
-export default function ProductOverview({id}) {
+export default function ProductOverview({ id }) {
+
     return (
         <>
             <div className="mx-auto px-5 lg:px-5">
@@ -103,8 +104,8 @@ export default function ProductOverview({id}) {
 
                 </div>
 
-                <div className="mt-7 flex flex-row items-center gap-6">
-                    <button className="flex h-12 w-1/3 items-center justify-center bg-violet-900 text-white duration-100 hover:bg-blue-800">
+                <div className="mt-7 flex flex-row items-center xl:gap-6 lg:gap-4 min-[300px]:gap-3">
+                    <button className="flex h-12 w-full items-center justify-center bg-violet-900 text-white duration-100 hover:bg-blue-800">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -120,7 +121,7 @@ export default function ProductOverview({id}) {
                         </svg>
                         Add to cart
                     </button>
-                    <button className="flex h-12 w-1/3 items-center justify-center bg-amber-400 duration-100 hover:bg-yellow-300">
+                    <button className="flex h-12 w-full items-center justify-center bg-amber-400 duration-100 hover:bg-yellow-300">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"

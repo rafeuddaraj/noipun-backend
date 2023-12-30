@@ -30,7 +30,7 @@ export default function Checkout() {
                                     </h1>
                                 </div>
                                 <div className=" mt-5 border-gray-400 p-6">
-                                    <div className="grid grid-cols-2  gap-y-6 py-10 gap-x-3">
+                                    <div className="grid xl:grid-cols-2 lg:grid-cols-2 min-[300px]:grid-cols-1 gap-3 py-10 gap-x-3">
                                         <PaymentMethod value={"bkash"} />
                                         <PaymentMethod value={"nagad"} />
                                         <PaymentMethod value={"rocket"} />

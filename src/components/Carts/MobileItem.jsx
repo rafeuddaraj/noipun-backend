@@ -2,15 +2,16 @@ export default function MobileItem() {
     return (
         <>
             <div className="flex w-full border px-4 py-4">
-                <img
-                    className="self-start object-contain"
-                    width="90px"
-                    src="./assets/images/bedroom.png"
-                    alt="bedroom image"
-                />
+                <div className="w-[50px] h-[50px]">
+                    <img
+                        className="self-start object-contain w-full h-full"
+                        src="../../../public/vite.svg"
+                        alt="bedroom image"
+                    />
+                </div>
                 <div className="ml-3 flex w-full flex-col justify-center">
                     <div className="flex items-center justify-between">
-                        <p className="text-xl font-bold">ITALIAN BED</p>
+                        <p className="text-[.700rem] font-bold">ITALIAN BED</p>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
@@ -19,9 +20,9 @@ export default function MobileItem() {
                             <path d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" />
                         </svg>
                     </div>
-                    <p className="text-sm text-gray-400">Size: XL</p>
-                    <p className="py-3 text-xl font-bold text-violet-900">$320</p>
-                    <div className="mt-2 flex w-full items-center justify-between">
+                    <p className="text-[.700rem] text-gray-400">Size: XL</p>
+                    <p className="py-3 text-sm font-bold text-violet-900">$320</p>
+                    <div className="flex w-full items-center justify-between">
                         <div className="flex items-center justify-center">
                             <button className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
                                 &minus;
