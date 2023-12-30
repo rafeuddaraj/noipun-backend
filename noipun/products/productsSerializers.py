@@ -38,6 +38,7 @@ class ProductSerializers(serializers.ModelSerializer):
         total_buyed = validated_data['total_buyed']
         delivery_is_free = validated_data['delivery_is_free']
         weight = validated_data['weight']
+        quantity = validated_data['quantity']
 
         product_instance = Product(
             product_title=product_title,
@@ -49,6 +50,7 @@ class ProductSerializers(serializers.ModelSerializer):
             total_buyed=total_buyed,
             delivery_is_free=delivery_is_free,
             weight=weight,
+            quantity=quantity
         )
 
         # Only save the product if the user is a seller

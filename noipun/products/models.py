@@ -89,7 +89,7 @@ class Product(models.Model):
     modified = models.DateTimeField(
         auto_now=True, editable=False, verbose_name='lastModified')
     category = models.ForeignKey(to='Category', related_name='product',
-                                 on_delete=models.CASCADE, blank=True, verbose_name="category", default='')
+                                 on_delete=models.CASCADE, verbose_name="category", default='')
 
     def save(self, *args, **kwargs):
         if not self.slug:

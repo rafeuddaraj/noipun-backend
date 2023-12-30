@@ -37,7 +37,7 @@ class Offers(viewsets.ModelViewSet):
 class Product(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializers
-    permission_classes = [SellerOrReadOnly]
+    # permission_classes = [SellerOrReadOnly]
     def perform_create(self, serializer):
         # user = self.request.user
         # print(user.account_status)
