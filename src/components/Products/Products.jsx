@@ -56,12 +56,16 @@ export default function Products() {
     return (
         <>
             <p className="mx-auto mt-10 mb-5 max-w-[1200px] px-5">
-                RECOMMENDED FOR YOU
+                আপনার প্রয়োজনীয় পণ্য সমূহ
             </p>
 
-            {/* <!-- Recommendations --> */}
-            <section className="card-img-noipun mx-auto grid max-w-[1200px] grid-cols-2 gap-3 px-5 pb-10 lg:grid-cols-4">
-                {content}
+            {/* <!-- Recommendations --> card-img-noipun */}
+            <section className="xl:max-w-[1200px] lg:max-w-[100%] min-[300px]:w-[100%] mx-auto grid xl:grid-cols-4 lg:grid-cols-2 min-[300px]:grid-cols-1 gap-3 px-5 pb-10">
+                <Product />
+                <Product />
+                <Product />
+                <Product />
+                <Product />
             </section>
         </>
     );

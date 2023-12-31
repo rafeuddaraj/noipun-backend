@@ -24,15 +24,7 @@ export default function Registration() {
         signupServer(signupData)
             .unwrap()
             .then((data) => {
-                localStorage.setItem(
-                    "noipunAuth",
-                    JSON.stringify({
-                        ...data,
-                        password: signupData.password,
-                    })
-                );
-                dispatch(login({ ...data, password: signupData.password }));
-                dispatch(register(true))
+                localStorage.setItem("noipunAuth", JSON.stringify({ ...data, password: signupData.password }));
                 navigate("/");
             });
     };
@@ -78,14 +70,12 @@ export default function Registration() {
                     )} */}
                     {showError.current && showError.current}
                     <div className="">
-                        <p className="text-4xl font-bold">CREATE AN ACCOUNT</p>
-                        <p>Register for new customer</p>
+                        <p className="text-4xl font-bold">একাউন্ট তৈরি করুন</p>
+                        {/* <p>Register for new customer</p> */}
                     </div>
 
-                    <form
-                        className="mt-6 flex flex-col"
-                        onSubmit={handleSignup}>
-                        <label htmlFor="name">Full Name</label>
+                    <form className="mt-6 flex flex-col" onSubmit={handleSignup}>
+                        <label htmlFor="name">নাম</label>
                         <input
                             className="mb-3 mt-3 border px-4 py-2"
                             type="text"
@@ -97,7 +87,7 @@ export default function Registration() {
                         />
 
                         <label className="mt-3" htmlFor="email">
-                            Email Address
+                            ই-মেইল
                         </label>
                         <input
                             className="mt-3 border px-4 py-2"
@@ -110,7 +100,7 @@ export default function Registration() {
                         />
 
                         <label className="mt-5" htmlFor="email">
-                            Password
+                            পাসওয়ার্ড
                         </label>
                         <input
                             className="mt-3 border px-4 py-2"
@@ -123,7 +113,7 @@ export default function Registration() {
                         />
 
                         <label className="mt-5" htmlFor="email">
-                            Confirm password
+                            একাউন্ট তৈরি করুন
                         </label>
                         <input
                             name="password2"
@@ -137,23 +127,23 @@ export default function Registration() {
                             <input type="checkbox" 
                             required/>
                             <label htmlFor="checkbox">
-                                I have read and agree with
-                                <NavLink
-                                    to={"/terms-and-condition"}
-                                    className="text-violet-900">
-                                    terms &amp; conditions
-                                </NavLink>
+                                আমি {" "}
+                                <a href="#" className="text-violet-900">
+                                    শর্তাবলী
+                                </a>
+                                {" "}
+                                পড়েছি এবং সম্মতি জানাচ্ছি
                             </label>
                         </div>
                         <button
                             disabled={isLoading || !isMatchedPassword}
                             type="submit"
-                            className="my-5 w-full disabled:cursor-default cursor-pointer bg-violet-900 py-2 text-white disabled:bg-gray-400">
-                            CREATE ACCOUNT
+                            className="my-5 w-full bg-violet-900 py-2 text-white">
+                            একাউন্ট তৈরি করুন
                         </button>
                     </form>
 
-                    <p className="text-center text-gray-500">OR SIGN UP WITH</p>
+                    {/* <p className="text-center text-gray-500">OR SIGN UP WITH</p>
 
                     <div className="my-5 flex gap-2">
                         <button className="w-1/2 bg-blue-800 py-2 text-white">
@@ -162,13 +152,13 @@ export default function Registration() {
                         <button className="w-1/2 bg-orange-500 py-2 text-white">
                             GOOGLE
                         </button>
-                    </div>
+                    </div> */}
 
                     <p className="text-center">
-                        Already have an account?
-                        <NavLink to="/login" className="text-violet-900">
-                            Login now
-                        </NavLink>
+                        ইতিমধ্যে একটি সদস্যপদ আছে ? {" "}
+                        <Link to="/login" className="text-violet-900">
+                            লগ ইন করুন
+                        </Link>
                     </p>
                 </div>
             </section>

@@ -30,7 +30,7 @@ export default function Checkout() {
                                     </h1>
                                 </div>
                                 <div className=" mt-5 border-gray-400 p-6">
-                                    <div className="grid grid-cols-2  gap-y-6 py-10 gap-x-3">
+                                    <div className="grid xl:grid-cols-2 lg:grid-cols-2 min-[300px]:grid-cols-1 gap-3 py-10 gap-x-3">
                                         <PaymentMethod value={"bkash"} />
                                         <PaymentMethod value={"nagad"} />
                                         <PaymentMethod value={"rocket"} />
@@ -98,22 +98,28 @@ export default function Checkout() {
                     <section className="mx-auto w-full px-4 md:max-w-[400px]">
                         <div className="">
                             <div className="border py-5 px-4 shadow-md">
-                                <p className="font-bold">ORDER SUMMARY</p>
+                                <p className="font-bold">অর্ডার সারসংক্ষেপ</p>
 
                                 <div className="flex justify-between border-b py-5">
-                                    <p>Subtotal</p>
-                                    <p>$1280</p>
+                                    <p>সাবটোটাল</p>
+                                    <p>৳1280</p>
                                 </div>
 
                                 <div className="flex justify-between border-b py-5">
-                                    <p>Shipping</p>
+                                    <p>ডেলিভারি</p>
                                     <p>Free</p>
                                 </div>
 
                                 <div className="flex justify-between py-5">
-                                    <p>Total</p>
-                                    <p>$1280</p>
+                                    <p>মোট</p>
+                                    <p>৳1280</p>
                                 </div>
+
+                                <a href="checkout-address.html">
+                                    <button className="w-full bg-violet-900 px-5 py-2 text-white">
+                                        চেকআউট
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </section>

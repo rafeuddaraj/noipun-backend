@@ -26,7 +26,7 @@ export default function Address() {
             </div>
             <div className="p-6">
                 <div className="card-body">
-                    <div className="grid grid-cols-3  justify-around items-center">
+                    <div className="grid xl:grid-cols-3 lg:grid-cols-3 min-[300px]:grid-cols-1 justify-around items-center gap-3">
                         <div className="">
                             <input
                                 className="me-2"

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     FaBoxOpen,
     FaFacebookF,
@@ -8,7 +8,7 @@ import {
     FaMicroblog,
     FaPlus,
     FaSearch,
-    FaCartPlus,
+    FaCartPlus
 } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -35,9 +35,10 @@ const Static_nav = () => {
     const [isTrim, setIsTrim] = useState(false);
     const [isMenu, setIsMenu] = useState(false);
     const [searchValue, setSearchValue] = useState("");
-    const auth = useAuth();
-    const { user } = useSelector(accountSelector);
-    const { avatar, name } = user || {};
+    const [isScrollHeaderGone, setIsScrollHeaderGone] = useState(true);
+    const auth = useAuth()
+    const { user } = useSelector(accountSelector)
+    const { avatar, name } = user || {}
     // const language = ["English", "Bangla"];
     // const nm = language?.find((lg, i) => i === selectLang);
 
@@ -60,17 +61,31 @@ const Static_nav = () => {
         setSearchQuerys(value);
     };
 
+    // useEffect(() => {
+    //     window.document.onclick=
+    //         setIsMenu(false)
+
+    // }, [setIsMenu])
+    const isHeader = () => {
+        if (window.scrollY < 200) {
+            setIsScrollHeaderGone(true);
+        } else {
+            setIsScrollHeaderGone(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', isHeader);
+        return () => {
+            window.removeEventListener('scroll', isHeader);
+        }
+    }, []);
+
     return (
-        <div className="w-[100%] h-[140px] bg-[#fffce6] sticky mb-30 left-0 top-0 z-10">
-            <div className="xl:max-w-[2000px] lg:max-w-[2000px] min-[360px]:max-w=[100%] h-[140px] mx-auto bg-[#fde102] pt-2">
-                <div className="h-[60px] bg-[#fffce6] flex items-center justify-between xl:px-[100px] lg:px-[100px] min-[360px]:px-[20px]">
-                    <NavLink
-                        to="/"
-                        className={({ isActive }) =>
-                            `flex items-center gap-2 font-medium  ${
-                                isActive && "text-green-400"
-                            } `
-                        }>
+        <div className={`w-[100%] xl:h-[140px] lg:h-[140px] min-[300px]:h-[120px] bg-[#fffce6] sticky mb-30 left-0 z-10 ${isScrollHeaderGone ? "top-0" : "-top-[100%]"}`}>
+            <div className="xl:max-w-[1400px] lg:max-w-[100%] min-[300px]:max-w-[100%] mx-auto bg-[#fde102] pt-2">
+                <div className="h-[60px] bg-[#fffce6] flex items-center justify-between xl:px-[100px] lg:px-[100px] min-[300px]:px-[20px]">
+                    <Link to="/">
                         <div className="flex items-center justify-center gap-[2px]">
                             <div className="w-[50px] h-[50px]">
                                 <img
@@ -79,14 +94,14 @@ const Static_nav = () => {
                                     alt=""
                                 />
                             </div>
-                            <h1 className="xl:text-[2rem] lg:text-[2rem] min-[360px]:text-[1.6rem] font-[600] text-[#111] tracking-tight">
-                                Noipun
+                            <h1 className="xl:text-[2rem] lg:text-[2rem] min-[300px]:text-[1.6rem] font-[600] text-[#111] tracking-tight">
+                                নৈপুণ
                             </h1>
                         </div>
                     </NavLink>
                     <div className="flex items-center gap-2">
                         {/* xl,lg */} {/* language */}
-                        {/* <div className="w-[100px] h-[30px] items-center justify-center gap-1 relative z-10 xl:flex lg:flex min-[360px]:hidden">
+                        {/* <div className="w-[100px] h-[30px] items-center justify-center gap-1 relative z-10 xl:flex lg:flex min-[300px]:hidden">
                             <span
                                 className="text-[1.1rem] text-[#111] tracking-[1px] font-[400] cursor-pointer"
                                 onClick={() => setLgdroper(!lgdroper)}>
@@ -120,36 +135,22 @@ const Static_nav = () => {
                         <div className="flex items-center justify-center gap-2">
                             {/* Auth sm */}
 
-                            <div className=" min-[360px]:block bg-[#fde102] rounded-full p-3">
-                                <NavLink
-                                    to={"/cart"}
-                                    className={({ isActive }) =>
-                                        `font-medium  ${
-                                            isActive && "text-green-400"
-                                        } `
-                                    }>
-                                    <FaCartPlus className="text-[1.3rem] text-[#fffce6] duration-[.5s] cursor-pointer" />
-                                </NavLink>
+                            <div className="xl:block lg:block min-[300px]:hidden bg-transparent rounded-full p-3">
+                                <Link to={"/cart"}>
+                                    <FaCartPlus className="text-[1.5rem] text-[#fde102] hover:text-[#e8d64f] duration-[.5s] transition-colors cursor-pointer" />
+                                </Link>
                             </div>
 
-                            <div className="xl:hidden lg:hidden min-[360px]:block">
-                                <NavLink
-                                    to={"/login"}
-                                    className={({ isActive }) =>
-                                        `font-medium  ${
-                                            isActive && "text-green-400"
-                                        } `
-                                    }>
+                            <div className="xl:hidden lg:hidden min-[300px]:block">
+                                <Link to={"/login"}>
                                     <MdLogin className="text-[1.3rem] text-[#d1cfcf] duration-[.5s] cursor-pointer" />
                                 </NavLink>
                             </div>
                             {/* Auth lg ,xl */}
-                            <div className="xl:block lg:block min-[360px]:hidden">
+                            <div className="xl:block lg:block min-[300px]:hidden">
                                 {auth ? (
                                     <>
-                                        <div
-                                            onClick={() => navigate("/account")}
-                                            className="w-[40px] h-[40px] rounded-[50%] bg-[#6868687c] cursor-pointer active:bg-[#68686897] duration-[.5s] transition-colors flex items-center justify-center">
+                                        <div onClick={() => navigate('/account')} className="w-[40px] h-[40px] rounded-[50%] bg-[#6868687c] cursor-pointer active:bg-[#68686897] duration-[.5s] transition-colors flex items-center justify-center">
                                             <img
                                                 className="w-[90%] h-[90%] rounded-[50%]"
                                                 src={
@@ -161,15 +162,15 @@ const Static_nav = () => {
                                         </div>
                                     </>
                                 ) : (
-                                    <NavLink
-                                        to={"/login"}
-                                        className={({ isActive }) =>
-                                            `font-medium text-[.950rem] text-[#60a1e1] hover:text-[#288aed] duration-[.4s] tracking-[1px]  ${
-                                                isActive && "text-green-400"
-                                            } `
-                                        }>
-                                        Login
-                                    </NavLink>
+                                    // <Link
+                                    //     to={"/login"}
+                                    //     //  relative z-[4] hover:before:content-[''] hover:before:top-[0] hover:before:left-0 hover:before:right-0 hover:before:bg-[#feffde] hover:before:rounded-sm hover:before:z-[-1] hover:before:shadow-[inset_-3px_-3px_7px_#ffffff_,_inset_3px_3px_5px_#ceced1]
+                                    //     className="text-[.950rem] py-2 px-3 rounded-sm  bg-[#db38387c] text-[#ffffff] hover:text-[#ffffff] duration-[.4s] transition-colors tracking-[1px]">
+                                    //     Login
+                                    // </Link>
+                                    <Link to={"/login"}>
+                                        <MdLogin className="text-[1.3rem] text-[#171717] duration-[.5s] cursor-pointer" />
+                                    </Link>
                                 )}
                             </div>
                             <span className="text-[1rem] text-[#828282] mb-1">
@@ -182,99 +183,91 @@ const Static_nav = () => {
                         </div>
                     </div>
                 </div>
-                <div className="h-[72px] flex items-center justify-between xl:px-[80px] lg:px-[80px] min-[360px]:px-[20px]">
+                <div className="xl:h-[72px] lg:h-[72px] min-[300px]:h-[50px] flex items-center justify-between xl:px-[80px] lg:px-[80px] min-[300px]:px-[20px]">
                     {/* xl,lg */} {/* link and product droper */}
-                    <div className="h-full items-center  justify-center gap-8 xl:flex lg:flex min-[360px]:hidden">
-                        <NavLink
-                            to={"/"}
-                            className={({ isActive }) =>
-                                `font-medium text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px]  ${
-                                    isActive && "text-green-400"
-                                } `
-                            }>
-                            Home
-                        </NavLink>
-                        <NavLink
-                            to={"/products"}
-                            className={({ isActive }) =>
-                                ` text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px] ${
-                                    isActive && "text-green-400"
-                                } `
-                            }>
-                            Products
-                        </NavLink>
+                    <div className="h-full items-center  justify-center gap-8 xl:flex lg:flex min-[300px]:hidden">
+                        <Link
+                            to={'/'}
+                            className="text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px]">
+                            হোম
+                        </Link>
+                        <Link
+                            to={'/contact'}
+                            className="text-[.950rem] leading-[70px]  h-full text-[#111] font-[500] tracking-[1px]">
+                            যোগাযোগ
+                        </Link>
                         <div className="text-[.950rem] h-full text-[#111] font-[500] tracking-[1px] flex items-center cursor-pointer group">
-                            Our Products{" "}
+                            আমাদের পণ্য{" "}
                             <MdKeyboardArrowDown className="text-[1.1rem] h-full text-[#111] ml-1 mt-1 duration-[.4s] transition rotate-[180deg] group-hover:rotate-[0deg]" />
                             {/* product menu */}
                             <label className="fixed top-[140px] left-0 z-10 w-[100vw] h-fit hidden group-hover:block duration-[1s] transition bg-[#fffce6] border-t-[0.1px] border-t-[#fff] px-[50px]">
                                 <div className="grid grid-cols-3 gap-3">
                                     <ul className="p-2">
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Bag
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Painting
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Mug
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Shares
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Panjabi
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Wood Draft
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Painted Plates
                                         </li>
                                     </ul>
                                     <ul className="p-2">
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Bag
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Painting
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Mug
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Shares
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Panjabi
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Wood Draft
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Painted Plates
                                         </li>
                                     </ul>
                                     <ul className="p-2">
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Bag
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Painting
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Mug
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Shares
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Panjabi
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Wood Draft
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             Painted Plates
                                         </li>
                                     </ul>
@@ -287,71 +280,69 @@ const Static_nav = () => {
                     </div>
                     <div className="flex items-center justify-center gap-[2px]">
                         {/* lg,xl */} {/* category droper */}
-                        <div className="w-[150px] h-[50px] bg-[#fffce6] rounded-l-md relative xl:flex lg:flex min-[360px]:hidden items-center justify-center">
+                        <div className="w-[150px] h-[50px] bg-[#fffce6] rounded-l-md relative xl:flex lg:flex min-[300px]:hidden items-center justify-center">
                             <div
                                 onClick={() => setCateDroper(!cateDroper)}
                                 className="flex items-center justify-center gap-[2px] text-[1.1rem] text-[#111] font-[500] tracking-wider cursor-pointer w-[100%] h-[100%]">
-                                Category{" "}
+                                ক্যাটেগরি{" "}
                                 <MdKeyboardArrowDown
-                                    className={`text-[1.2rem] text-[#111] mt-1 duration-[.4s] transition ${
-                                        cateDroper
-                                            ? "rotate-[180deg]"
-                                            : "rotate-[0deg"
-                                    }`}
+                                    className={`text-[1.2rem] text-[#111] mt-1 duration-[.4s] transition ${cateDroper
+                                        ? "rotate-[180deg]"
+                                        : "rotate-[0deg"
+                                        }`}
                                 />{" "}
                             </div>
-                            {/* category menu */}
+                            {/* category menu bg-[#fde102] */}
                             <ul
-                                className={`absolute top-[60px] left-0 bg-[#fde102] z-10 h-fit rounded-sm w-[230px] p-2 duration-[.3s] transition ${
-                                    cateDroper
-                                        ? "opacity-[1] translate-y-0"
-                                        : "translate-y-full opacity-0"
-                                }`}>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] cursor-pointer rounded-sm">
+                                className={`absolute top-[60px] left-0 bg-[#f1e9aa] z-10 h-fit rounded-sm w-[230px] p-2 duration-[.3s] transition ${cateDroper
+                                    ? "opacity-[1] translate-y-0"
+                                    : "translate-y-full opacity-0"
+                                    }`}>
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                     flower cotone
                                 </li>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] cursor-pointer rounded-sm">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                     embodery cotone
                                 </li>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] cursor-pointer rounded-sm">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                     list cotone
                                 </li>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] cursor-pointer rounded-sm">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                     print cotone
                                 </li>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] cursor-pointer rounded-sm">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                     sky cotone
                                 </li>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] cursor-pointer rounded-sm flex items-center justify-between relative group">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm flex items-center justify-between relative group">
                                     eirthestic cotone{" "}
                                     <MdKeyboardArrowDown className="text-[1.2rem] rotate-[90deg] duration-[.5s] transition group-hover:-rotate-[90deg]" />
                                     {/* sub category menu */}
-                                    <ul className="absolute -right-[135px] top-0 bg-[#fde102] rounded-sm p-1 hidden group-hover:block">
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                    <ul className="absolute -right-[150px] top-0 bg-[#f1e9aa] rounded-sm p-1 hidden group-hover:block">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             flower cotone
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             embodery cotone
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             embodery cotone
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             list cotone
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             print cotone
                                         </li>
                                     </ul>
                                 </li>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] cursor-pointer rounded-sm">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] cursor-pointer rounded-sm">
                                     sensitive cotone
                                 </li>
                             </ul>
                         </div>
                         {/* xl,lg */}
                         {/* search  */}
-                        <div className="items-center justify-center xl:flex lg:flex min-[360px]:hidden">
+                        <div className="items-center justify-center xl:flex lg:flex min-[300px]:hidden">
                             <div className="xl:w-[400px] lg:w-[400px] h-[50px] relative">
                                 <input
                                     type="text"
@@ -363,7 +354,7 @@ const Static_nav = () => {
                                 />
                                 {isVisableOnSearching && (
                                     <ul className="absolute top-[53px] w-[400px] h-fit bg-[#fde102] rounded-sm p-1">
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] rounded-sm flex items-center justify-between">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] bg-[#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors rounded-sm flex items-center justify-between">
                                             <span className="cursor-pointer">
                                                 flower cotone
                                             </span>
@@ -371,7 +362,7 @@ const Static_nav = () => {
                                                 remove
                                             </span>
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] rounded-sm flex items-center justify-between">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] bg-[#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors rounded-sm flex items-center justify-between">
                                             <span className="cursor-pointer">
                                                 embodery cotone
                                             </span>
@@ -379,7 +370,7 @@ const Static_nav = () => {
                                                 remove
                                             </span>
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] rounded-sm flex items-center justify-between">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] bg-[#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors rounded-sm flex items-center justify-between">
                                             <span className="cursor-pointer">
                                                 embodery cotone
                                             </span>
@@ -387,7 +378,7 @@ const Static_nav = () => {
                                                 remove
                                             </span>
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] rounded-sm flex items-center justify-between">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] bg-[#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors rounded-sm flex items-center justify-between">
                                             <span className="cursor-pointer">
                                                 list cotone
                                             </span>
@@ -395,7 +386,7 @@ const Static_nav = () => {
                                                 remove
                                             </span>
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] rounded-sm flex items-center justify-between">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] bg-[#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors rounded-sm flex items-center justify-between">
                                             <span className="cursor-pointer">
                                                 print cotone
                                             </span>
@@ -412,18 +403,17 @@ const Static_nav = () => {
                             </div>
                         </div>
                         {/* sm */} {/* memu */}
-                        <div className="xl:hidden lg:hidden min-[360px]:block">
+                        <div className="xl:hidden lg:hidden min-[300px]:block">
                             <div
                                 onClick={() => setIsMenu(true)}
                                 className="bg-[#fde102] w-[40px] h-[40px] flex justify-center items-center rounded-md cursor-pointer active:scale-[.9] duration-[.5s] transition">
                                 <TfiMenuAlt className="text-[2rem] text-[#111]" />
                             </div>
                             <div
-                                className={`fixed top-0 left-0 bg-[#fffce6] w-[70vw] h-[100vh] p-2 rounded-r-md duration-[.5s] transition ${
-                                    isMenu
-                                        ? "translate-x-0"
-                                        : "-translate-x-full"
-                                }`}>
+                                className={`fixed top-0 left-0 bg-[#fffce6] w-[70vw] h-[100vh] p-2 rounded-r-md duration-[.5s] transition ${isMenu
+                                    ? "translate-x-0"
+                                    : "-translate-x-full"
+                                    }`}>
                                 <div className="flex justify-between ">
                                     {/* user Profile */}
                                     <div className="flex items-center gap-1">
@@ -584,14 +574,9 @@ const Static_nav = () => {
                                         <hr className="my-1 h-[.5px] bg-[#fff]" />
                                         <li className="flex items-center gap-1 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <MdShoppingBasket className="text-[1.5rem]" />
-                                            <NavLink
-                                                to={"/cart"}
-                                                className={({ isActive }) =>
-                                                    `w-[100%] h-[100%]${
-                                                        isActive &&
-                                                        "text-green-400"
-                                                    } `
-                                                }>
+                                            <Link
+                                                to={'/cart'}
+                                                className="w-[100%] h-[100%]">
                                                 Cart
                                             </NavLink>
                                         </li>
@@ -608,18 +593,17 @@ const Static_nav = () => {
                         </div>
                     </div>
                     {/* sm */} {/* search  */}
-                    <div className="xl:hidden lg:hidden min-[360px]:block relative">
+                    <div className="xl:hidden lg:hidden min-[300px]:block relative">
                         <div
                             onClick={() => setIsSearchBar(!isSearchBar)}
                             className="bg-[#fde102] h-[40px] w-[40px] flex items-center justify-center rounded-md cursor-pointer active:scale-[.9] duration-[.5s] transition">
                             <FaSearch className="text-[1.2rem] text-[#111]" />
                         </div>
                         <div
-                            className={`fixed left-0 top-[140px] w-[100%] h-[45px] z-10 duration-[.8s] transition ${
-                                isSearchBar
-                                    ? "translate-x-0"
-                                    : "-translate-x-full"
-                            }`}>
+                            className={`fixed left-0 top-[120px] w-[100%] h-[45px] z-10 duration-[.8s] transition ${isSearchBar
+                                ? "translate-x-0"
+                                : "-translate-x-full"
+                                }`}>
                             <input
                                 type="text"
                                 className="w-[100%] h-[100%] ps-2 text-[1.4rem] font-[400] text-black tracking-wide placeholder:text-gray-400 placeholder:text-[.950rem] placeholder:font-[500] placeholder:tracking-tight outline-none border focus:border-[#45accb] duration-[.3s] transition"
