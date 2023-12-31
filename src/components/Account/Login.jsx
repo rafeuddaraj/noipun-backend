@@ -5,7 +5,7 @@ import {
 } from "../../features/accountSlice/accountApi";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/accountSlice/accountSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ForgetModal from "./ForgetModal";
 import { validateEmail } from "../../utils/validateEmail";
 
@@ -57,12 +57,12 @@ export default function Login() {
             <section className="mx-auto flex-grow w-full mt-10 mb-10 max-w-[1200px] px-5">
                 <div className="container mx-auto border px-5 py-5 shadow-sm md:w-1/2">
                     <div className="">
-                        <p className="text-4xl font-bold">LOGIN</p>
-                        <p>Welcome back, customer!</p>
+                        <p className="text-4xl font-bold">লগ ইন</p>
+                        <p>আপনাকে স্বাগতম!</p>
                     </div>
 
                     <form className="mt-6 flex flex-col" onSubmit={handleLogin}>
-                        <label htmlFor="email">Email Address</label>
+                        <label htmlFor="email">ই-মেইল</label>
                         <input
                             className="mb-3 mt-3 border px-4 py-2"
                             type="email"
@@ -76,12 +76,12 @@ export default function Login() {
                                 <button
                                     onClick={handleForgetModal}
                                     className="text-violet-900">
-                                    Forgot password
+                                    পাসওয়ার্ড ভুলে গিয়েছেন?
                                 </button>
                             </div>
                         )}
 
-                        <label htmlFor="email">Password</label>
+                        <label htmlFor="email">পাসওয়ার্ড</label>
                         <input
                             name="password"
                             onChange={handleInput}
@@ -103,32 +103,32 @@ export default function Login() {
                                         }))
                                     }
                                 />
-                                <label htmlFor="checkbox">Remember me</label>
+                                <label htmlFor="checkbox">মনে রাখবেন</label>
                             </div>
                         </div>
                         <button
                             type="submit"
                             className="my-5 w-full bg-violet-900 py-2 text-white">
-                            LOGIN
+                            লগ ইন
                         </button>
                     </form>
 
-                    <p className="text-center text-gray-500">OR LOGIN WITH</p>
+                    {/* <p className="text-center text-gray-500">OR LOGIN WITH</p> */}
 
-                    <div className="my-5 flex gap-2">
+                    {/* <div className="my-5 flex gap-2">
                         <button className="w-1/2 bg-blue-800 py-2 text-white">
                             FACEBOOK
                         </button>
                         <button className="w-1/2 bg-orange-500 py-2 text-white">
                             GOOGLE
                         </button>
-                    </div>
+                    </div> */}
 
                     <p className="text-center">
-                        Don`t have account?
-                        <a href="sign-up.html" className="text-violet-900">
-                            Register now
-                        </a>
+                        আপনার কি একাউন্ট  নেই ? {" "}
+                        <Link to="/signup" className="text-violet-900">
+                            সাইন আপ
+                        </Link>
                     </p>
                 </div>
             </section>

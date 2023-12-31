@@ -95,7 +95,7 @@ const Static_nav = () => {
                                 />
                             </div>
                             <h1 className="xl:text-[2rem] lg:text-[2rem] min-[300px]:text-[1.6rem] font-[600] text-[#111] tracking-tight">
-                                Noipun
+                                নৈপুণ
                             </h1>
                         </div>
                     </Link>
@@ -186,15 +186,15 @@ const Static_nav = () => {
                         <Link
                             to={'/'}
                             className="text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px]">
-                            Home
+                            হোম
                         </Link>
                         <Link
                             to={'/contact'}
                             className="text-[.950rem] leading-[70px]  h-full text-[#111] font-[500] tracking-[1px]">
-                            Contact
+                            যোগাযোগ
                         </Link>
                         <div className="text-[.950rem] h-full text-[#111] font-[500] tracking-[1px] flex items-center cursor-pointer group">
-                            Our Products{" "}
+                            আমাদের পণ্য{" "}
                             <MdKeyboardArrowDown className="text-[1.1rem] h-full text-[#111] ml-1 mt-1 duration-[.4s] transition rotate-[180deg] group-hover:rotate-[0deg]" />
                             {/* product menu */}
                             <label className="fixed top-[140px] left-0 z-10 w-[100vw] h-fit hidden group-hover:block duration-[1s] transition bg-[#fffce6] border-t-[0.1px] border-t-[#fff] px-[50px]">
@@ -281,7 +281,7 @@ const Static_nav = () => {
                             <div
                                 onClick={() => setCateDroper(!cateDroper)}
                                 className="flex items-center justify-center gap-[2px] text-[1.1rem] text-[#111] font-[500] tracking-wider cursor-pointer w-[100%] h-[100%]">
-                                Category{" "}
+                                ক্যাটেগরি{" "}
                                 <MdKeyboardArrowDown
                                     className={`text-[1.2rem] text-[#111] mt-1 duration-[.4s] transition ${cateDroper
                                         ? "rotate-[180deg]"
@@ -289,50 +289,50 @@ const Static_nav = () => {
                                         }`}
                                 />{" "}
                             </div>
-                            {/* category menu */}
+                            {/* category menu bg-[#fde102] */}
                             <ul
-                                className={`absolute top-[60px] left-0 bg-[#fde102] z-10 h-fit rounded-sm w-[230px] p-2 duration-[.3s] transition ${cateDroper
+                                className={`absolute top-[60px] left-0 bg-[#f1e9aa] z-10 h-fit rounded-sm w-[230px] p-2 duration-[.3s] transition ${cateDroper
                                     ? "opacity-[1] translate-y-0"
                                     : "translate-y-full opacity-0"
                                     }`}>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                     flower cotone
                                 </li>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                     embodery cotone
                                 </li>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                     list cotone
                                 </li>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                     print cotone
                                 </li>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                     sky cotone
                                 </li>
                                 <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm flex items-center justify-between relative group">
                                     eirthestic cotone{" "}
                                     <MdKeyboardArrowDown className="text-[1.2rem] rotate-[90deg] duration-[.5s] transition group-hover:-rotate-[90deg]" />
                                     {/* sub category menu */}
-                                    <ul className="absolute -right-[135px] top-0 bg-[#fde102] rounded-sm p-1 hidden group-hover:block">
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] bg-[#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
+                                    <ul className="absolute -right-[150px] top-0 bg-[#f1e9aa] rounded-sm p-1 hidden group-hover:block">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             flower cotone
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] bg-[#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             embodery cotone
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] bg-[#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             embodery cotone
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] bg-[#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             list cotone
                                         </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] bg-[#fde102] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
+                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                             print cotone
                                         </li>
                                     </ul>
                                 </li>
-                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-#fde102] hover:bg-[#fffce6] cursor-pointer rounded-sm">
+                                <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] cursor-pointer rounded-sm">
                                     sensitive cotone
                                 </li>
                             </ul>

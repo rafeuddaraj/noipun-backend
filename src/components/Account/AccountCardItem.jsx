@@ -4,11 +4,11 @@ export default function AccountCardItem() {
             <div className="">
                 <div className="border py-5 shadow-md">
                     <div className="flex justify-between px-4 pb-5">
-                        <p className="font-bold">Personal Profile</p>
+                        <p className="font-bold">প্রোফাইল</p>
                         <a
                             className="text-sm text-violet-900"
                             href="profile-information.html">
-                            Edit
+                            পরিবর্তন
                         </a>
                     </div>
 

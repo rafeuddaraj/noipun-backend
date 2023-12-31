@@ -13,11 +13,11 @@ export default function DesktopItem() {
                         />
                         <div className="ml-3 flex flex-col justify-center">
                             <p className="text-xl font-bold">ITALIAN BED</p>
-                            <p className="text-sm text-gray-400">Size: XL</p>
+                            {/* <p className="text-sm text-gray-400">Size: XL</p> */}
                         </div>
                     </div>
                 </td>
-                <td className="mx-auto text-center">&#36;320</td>
+                <td className="mx-auto text-center">৳320</td>
                 <td className="align-middle">
                     <div className="flex items-center justify-center">
                         <button className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
@@ -31,7 +31,7 @@ export default function DesktopItem() {
                         </button>
                     </div>
                 </td>
-                <td className="mx-auto text-center">&#36;320</td>
+                <td className="mx-auto text-center">৳320</td>
                 <td className="align-middle">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
