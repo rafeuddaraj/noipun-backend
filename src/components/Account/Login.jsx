@@ -119,7 +119,7 @@ export default function Login() {
                         </button>
                     </form>
 
-                    <p className="text-center text-gray-500">OR LOGIN WITH</p>
+                    {/* <p className="text-center text-gray-500">OR LOGIN WITH</p>
 
                     <div className="my-5 flex gap-2">
                         <button className="w-1/2 bg-blue-800 py-2 text-white">
@@ -128,7 +128,7 @@ export default function Login() {
                         <button className="w-1/2 bg-orange-500 py-2 text-white">
                             GOOGLE
                         </button>
-                    </div>
+                    </div> */}
 
                     <p className="text-center">
                         Don`t have account?

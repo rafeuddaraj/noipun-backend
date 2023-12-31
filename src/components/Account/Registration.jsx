@@ -341,7 +341,7 @@ export default function Registration() {
                             CREATE ACCOUNT
                         </button>
                     </form>
-
+{/* 
                     <p className="text-center text-gray-500">OR SIGN UP WITH</p>
 
                     <div className="my-5 flex gap-2">
@@ -351,10 +351,10 @@ export default function Registration() {
                         <button className="w-1/2 bg-orange-500 py-2 text-white">
                             GOOGLE
                         </button>
-                    </div>
+                    </div> */}
 
                     <p className="text-center">
-                        Already have an account?
+                        Already have an account?{" " + " "}
                         <NavLink to="/login" className="text-violet-900">
                             Login now
                         </NavLink>
