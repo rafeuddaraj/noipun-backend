@@ -1,8 +1,18 @@
 // import { useState } from "react";
+import { useGetProductsQuery } from "../../features/productSlice/productApi";
 import Product from "../Products/Product";
 import Sidebar from "./Sidebar";
 
 export default function AllProduct() {
+    const {data:products,isLoading,isSuccess} = useGetProductsQuery()
+    const {results} = products || {}
+
+    let content = null
+
+    if(isSuccess && results?.length > 0 ){
+        content =  results?.map(product=><Product key={product.id} product={product} />)
+    }
+
     return (
         <main className="mx-auto justify-center flex-grow max-w-[1400px] border-b py-5 flex xl:flex-row lg:flex-row min-[300px]:flex-col lg:py-10">
             <Sidebar />
@@ -32,16 +42,7 @@ export default function AllProduct() {
                 </div>
 
                 <section className="mx-auto gap-3 justify-center w-full grid max-w-[1200px] xl:grid-cols-4 lg:grid-cols-3 min-[300px]:grid-cols-1 px-5 pb-10">
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
+                    {content}
                 </section>
             </div>
         </main>

@@ -1,12 +1,20 @@
 // import { useParams } from "react-router-dom";
 
-export default function ProductOverview({ id }) {
+export default function ProductOverview({ product, isSuccess,category }) {
+
+    const {
+        product_title,
+        description,
+        price,
+        is_available,
+        total_buyed,
+        quantity,} = product || {}
 
     return (
         <>
             <div className="mx-auto px-5 lg:px-5">
                 <h2 className="pt-3 text-2xl font-bold lg:pt-0">
-                    {id} BIG ITALIAN SOFA
+                    {product_title}
                 </h2>
                 {/* <div className="mt-1">
                     <div className="flex items-center">
@@ -75,34 +83,31 @@ export default function ProductOverview({ id }) {
                 </div> */}
 
                 <p className="mt-5 font-bold">
-                    স্টক: <span className="text-green-600">পণ্যটি রয়েছে</span>
+                    স্টক: <span className="text-green-600">{is_available ? "পণ্যটি রয়েছে" : "পণ্যটি স্টকে নেই"}</span>
                     {/* পণ্যটি নেই */}
                 </p>
-                <p className="font-bold">
+                {/* <p className="font-bold">
                     ব্র্যান্ড: <span className="font-normal">Apex</span>
-                </p>
+                </p> */}
                 <p className="font-bold">
-                    ক্যাটেগরি: <span className="font-normal">Sofa</span>
+                    ক্যাটেগরি: <span className="font-normal">{category}</span>
                 </p>
                 {/* <p className="font-bold">
                     SKU: <span className="font-normal">BE45VGTRK</span>
                 </p> */}
 
                 <p className="mt-4 text-4xl font-bold text-violet-900">
-                    ৳৫oo{" "}
-                    <span className="text-xs text-gray-400 line-through">৳৫ooo</span>
+                    দামঃ{" "}
+                    {/* <span className="text-xs text-gray-400 line-through">৳{price}</span> */}
+                    <span className="font-normal">৳{price}</span>
                 </p>
 
                 <p className="pt-5 text-sm leading-5 text-gray-500">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Quidem exercitationem voluptate sint eius ea assumenda
-                    provident eos repellendus qui neque! Velit ratione illo
-                    maiores voluptates commodi eaque illum, laudantium non!
+                    {`${description?.slice(0,100)}......`}
                 </p>
 
                 <div className="mt-6">
-                    <p className="pb-2 text-xs text-gray-500">পরিমাণ <span className="font-extrabold text-lg">৫</span> </p>
-
+                    <p className="pb-2 text-xs text-gray-500">পরিমাণ <span className="font-extrabold text-lg">{quantity}</span> </p>
                 </div>
 
                 <div className="mt-7 flex flex-row items-center xl:gap-6 lg:gap-4 min-[300px]:gap-3">

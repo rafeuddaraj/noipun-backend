@@ -11,6 +11,8 @@ import User from "./components/Pages/User";
 import AccountInformation from "./components/Pages/AccountInformation";
 import ChangePassword from "./components/Pages/ChangePassword";
 import useAuthCheck from "./Hooks/useAuthCheck";
+import PublicRoute from "./routes/PublicRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 
 export default function App() {
     const checkAuth = useAuthCheck();
@@ -22,22 +24,51 @@ export default function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/products" element={<Product />} />
                         <Route
-                            path="/products/:id"
+                            path="/products/:category/:slug/:id"
                             element={<ProductDetails />}
                         />
                         <Route path="/wishlist" element={<Wishlist />} />
                         <Route path="/cart" element={<Cart />} />
                         <Route path="/checkout" element={<Checkout />} />
-                        <Route path="/login" element={<SignIn />} />
-                        <Route path="/signup" element={<Signup />} />
-                        <Route path="/account" element={<User />} />
+                        <Route
+                            path="/login"
+                            element={
+                                <PublicRoute>
+                                    <SignIn />
+                                </PublicRoute>
+                            }
+                        />
+                        <Route
+                            path="/signup"
+                            element={
+                                <PublicRoute>
+                                    <Signup />
+                                </PublicRoute>
+                            }
+                        />
+                        <Route
+                            path="/account"
+                            element={
+                                <PrivateRoute>
+                                    <User />
+                                </PrivateRoute>
+                            }
+                        />
                         <Route
                             path="/account-information"
-                            element={<AccountInformation />}
+                            element={
+                                <PrivateRoute>
+                                    <AccountInformation />
+                                </PrivateRoute>
+                            }
                         />
                         <Route
                             path="/change-password"
-                            element={<ChangePassword />}
+                            element={
+                                <PrivateRoute>
+                                    <ChangePassword />
+                                </PrivateRoute>
+                            }
                         />
                     </Routes>
                 </Router>
