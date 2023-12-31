@@ -84,7 +84,7 @@ class Product(models.Model):
     weight = models.FloatField(
         default=0, verbose_name="weight")
     slug = models.SlugField(verbose_name="slugField",
-                            max_length=100,unique=True,primary_key=True)
+                            max_length=100,unique=True)
     created_at = models.DateTimeField(
         auto_now_add=True, editable=False, verbose_name="createdAt")
     modified = models.DateTimeField(

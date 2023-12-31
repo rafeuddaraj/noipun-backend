@@ -20,7 +20,7 @@ class NID(models.Model):
     nid_id = models.AutoField(verbose_name='nidId',primary_key=True)
     seller = models.ForeignKey(to=CustomUser,on_delete=models.CASCADE,related_name='nid_seller')
     front = models.URLField(verbose_name='front')
-    back = models.URLField(verbose_name='back')
+    back = models.URLField(verbose_name='back',null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True,verbose_name='createdAt')
     address = models.TextField(verbose_name="address")
     

@@ -90,23 +90,24 @@ WSGI_APPLICATION = 'noipun.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME':os.environ.get("DB_NAME"),
-#         'USER': os.environ.get("DB_USER_NAME"),
-#         'PASSWORD': os.environ.get("DB_PASSWORD"),
-#         'HOST': os.environ.get("DB_HOST"),  # Set to your MySQL server host
-#         'PORT': '3306',      # Set to your MySQL server port
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'noipunco_altrazen.noipun',
+        'USER': 'noipunco_altrazen-noipu',
+        'PASSWORD': 'noipunco_altrazen-noipu@1234',
+        'HOST': '65.109.69.35',  # Set to the MySQL server's host (usually 'localhost')
+        'PORT': '3306'
+    }
+}
 
 
 # Password validation
@@ -133,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 
@@ -163,29 +164,29 @@ REST_FRAMEWORK = {
     ],
 }
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'rafeuddaraj2@gmail.com'
-# EMAIL_HOST_PASSWORD = 'dkpi gpgz zxvq llle'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'rafeuddaraj2@gmail.com'
+EMAIL_HOST_PASSWORD = 'dkpi gpgz zxvq llle'
 # # 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'mail.noipun.com'
 # EMAIL_USE_TLS = True
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = os.environ.get("SMTP_USER")
-# EMAIL_HOST_PASSWORD = os.environ.get("SMTP_USER_PASSWORD")
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.noipun.com'
-EMAIL_PORT = 465
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'test@development.noipun.com'
-EMAIL_HOST_PASSWORD = 'ixU{MIIFooVz'
+# # EMAIL_HOST_PASSWORD = os.environ.get("SMTP_USER_PASSWORD")
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'mail.noipun.com'
+# EMAIL_PORT = 465
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = True
+# EMAIL_HOST_USER = 'test@development.noipun.com'
+# EMAIL_HOST_PASSWORD = 'ixU{MIIFooVz'
 
 
 # DOMAIN 
-DOMAIN_NAME = 'http://development.noipun.com'
+DOMAIN_NAME = 'https://development.noipun.com'
 
 APPEND_SLASH=True

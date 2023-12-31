@@ -1,10 +1,10 @@
 from core.models import CustomUser
 from rest_framework.views import APIView
 from rest_framework.generics import UpdateAPIView
-from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST,HTTP_401_UNAUTHORIZED
+from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED
 from core.permissions import Private
 from rest_framework.response import Response
-from .serializers import UserSerializer, RegisterSerializer, SellerRegistrationSerializer, ForgetEmailInputSerializer, ForgetPasswordSerializer, PasswordChangeSerializer, UpdateProfileSerializer,UserVerifiedSerializer
+from .serializers import UserSerializer, RegisterSerializer, SellerRegistrationSerializer, ForgetEmailInputSerializer, ForgetPasswordSerializer, PasswordChangeSerializer, UpdateProfileSerializer, UserVerifiedSerializer, SellerUpdateProfileSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.tokens import default_token_generator
@@ -218,6 +218,26 @@ class PasswordChangeView(APIView):
 # Profile Update from user
 
 
+class SellerUpdateProfileView(UpdateAPIView):
+    serializer_class = SellerUpdateProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
+    def perform_update(self, serializer):
+        updated_user = serializer.save()
+
+        # Get the updated data after saving
+        updated_data = serializer.validated_data
+
+        # Create a dictionary with only the updated fields
+        response_data = {field: updated_data.get(
+            field, None) for field in serializer.fields.keys()}
+
+        return Response(response_data, status=HTTP_200_OK)
+
+
 class UpdateProfileView(UpdateAPIView):
     serializer_class = UpdateProfileSerializer
     permission_classes = [IsAuthenticated]
@@ -276,7 +296,7 @@ class EmailVerificationView(View):
 # class RequestEmailVerification(APIView):
 #     def post(self, request):
 #         serializer = UserVerifiedSerializer(data=request.data)
-        
+
 #         if serializer.is_valid():
 #             email = serializer.validated_data['email']
 #             print(email)
@@ -327,18 +347,21 @@ class RequestEmailVerification(APIView):
             verification_link = f"{settings.DOMAIN_NAME}/users/email-verification/{user.name.replace(' ', '').lower()}/{user.id}/{token.key}/"
 
             subject = 'Activate Your Account - Email Verification with Noipun'
-            users_folder_path = os.path.join(settings.BASE_DIR, 'users', 'templates')
+            users_folder_path = os.path.join(
+                settings.BASE_DIR, 'users', 'templates')
             email_html_path = os.path.join(users_folder_path, 'email.html')
 
             with open(email_html_path) as file:
                 email_content = file.read()
 
                 email_content = email_content.replace('{{ name }}', user.name)
-                email_content = email_content.replace('{{ activeLink }}', verification_link)
+                email_content = email_content.replace(
+                    '{{ activeLink }}', verification_link)
 
             email_from = settings.EMAIL_HOST_USER
 
-            mail = EmailMessage(subject, email_content, email_from, [user.email])
+            mail = EmailMessage(subject, email_content,
+                                email_from, [user.email])
             mail.content_subtype = 'html'
             mail.send()
 

@@ -26,7 +26,7 @@ class ProductSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        exclude = ('seller_id',)
+        fields = '__all__'
 
     def create(self, validated_data):
         product_title = validated_data['product_title']

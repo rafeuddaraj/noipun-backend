@@ -133,7 +133,6 @@ class SellerRegistrationSerializer(ModelSerializer):
         mail.send()
         
         return account
-    
 class ForgetEmailInputSerializer(Serializer):
     email = EmailField(write_only=True)
     
@@ -183,6 +182,19 @@ class UpdateProfileSerializer(ModelSerializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.avatar = validated_data.get('avatar', instance.avatar)
+        instance.save()
+        return instance
+class SellerUpdateProfileSerializer(ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['name', 'avatar','shop_name','phone_number','address']
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.avatar = validated_data.get('avatar', instance.avatar)
+        instance.shop_name = validated_data.get('shop_name', instance.shop_name)
+        instance.phone_number = validated_data.get('phone_number', instance.phone_number)
+        instance.address = validated_data.get('address', instance.address)
         instance.save()
         return instance
 
