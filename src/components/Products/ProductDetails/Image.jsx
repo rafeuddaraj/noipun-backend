@@ -1,3 +1,4 @@
+import image from '../../../assets/images/product-matrass.png'
 
 export default function Image({handleChangeImage,img}){
 

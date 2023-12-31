@@ -5,25 +5,37 @@ export default function Hero() {
         <div className="relative"> 
             <Carousel className="h-screen carousel-custom-css" slideInterval={5000} showControls={true} indicators={true}>
             <img
-                src="https://images.prismic.io/staticmania/ecd45179-4b86-4a34-b245-0078e022db5a_1.png?auto=compress,format"
+                src="https://i.ibb.co/j6HrBgW/In-Shot-20231231-233228185.jpg"
                 alt="slider-1"
                 height={400}
                 width={910}
             />
             <img
-                src="https://images.prismic.io/staticmania/dee3ff09-3ddc-4340-bc8f-ea0028bb4a61_2.png?auto=compress,format"
+                src="https://i.ibb.co/g6PYDKL/IMG-20231125-WA0036.jpg"
                 alt="slider-2"
                 height={400}
                 width={910}
             />
             <img
-                src="https://images.prismic.io/staticmania/a5c7143d-24dd-4531-9f00-243f4eb27e28_3.png?auto=compress,format"
+                src="https://i.ibb.co/GvDzBtf/Whats-App-Image-2023-12-31-at-11-39-03-PM.jpg"
                 alt="slider-3"
                 height={400}
                 width={910}
             />
             <img
-                src="https://images.prismic.io/staticmania/c5cf46a8-b10c-43c8-a60e-6692838cdee1_4.png?auto=compress,format"
+                src="https://i.ibb.co/ZY197bB/orca-image-964297579.jpg"
+                alt="slider-4"
+                height={400}
+                width={910}
+            />
+            <img
+                src="https://i.ibb.co/TmWH8dr/orca-image-1713589519.jpg"
+                alt="slider-4"
+                height={400}
+                width={910}
+            />
+            <img
+                src="https://i.ibb.co/tc8bRCz/orca-image-113747057.jpg"
                 alt="slider-4"
                 height={400}
                 width={910}

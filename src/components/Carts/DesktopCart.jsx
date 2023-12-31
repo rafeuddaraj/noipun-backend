@@ -7,10 +7,10 @@ export default function DesktopCart() {
                 <table className="table-fixed">
                     <thead className="h-16 bg-neutral-100">
                         <tr>
-                            <th>ITEM</th>
-                            <th>PRICE</th>
-                            <th>QUANTITY</th>
-                            <th>TOTAL</th>
+                            <th>পণ্য</th>
+                            <th>দাম</th>
+                            <th>পরিমান</th>
+                            <th>মোট</th>
                             <th></th>
                         </tr>
                     </thead>

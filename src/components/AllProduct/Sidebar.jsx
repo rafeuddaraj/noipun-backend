@@ -1,7 +1,7 @@
 export default function Sidebar() {
     return (
         <>
-            <section className=" sidebar-custom-css flex justify-between lg:w-[200px] px-3 lg:flex-shrink-0 lg:block">
+            <section className="sidebar-custom-css flex justify-between lg:w-[200px] flex-col px-3 xl:block lg:block min-[300px]:block">
                 <div className="flex border-b pb-5">
                     <div className="w-full">
                         <p className="mb-3 font-medium md:font-light">CATEGORIES</p>
@@ -101,7 +101,7 @@ export default function Sidebar() {
                         <div className="flex w-full">
                             <div className="flex justify-between">
                                 <input
-                                    x-mask="99999"
+                                    // x-mask="99999"
                                     min="50"
                                     type="number"
                                     className="h-8 w-[70px] border pl-2"
@@ -109,7 +109,7 @@ export default function Sidebar() {
                                 />
                                 <span className="px-3">-</span>
                                 <input
-                                    x-mask="999999"
+                                    // x-mask="999999"
                                     type="number"
                                     max="999999"
                                     className="h-8 w-[70px] border pl-2"

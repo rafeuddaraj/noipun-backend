@@ -1,27 +1,48 @@
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "./Image";
 
-export default function ImageGalley({images}){
-  const [changeImage,setChangeImage] = useState(images[0]?.image || 'https://img.freepik.com/premium-photo/no-entry-sign_698953-2427.jpg')
+export default function ImageGalley({ product, isSuccess }) {
+    const { image } = product || {};
+    const [changeImage, setChangeImage] = useState(null);
 
-  const handleChangeImage = (image)=>{
-    setChangeImage(image)
-  }
-  return (
-    <>
-          <div className="container mx-auto px-4">
-          <img
-            className="w-full"
-            src={changeImage}
-            alt="Sofa image"
-          />
+    useEffect(() => {
+        if (isSuccess) {
+            setChangeImage(image[0].image);
+        }
+    }, [image, isSuccess]);
 
-          <div className="mt-3 grid grid-cols-4 gap-4">
-           {images && images?.length > 0 && images.map(({image_id,image})=><Image key={image_id} img={image} handleChangeImage={handleChangeImage}/>) }
-          </div>
-          {/* <!-- /image gallery  --> */}
-        </div>
-    </>
-  );
+    const handleChangeImage = (image) => {
+        setChangeImage(image);
+    };
+
+    let imagesContent = null;
+
+    if (isSuccess && image?.length > 0) {
+        imagesContent = image?.map((image) => (
+            <Image
+                key={image.image_id}
+                img={image.image}
+                handleChangeImage={handleChangeImage}
+            />
+        ));
+    }
+
+    return (
+        <>
+            <div className="container mx-auto px-4">
+                <div className="w-full h-[350px]">
+                    <img
+                        className="w-full h-full"
+                        src={changeImage}
+                        alt="Sofa image"
+                    />
+                </div>
+
+                <div className="mt-3 grid grid-cols-4 gap-4">
+                    {imagesContent}
+                </div>
+                {/* <!-- /image gallery  --> */}
+            </div>
+        </>
+    );
 }
