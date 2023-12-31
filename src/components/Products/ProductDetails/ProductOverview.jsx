@@ -1,16 +1,7 @@
-<<<<<<< HEAD
 // import { useParams } from "react-router-dom";
 
 export default function ProductOverview({ id }) {
 
-=======
-import { useParams } from "react-router-dom";
-import { useGetCategoryQuery } from "../../../features/categorySlice/categoryApi";
-
-export default function ProductOverview({slug,product}) {
-    const {product_title,description,is_available,price,review_product,category,quantity} = product || {}
-    const {data,isSuccess} = useGetCategoryQuery(category || null)
->>>>>>> origin/front-end
     return (
         <>
             <div className="mx-auto px-5 lg:px-5">
@@ -87,7 +78,6 @@ export default function ProductOverview({slug,product}) {
                     Quantity: <span className="text-green-600">{quantity}</span>
                 </p> */}
                 <p className="mt-5 font-bold">
-<<<<<<< HEAD
                     স্টক: <span className="text-green-600">পণ্যটি রয়েছে</span>
                     {/* পণ্যটি নেই */}
                 </p>
@@ -104,17 +94,6 @@ export default function ProductOverview({slug,product}) {
                 <p className="mt-4 text-4xl font-bold text-violet-900">
                     ৳৫oo{" "}
                     <span className="text-xs text-gray-400 line-through">৳৫ooo</span>
-=======
-                    Availability: <span className="text-green-600">{is_available ? "In Stock" :"Out of stock"}</span>
-                </p>
-                <p className="font-bold">
-                    Category: <span className="font-normal">{isSuccess && data.name}</span>
-                </p>
-
-                <p className="mt-4 text-4xl font-bold text-violet-900">
-                    {price}
-                    {/* <span className="text-xs text-gray-400 line-through">$550</span> */}
->>>>>>> origin/front-end
                 </p>
 
                 <p className="pt-5 text-sm leading-5 text-gray-500">
@@ -122,11 +101,7 @@ export default function ProductOverview({slug,product}) {
                 </p>
 
                 <div className="mt-6">
-<<<<<<< HEAD
                     <p className="pb-2 text-xs text-gray-500">পরিমাণ <span className="font-extrabold text-lg">৫</span> </p>
-=======
-                    <p className="pb-2 text-xs text-gray-500">Quantity <span className="font-extrabold text-lg">{quantity}</span> </p>
->>>>>>> origin/front-end
 
                 </div>
 

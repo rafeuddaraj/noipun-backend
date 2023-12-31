@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSignupMutation } from "../../features/accountSlice/accountApi";
 import { login, register } from "../../features/accountSlice/accountSlice";
 import Error from "../ui/Error";

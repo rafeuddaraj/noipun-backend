@@ -8,13 +8,9 @@ import {
     FaMicroblog,
     FaPlus,
     FaSearch,
-<<<<<<< HEAD
     FaCartPlus
-=======
-    FaCartPlus,
->>>>>>> origin/front-end
 } from "react-icons/fa";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     MdContactPhone,
     MdKeyboardArrowDown,
@@ -39,16 +35,10 @@ const Static_nav = () => {
     const [isTrim, setIsTrim] = useState(false);
     const [isMenu, setIsMenu] = useState(false);
     const [searchValue, setSearchValue] = useState("");
-<<<<<<< HEAD
     const [isScrollHeaderGone, setIsScrollHeaderGone] = useState(true);
     const auth = useAuth()
     const { user } = useSelector(accountSelector)
     const { avatar, name } = user || {}
-=======
-    const auth = useAuth();
-    const { user } = useSelector(accountSelector);
-    const { avatar, name } = user || {};
->>>>>>> origin/front-end
     // const language = ["English", "Bangla"];
     // const nm = language?.find((lg, i) => i === selectLang);
 
@@ -92,23 +82,10 @@ const Static_nav = () => {
     }, []);
 
     return (
-<<<<<<< HEAD
         <div className={`w-[100%] xl:h-[140px] lg:h-[140px] min-[300px]:h-[120px] bg-[#fffce6] sticky mb-30 left-0 z-10 ${isScrollHeaderGone ? "top-0" : "-top-[100%]"}`}>
             <div className="xl:max-w-[1400px] lg:max-w-[100%] min-[300px]:max-w-[100%] mx-auto bg-[#fde102] pt-2">
                 <div className="h-[60px] bg-[#fffce6] flex items-center justify-between xl:px-[100px] lg:px-[100px] min-[300px]:px-[20px]">
                     <Link to="/">
-=======
-        <div className="w-[100%] h-[140px] bg-[#fffce6] sticky mb-30 left-0 top-0 z-10">
-            <div className="xl:max-w-[2000px] lg:max-w-[2000px] min-[360px]:max-w=[100%] h-[140px] mx-auto bg-[#fde102] pt-2">
-                <div className="h-[60px] bg-[#fffce6] flex items-center justify-between xl:px-[100px] lg:px-[100px] min-[360px]:px-[20px]">
-                    <NavLink
-                        to="/"
-                        className={({ isActive }) =>
-                            `flex items-center gap-2 font-medium  ${
-                                isActive && "text-green-400"
-                            } `
-                        }>
->>>>>>> origin/front-end
                         <div className="flex items-center justify-center gap-[2px]">
                             <div className="w-[50px] h-[50px]">
                                 <img
@@ -121,7 +98,7 @@ const Static_nav = () => {
                                 নৈপুণ
                             </h1>
                         </div>
-                    </NavLink>
+                    </Link>
                     <div className="flex items-center gap-2">
                         {/* xl,lg */} {/* language */}
                         {/* <div className="w-[100px] h-[30px] items-center justify-center gap-1 relative z-10 xl:flex lg:flex min-[300px]:hidden">
@@ -158,7 +135,6 @@ const Static_nav = () => {
                         <div className="flex items-center justify-center gap-2">
                             {/* Auth sm */}
 
-<<<<<<< HEAD
                             <div className="xl:block lg:block min-[300px]:hidden bg-transparent rounded-full p-3">
                                 <Link to={"/cart"}>
                                     <FaCartPlus className="text-[1.5rem] text-[#fde102] hover:text-[#e8d64f] duration-[.5s] transition-colors cursor-pointer" />
@@ -167,42 +143,14 @@ const Static_nav = () => {
 
                             <div className="xl:hidden lg:hidden min-[300px]:block">
                                 <Link to={"/login"}>
-=======
-                            <div className=" min-[360px]:block bg-[#fde102] rounded-full p-3">
-                                <NavLink
-                                    to={"/cart"}
-                                    className={({ isActive }) =>
-                                        `font-medium  ${
-                                            isActive && "text-green-400"
-                                        } `
-                                    }>
-                                    <FaCartPlus className="text-[1.3rem] text-[#fffce6] duration-[.5s] cursor-pointer" />
-                                </NavLink>
-                            </div>
-
-                            <div className="xl:hidden lg:hidden min-[360px]:block">
-                                <NavLink
-                                    to={"/login"}
-                                    className={({ isActive }) =>
-                                        `font-medium  ${
-                                            isActive && "text-green-400"
-                                        } `
-                                    }>
->>>>>>> origin/front-end
                                     <MdLogin className="text-[1.3rem] text-[#d1cfcf] duration-[.5s] cursor-pointer" />
-                                </NavLink>
+                                </Link>
                             </div>
                             {/* Auth lg ,xl */}
                             <div className="xl:block lg:block min-[300px]:hidden">
                                 {auth ? (
                                     <>
-<<<<<<< HEAD
                                         <div onClick={() => navigate('/account')} className="w-[40px] h-[40px] rounded-[50%] bg-[#6868687c] cursor-pointer active:bg-[#68686897] duration-[.5s] transition-colors flex items-center justify-center">
-=======
-                                        <div
-                                            onClick={() => navigate("/account")}
-                                            className="w-[40px] h-[40px] rounded-[50%] bg-[#6868687c] cursor-pointer active:bg-[#68686897] duration-[.5s] transition-colors flex items-center justify-center">
->>>>>>> origin/front-end
                                             <img
                                                 className="w-[90%] h-[90%] rounded-[50%]"
                                                 src={
@@ -214,7 +162,6 @@ const Static_nav = () => {
                                         </div>
                                     </>
                                 ) : (
-<<<<<<< HEAD
                                     // <Link
                                     //     to={"/login"}
                                     //     //  relative z-[4] hover:before:content-[''] hover:before:top-[0] hover:before:left-0 hover:before:right-0 hover:before:bg-[#feffde] hover:before:rounded-sm hover:before:z-[-1] hover:before:shadow-[inset_-3px_-3px_7px_#ffffff_,_inset_3px_3px_5px_#ceced1]
@@ -224,17 +171,6 @@ const Static_nav = () => {
                                     <Link to={"/login"}>
                                         <MdLogin className="text-[1.3rem] text-[#171717] duration-[.5s] cursor-pointer" />
                                     </Link>
-=======
-                                    <NavLink
-                                        to={"/login"}
-                                        className={({ isActive }) =>
-                                            `font-medium text-[.950rem] text-[#60a1e1] hover:text-[#288aed] duration-[.4s] tracking-[1px]  ${
-                                                isActive && "text-green-400"
-                                            } `
-                                        }>
-                                        Login
-                                    </NavLink>
->>>>>>> origin/front-end
                                 )}
                             </div>
                             <span className="text-[1rem] text-[#828282] mb-1">
@@ -249,7 +185,6 @@ const Static_nav = () => {
                 </div>
                 <div className="xl:h-[72px] lg:h-[72px] min-[300px]:h-[50px] flex items-center justify-between xl:px-[80px] lg:px-[80px] min-[300px]:px-[20px]">
                     {/* xl,lg */} {/* link and product droper */}
-<<<<<<< HEAD
                     <div className="h-full items-center  justify-center gap-8 xl:flex lg:flex min-[300px]:hidden">
                         <Link
                             to={'/'}
@@ -261,27 +196,6 @@ const Static_nav = () => {
                             className="text-[.950rem] leading-[70px]  h-full text-[#111] font-[500] tracking-[1px]">
                             যোগাযোগ
                         </Link>
-=======
-                    <div className="h-full items-center  justify-center gap-8 xl:flex lg:flex min-[360px]:hidden">
-                        <NavLink
-                            to={"/"}
-                            className={({ isActive }) =>
-                                `font-medium text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px]  ${
-                                    isActive && "text-green-400"
-                                } `
-                            }>
-                            Home
-                        </NavLink>
-                        <NavLink
-                            to={"/products"}
-                            className={({ isActive }) =>
-                                ` text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px] ${
-                                    isActive && "text-green-400"
-                                } `
-                            }>
-                            Products
-                        </NavLink>
->>>>>>> origin/front-end
                         <div className="text-[.950rem] h-full text-[#111] font-[500] tracking-[1px] flex items-center cursor-pointer group">
                             আমাদের পণ্য{" "}
                             <MdKeyboardArrowDown className="text-[1.1rem] h-full text-[#111] ml-1 mt-1 duration-[.4s] transition rotate-[180deg] group-hover:rotate-[0deg]" />
@@ -360,9 +274,9 @@ const Static_nav = () => {
                                 </div>
                             </label>
                         </div>
-                        {/* <NavLink className="text-[.950rem] h-full leading-[70px] text-[#111] font-[500] tracking-[1px]">
+                        {/* <Link className="text-[.950rem] h-full leading-[70px] text-[#111] font-[500] tracking-[1px]">
                             Blog
-                        </NavLink> */}
+                        </Link> */}
                     </div>
                     <div className="flex items-center justify-center gap-[2px]">
                         {/* lg,xl */} {/* category droper */}
@@ -531,7 +445,7 @@ const Static_nav = () => {
                                     <ul className="absolute w-[100%]">
                                         <li className="flex items-center gap-2 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <FaHome className="text-[1.5rem]" />
-                                            <NavLink
+                                            <Link
                                                 to={"/"}
                                                 className={({ isActive }) =>
                                                     `w-[100%] h-[100%] ${
@@ -540,12 +454,12 @@ const Static_nav = () => {
                                                     } `
                                                 }>
                                                 Home
-                                            </NavLink>
+                                            </Link>
                                         </li>
                                         <hr className="my-1 h-[.5px] bg-[#fde102]" />
                                         <li className="flex items-center gap-2 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#fffce6] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <MdContactPhone className="text-[1.5rem]" />
-                                            <NavLink
+                                            <Link
                                                 to={'/products'}
                                                 className={({ isActive }) =>
                                                     `w-[100%] h-[100%]${
@@ -554,12 +468,12 @@ const Static_nav = () => {
                                                     } `
                                                 }>
                                                 Products
-                                            </NavLink>
+                                            </Link>
                                         </li>
                                         <hr className="my-1 h-[.5px] bg-[#fde102]" />
                                         <li className="flex items-center gap-2 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <FaMicroblog className="text-[1.5rem]" />
-                                            <NavLink
+                                            <Link
                                                 className={({ isActive }) =>
                                                     `w-[100%] h-[100%]${
                                                         isActive &&
@@ -567,7 +481,7 @@ const Static_nav = () => {
                                                     } `
                                                 }>
                                                 Blog
-                                            </NavLink>
+                                            </Link>
                                         </li>
                                         <hr className="my-1 h-[.5px] bg-[#fff]" />
                                         <li>
@@ -660,22 +574,9 @@ const Static_nav = () => {
                                         <hr className="my-1 h-[.5px] bg-[#fff]" />
                                         <li className="flex items-center gap-1 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <MdShoppingBasket className="text-[1.5rem]" />
-<<<<<<< HEAD
                                             <Link
                                                 to={'/cart'}
-                                                className="w-[100%] h-[100%]">
-=======
-                                            <NavLink
-                                                to={"/cart"}
-                                                className={({ isActive }) =>
-                                                    `w-[100%] h-[100%]${
-                                                        isActive &&
-                                                        "text-green-400"
-                                                    } `
-                                                }>
->>>>>>> origin/front-end
-                                                Cart
-                                            </NavLink>
+                                                className="w-[100%] h-[100%]">Cart</Link>
                                         </li>
                                         <hr className="my-1 h-[.5px] bg-[#fff]" />
                                         <li className="flex items-center gap-1 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">

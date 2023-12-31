@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 
 export default function Header() {
@@ -30,13 +30,13 @@ export default function Header() {
         <>
             {/* <!-- Header --> */}
             <header className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-5">
-                <NavLink to="/">
+                <Link to="/">
                     <img
                         className="cursor-pointer sm:h-auto sm:w-auto"
                         src="./assets/images/company-logo.svg"
                         alt="company logo"
                     />
-                </NavLink>
+                </Link>
 
                 <div className="md:hidden">
                     <button onClick={handleMobile}>
@@ -83,7 +83,7 @@ export default function Header() {
                 </form>
 
                 <div className="hidden gap-3 md:!flex">
-                    <NavLink
+                    <Link
                         to={"/wishlist"}
                         className="flex cursor-pointer flex-col items-center justify-center">
                         <svg
@@ -101,9 +101,9 @@ export default function Header() {
                         </svg>
 
                         <p className="text-xs">Wishlist</p>
-                    </NavLink>
+                    </Link>
 
-                    <NavLink
+                    <Link
                         to={"/cart/1"}
                         className="flex cursor-pointer flex-col items-center justify-center">
                         <svg
@@ -119,9 +119,9 @@ export default function Header() {
                         </svg>
 
                         <p className="text-xs">Cart</p>
-                    </NavLink>
+                    </Link>
 
-                    <NavLink
+                    <Link
                         to="/account"
                         className="relative flex cursor-pointer flex-col items-center justify-center">
                         <span className="absolute bottom-[33px] right-1 flex h-2 w-2">
@@ -144,7 +144,7 @@ export default function Header() {
                         </svg>
 
                         <p className="text-xs">Account</p>
-                    </NavLink>
+                    </Link>
                 </div>
             </header>
             {/* // <!-- /Header --> */}
@@ -156,7 +156,7 @@ export default function Header() {
                 }`}>
                 <div className="mx-auto">
                     <div className="mx-auto flex w-full justify-center gap-3 py-4">
-                        <NavLink
+                        <Link
                             to={"/wishlist"}
                             className="flex cursor-pointer flex-col items-center justify-center">
                             <svg
@@ -174,9 +174,9 @@ export default function Header() {
                             </svg>
 
                             <p className="text-xs">Wishlist</p>
-                        </NavLink>
+                        </Link>
 
-                        <NavLink
+                        <Link
                             to="/cart/101"
                             className="flex cursor-pointer flex-col items-center justify-center">
                             <svg
@@ -192,9 +192,9 @@ export default function Header() {
                             </svg>
 
                             <p className="text-xs">Cart</p>
-                        </NavLink>
+                        </Link>
 
-                        <NavLink
+                        <Link
                             to="/account"
                             className="relative flex cursor-pointer flex-col items-center justify-center">
                             <span className="absolute bottom-[33px] right-1 flex h-2 w-2">
@@ -217,7 +217,7 @@ export default function Header() {
                             </svg>
 
                             <p className="text-xs">Account</p>
-                        </NavLink>
+                        </Link>
                     </div>
 
                     <form className="my-4 mx-5 flex h-9 items-center border">
@@ -249,16 +249,16 @@ export default function Header() {
                     </form>
                     <ul className="text-center font-medium">
                         <li className="py-2">
-                            <NavLink to={"/"}>Home</NavLink>
+                            <Link to={"/"}>Home</Link>
                         </li>
                         <li className="py-2">
-                            <NavLink to={"/products"}>Catalog</NavLink>
+                            <Link to={"/products"}>Catalog</Link>
                         </li>
                         <li className="py-2">
-                            <NavLink to="/about-us">About Us</NavLink>
+                            <Link to="/about-us">About Us</Link>
                         </li>
                         <li className="py-2">
-                            <NavLink to="/contact-us">Contact Us</NavLink>
+                            <Link to="/contact-us">Contact Us</Link>
                         </li>
                     </ul>
                 </div>
@@ -290,44 +290,44 @@ export default function Header() {
                     </button>
 
                     <div className="mx-7 flex gap-8">
-                        <NavLink
+                        <Link
                             className="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
                             to="/">
                             Home
-                        </NavLink>
-                        <NavLink
+                        </Link>
+                        <Link
                             className="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
                             to="/products">
                             Catalog
-                        </NavLink>
-                        <NavLink
+                        </Link>
+                        <Link
                             className="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
                             to="/about-us">
                             About Us
-                        </NavLink>
-                        <NavLink
+                        </Link>
+                        <Link
                             className="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
                             to="/contact-us">
                             Contact Us
-                        </NavLink>
+                        </Link>
                     </div>
 
                     <div className="ml-auto flex gap-4 px-5">
                         {!auth && (
                             <>
-                                <NavLink
+                                <Link
                                     className="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
                                     to="/login">
                                     Login
-                                </NavLink>
+                                </Link>
 
                                 <span className="text-white">&#124;</span>
 
-                                <NavLink
+                                <Link
                                     className="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
                                     to="/signup">
                                     Sign Up
-                                </NavLink>
+                                </Link>
                             </>
                         )}
                     </div>

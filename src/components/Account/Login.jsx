@@ -125,17 +125,10 @@ export default function Login() {
                     </div> */}
 
                     <p className="text-center">
-<<<<<<< HEAD
                         আপনার কি একাউন্ট  নেই ? {" "}
                         <Link to="/signup" className="text-violet-900">
                             সাইন আপ
                         </Link>
-=======
-                        Don`t have account?
-                        <NavLink to={'/signup'} className="text-violet-900">
-                            Register now
-                        </NavLink>
->>>>>>> origin/front-end
                     </p>
                 </div>
             </section>

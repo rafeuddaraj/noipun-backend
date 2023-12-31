@@ -58,7 +58,6 @@ export default function AllProduct() {
                     </div>
                 </div>
 
-<<<<<<< HEAD
                 <section className="mx-auto gap-3 justify-center w-full grid max-w-[1200px] xl:grid-cols-4 lg:grid-cols-3 min-[300px]:grid-cols-1 px-5 pb-10">
                     <Product />
                     <Product />
@@ -70,10 +69,6 @@ export default function AllProduct() {
                     <Product />
                     <Product />
                     <Product />
-=======
-                <section className="mx-auto gap-3 justify-center w-full grid max-w-[1200px] grid:cols-1 md:grid-cols-2 px-5 pb-10 lg:grid-cols-4">
-                    {content}
->>>>>>> origin/front-end
                 </section>
             </div>
         </main>
