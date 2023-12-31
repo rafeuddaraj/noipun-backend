@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import Success from "./components/ui/Success";
 import { accountSelector } from "./features/accountSlice/accountSelector";
 import './styles/styles.css'
+import ProductAdd from "./components/ProductAdd";
 
 export default function App() {
     const checkAuth = useAuthCheck();
@@ -74,6 +75,14 @@ export default function App() {
                                 element={
                                     <PrivateRoute>
                                         <ChangePassword />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route
+                                path="/add-product"
+                                element={
+                                    <PrivateRoute>
+                                        <ProductAdd />
                                     </PrivateRoute>
                                 }
                             />
