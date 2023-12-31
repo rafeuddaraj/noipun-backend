@@ -11,8 +11,8 @@ const Modal = () => {
   return (
     <>
       {showModal && (
-        <div style={{zIndex:100000000}} className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded shadow-lg w-1/3">
+        <div style={{zIndex:100000}} className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-8 rounded shadow-lg w-10/12 md:w-1/2 lg:w-1/3 xl:w-1/4">
             <p className="text-lg text-gray-800">
               নৈপুণের কাজ এখনো শেষ হয়নী। এটার কাজ চলছে। আমরা কিছু দিনের মধ্যেই আবার আপডেট জানাবো। নৈপুণের সাথে থাকার জন্য ধন্যবাদ। 
             </p>
