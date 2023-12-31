@@ -5,11 +5,7 @@ import {
 } from "../../features/accountSlice/accountApi";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/accountSlice/accountSlice";
-<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
-=======
-import { NavLink, useNavigate } from "react-router-dom";
->>>>>>> origin/front-end
 import ForgetModal from "./ForgetModal";
 import { validateEmail } from "../../utils/validateEmail";
 
