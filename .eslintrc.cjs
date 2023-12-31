@@ -14,8 +14,12 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': [
       'warn',
-      { allowConstantExport: true },
+      { allowConstantExport: true }
     ],
+<<<<<<< HEAD
     "react/prop-types": "off",
+=======
+    "react/prop-types":0
+>>>>>>> origin/front-end
   },
 }

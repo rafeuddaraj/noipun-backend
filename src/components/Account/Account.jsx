@@ -8,6 +8,7 @@ export default function Account() {
     return (
         <>
             <section className="container flex-grow mx-auto max-w-[1200px] border-b py-5 lg:flex lg:flex-row lg:py-10">
+<<<<<<< HEAD
             <div className="xl:block lg:block min-[300px]:hidden">
                         <Sidebar />
                     </div>
@@ -16,6 +17,10 @@ export default function Account() {
                     </div>
                     <span className="items-center justify-end mr-4 mb-4 xl:hidden lg:hidden min-[300px]:flex" onClick={() => setIsSideBar(!isSideBar)}><MdMenuOpen className="w-8 h-8" /></span>
                 <AccountCard />
+=======
+                <Sidebar />
+                {/* <AccountCard /> */}
+>>>>>>> origin/front-end
             </section>
         </>
     );
