@@ -8,7 +8,7 @@ import {
     FaMicroblog,
     FaPlus,
     FaSearch,
-    FaCartPlus
+    FaCartPlus,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -24,8 +24,11 @@ import { IoMdClose } from "react-icons/io";
 import useAuth from "../Hooks/useAuth";
 import { useSelector } from "react-redux";
 import { accountSelector } from "../features/accountSlice/accountSelector";
+import { useGetCategoriesQuery } from "../features/categorySlice/categoryApi";
 
 const Static_nav = () => {
+    const { data: categories, isSuccess } = useGetCategoriesQuery();
+    console.log(categories);
     // const [selectLang, setSelectLang] = useState(1);
     // const [lgdroper, setLgdroper] = useState(false);
     const [cateDroper, setCateDroper] = useState(false);
@@ -36,9 +39,9 @@ const Static_nav = () => {
     const [isMenu, setIsMenu] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const [isScrollHeaderGone, setIsScrollHeaderGone] = useState(true);
-    const auth = useAuth()
-    const { user } = useSelector(accountSelector)
-    const { avatar, name } = user || {}
+    const auth = useAuth();
+    const { user } = useSelector(accountSelector);
+    const { avatar, name } = user || {};
     // const language = ["English", "Bangla"];
     // const nm = language?.find((lg, i) => i === selectLang);
 
@@ -75,14 +78,17 @@ const Static_nav = () => {
     };
 
     useEffect(() => {
-        window.addEventListener('scroll', isHeader);
+        window.addEventListener("scroll", isHeader);
         return () => {
-            window.removeEventListener('scroll', isHeader);
-        }
+            window.removeEventListener("scroll", isHeader);
+        };
     }, []);
 
     return (
-        <div className={`w-[100%] xl:h-[140px] lg:h-[140px] min-[300px]:h-[120px] bg-[#fffce6] sticky mb-30 left-0 z-10 ${isScrollHeaderGone ? "top-0" : "-top-[100%]"}`}>
+        <div
+            className={`w-[100%] xl:h-[140px] lg:h-[140px] min-[300px]:h-[120px] bg-[#fffce6] sticky mb-30 left-0 z-10 ${
+                isScrollHeaderGone ? "top-0" : "-top-[100%]"
+            }`}>
             <div className="xl:max-w-[1400px] lg:max-w-[100%] min-[300px]:max-w-[100%] mx-auto bg-[#fde102] pt-2">
                 <div className="h-[60px] bg-[#fffce6] flex items-center justify-between xl:px-[100px] lg:px-[100px] min-[300px]:px-[20px]">
                     <Link to="/">
@@ -150,7 +156,9 @@ const Static_nav = () => {
                             <div className="xl:block lg:block min-[300px]:hidden">
                                 {auth ? (
                                     <>
-                                        <div onClick={() => navigate('/account')} className="w-[40px] h-[40px] rounded-[50%] bg-[#6868687c] cursor-pointer active:bg-[#68686897] duration-[.5s] transition-colors flex items-center justify-center">
+                                        <div
+                                            onClick={() => navigate("/account")}
+                                            className="w-[40px] h-[40px] rounded-[50%] bg-[#6868687c] cursor-pointer active:bg-[#68686897] duration-[.5s] transition-colors flex items-center justify-center">
                                             <img
                                                 className="w-[90%] h-[90%] rounded-[50%]"
                                                 src={avatar}
@@ -184,12 +192,12 @@ const Static_nav = () => {
                     {/* xl,lg */} {/* link and product droper */}
                     <div className="h-full items-center  justify-center gap-8 xl:flex lg:flex min-[300px]:hidden">
                         <Link
-                            to={'/'}
+                            to={"/"}
                             className="text-[.950rem] leading-[70px] h-full text-[#111] font-[500] tracking-[1px]">
                             হোম
                         </Link>
                         <Link
-                            to={'/contact'}
+                            to={"/contact"}
                             className="text-[.950rem] leading-[70px]  h-full text-[#111] font-[500] tracking-[1px]">
                             যোগাযোগ
                         </Link>
@@ -200,73 +208,14 @@ const Static_nav = () => {
                             <label className="fixed top-[140px] left-0 z-10 w-[100vw] h-fit hidden group-hover:block duration-[1s] transition bg-[#fffce6] border-t-[0.1px] border-t-[#fff] px-[50px]">
                                 <div className="grid grid-cols-3 gap-3">
                                     <ul className="p-2">
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Bag
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Painting
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Mug
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Shares
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Panjabi
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Wood Draft
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Painted Plates
-                                        </li>
-                                    </ul>
-                                    <ul className="p-2">
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Bag
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Painting
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Mug
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Shares
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Panjabi
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Wood Draft
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Painted Plates
-                                        </li>
-                                    </ul>
-                                    <ul className="p-2">
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Bag
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Painting
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Mug
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Shares
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Panjabi
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Wood Draft
-                                        </li>
-                                        <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
-                                            Painted Plates
-                                        </li>
+                                        {isSuccess &&
+                                            categories['results']?.map((category) => (
+                                                <li
+                                                    key={category.id}
+                                                    className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">
+                                                    {category.name}
+                                                </li>
+                                            ))}
                                     </ul>
                                 </div>
                             </label>
@@ -283,18 +232,20 @@ const Static_nav = () => {
                                 className="flex items-center justify-center gap-[2px] text-[1.1rem] text-[#111] font-[500] tracking-wider cursor-pointer w-[100%] h-[100%]">
                                 ক্যাটেগরি{" "}
                                 <MdKeyboardArrowDown
-                                    className={`text-[1.2rem] text-[#111] mt-1 duration-[.4s] transition ${cateDroper
-                                        ? "rotate-[180deg]"
-                                        : "rotate-[0deg"
-                                        }`}
+                                    className={`text-[1.2rem] text-[#111] mt-1 duration-[.4s] transition ${
+                                        cateDroper
+                                            ? "rotate-[180deg]"
+                                            : "rotate-[0deg"
+                                    }`}
                                 />{" "}
                             </div>
                             {/* category menu bg-[#fde102] */}
                             <ul
-                                className={`absolute top-[60px] left-0 bg-[#f1e9aa] z-10 h-fit rounded-sm w-[230px] p-2 duration-[.3s] transition ${cateDroper
-                                    ? "opacity-[1] translate-y-0"
-                                    : "translate-y-full opacity-0"
-                                    }`}>
+                                className={`absolute top-[60px] left-0 bg-[#f1e9aa] z-10 h-fit rounded-sm w-[230px] p-2 duration-[.3s] transition ${
+                                    cateDroper
+                                        ? "opacity-[1] translate-y-0"
+                                        : "translate-y-full opacity-0"
+                                }`}>
                                 <li className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fffce6] duration-[.3s] transition-colors cursor-pointer rounded-sm">
                                     flower cotone
                                 </li>
@@ -407,10 +358,11 @@ const Static_nav = () => {
                                 <TfiMenuAlt className="text-[2rem] text-[#111]" />
                             </div>
                             <div
-                                className={`fixed top-0 left-0 bg-[#fffce6] w-[70vw] h-[100vh] p-2 rounded-r-md duration-[.5s] transition ${isMenu
-                                    ? "translate-x-0"
-                                    : "-translate-x-full"
-                                    }`}>
+                                className={`fixed top-0 left-0 bg-[#fffce6] w-[70vw] h-[100vh] p-2 rounded-r-md duration-[.5s] transition ${
+                                    isMenu
+                                        ? "translate-x-0"
+                                        : "-translate-x-full"
+                                }`}>
                                 <div className="flex justify-between ">
                                     {/* user Profile */}
                                     <div className="flex items-center gap-1">
@@ -442,7 +394,9 @@ const Static_nav = () => {
                                     <ul className="absolute w-[100%]">
                                         <li className="flex items-center gap-2 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <FaHome className="text-[1.5rem]" />
-                                            <Link to={'/'} className="w-[100%] h-[100%]">
+                                            <Link
+                                                to={"/"}
+                                                className="w-[100%] h-[100%]">
                                                 Home
                                             </Link>
                                         </li>
@@ -552,7 +506,7 @@ const Static_nav = () => {
                                         <li className="flex items-center gap-1 bg-[#fde102] duration-[.3s] transition-colors active:bg-[#4f6e8793] py-2 px-2 text-[1.2rem] text-[#ffffff] rounded-sm">
                                             <MdShoppingBasket className="text-[1.5rem]" />
                                             <Link
-                                                to={'/cart'}
+                                                to={"/cart"}
                                                 className="w-[100%] h-[100%]">
                                                 Cart
                                             </Link>
@@ -577,10 +531,11 @@ const Static_nav = () => {
                             <FaSearch className="text-[1.2rem] text-[#111]" />
                         </div>
                         <div
-                            className={`fixed left-0 top-[120px] w-[100%] h-[45px] z-10 duration-[.8s] transition ${isSearchBar
-                                ? "translate-x-0"
-                                : "-translate-x-full"
-                                }`}>
+                            className={`fixed left-0 top-[120px] w-[100%] h-[45px] z-10 duration-[.8s] transition ${
+                                isSearchBar
+                                    ? "translate-x-0"
+                                    : "-translate-x-full"
+                            }`}>
                             <input
                                 type="text"
                                 className="w-[100%] h-[100%] ps-2 text-[1.4rem] font-[400] text-black tracking-wide placeholder:text-gray-400 placeholder:text-[.950rem] placeholder:font-[500] placeholder:tracking-tight outline-none border focus:border-[#45accb] duration-[.3s] transition"

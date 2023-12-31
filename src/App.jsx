@@ -13,6 +13,7 @@ import ChangePassword from "./components/Pages/ChangePassword";
 import useAuthCheck from "./Hooks/useAuthCheck";
 import PublicRoute from "./routes/PublicRoute";
 import PrivateRoute from "./routes/PrivateRoute";
+import Modal from "./components/ui/Modal";
 
 export default function App() {
     const checkAuth = useAuthCheck();
@@ -20,6 +21,7 @@ export default function App() {
         <>
             {checkAuth && (
                 <Router>
+                    <Modal />
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/products" element={<Product />} />
