@@ -1164,7 +1164,7 @@ body {
   text-align: left;
   font-weight: 500;
   --tw-text-opacity: 1;
-  color: rgb(226 232 240 / var(--tw-text-opacity));
+  color: rgb(21, 195, 21);
 }
 
 .table-td {
@@ -1223,7 +1223,7 @@ body {
   font-size: 0.875rem;
   line-height: 1.25rem;
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: #111;
 }
 
 .assignment-status li span {

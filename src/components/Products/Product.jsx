@@ -2,20 +2,23 @@ import { useState } from "react";
 import { useDeleteProductMutation } from "../../features/productSlice/productApi";
 import { useDispatch } from "react-redux";
 import { addProductId } from "../../features/productSlice/productSlice";
+import { useGetCategoryQuery } from "../../features/categorySlice/categoryApi";
+import convertToBanglaNumber from "../../utils/convertToBanglaNumber";
 
 export default function Product({ handleEditModal, showEditModal, product }) {
     const dispatch = useDispatch();
     const { product_title, price, category, quantity, weight, id } =
         product || {};
+    const {data:categoryData,isSuccess} = useGetCategoryQuery(category)
     const [deleteProductServer, { isLoading }] = useDeleteProductMutation();
     return (
         <>
             <tr>
                 <td className="table-td">{product_title}</td>
-                <td className="table-td">{price}৳</td>
-                <td className="table-td">{quantity}</td>
-                <td className="table-td">{weight}গ্রাম</td>
-                <td className="table-td">{category}</td>
+                <td className="table-td">{convertToBanglaNumber(price)}৳</td>
+                <td className="table-td">{convertToBanglaNumber(quantity)}</td>
+                <td className="table-td">{convertToBanglaNumber(weight)} গ্রাম</td>
+                <td className="table-td">{categoryData?.name}</td>
                 <td className="table-td flex gap-x-2 justify-center">
                     <svg
                         disabled={isLoading}
