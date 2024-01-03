@@ -1,14 +1,14 @@
 // import { useParams } from "react-router-dom";
 
-export default function ProductOverview({ product, isSuccess,category }) {
-
+export default function ProductOverview({ product, isSuccess, category }) {
     const {
         product_title,
         description,
         price,
         is_available,
         total_buyed,
-        quantity,} = product || {}
+        quantity,
+    } = product || {};
 
     return (
         <>
@@ -83,7 +83,10 @@ export default function ProductOverview({ product, isSuccess,category }) {
                 </div> */}
 
                 <p className="mt-5 font-bold">
-                    স্টক: <span className="text-green-600">{is_available ? "পণ্যটি রয়েছে" : "পণ্যটি স্টকে নেই"}</span>
+                    স্টক:{" "}
+                    <span className="text-green-600">
+                        {is_available ? "পণ্যটি রয়েছে" : "পণ্যটি স্টকে নেই"}
+                    </span>
                     {/* পণ্যটি নেই */}
                 </p>
                 {/* <p className="font-bold">
@@ -103,15 +106,24 @@ export default function ProductOverview({ product, isSuccess,category }) {
                 </p>
 
                 <p className="pt-5 text-sm leading-5 text-gray-500">
-                    {`${description?.slice(0,100)}......`}
+                    {`${description?.slice(0, 100)}......`}
                 </p>
 
                 <div className="mt-6">
-                    <p className="pb-2 text-xs text-gray-500">পরিমাণ <span className="font-extrabold text-lg">{quantity}</span> </p>
+                    <p className="pb-2 text-xs text-gray-500">
+                        পরিমাণ{" "}
+                        <span className="font-extrabold text-lg">
+                            {quantity}
+                        </span>{" "}
+                    </p>
                 </div>
 
                 <div className="mt-7 flex flex-row items-center xl:gap-6 lg:gap-4 min-[300px]:gap-3">
-                    <button className="flex h-12 w-full items-center justify-center bg-violet-900 text-white duration-100 hover:bg-blue-800">
+                    <a
+                        href="https://shop.bkash.com/noipun01600943547/paymentlink"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex h-12 w-full items-center justify-center bg-violet-900 text-white duration-100 hover:bg-blue-800">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -125,8 +137,9 @@ export default function ProductOverview({ product, isSuccess,category }) {
                                 d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
                             />
                         </svg>
-                        যোগ করুন
-                    </button>
+                        {/* যোগ করুন */}
+                        কিনুন
+                    </a>
                     {/* <button className="flex h-12 w-full items-center justify-center bg-amber-400 duration-100 hover:bg-yellow-300">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

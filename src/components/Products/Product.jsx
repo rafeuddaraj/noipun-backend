@@ -58,14 +58,12 @@ export default function Product({ product }) {
                         <span className="text-3xl font-bold text-gray-900 dark:text-white">
                             {price}
                         </span>
-                        <a
-                            href="https://shop.bkash.com/noipun01600943547/paymentlink"
-                            target="_blank"
-                            rel="noreferrer"
+                        <Link
+                            to={`/products/${categoryData?.name}/${slug}/${id}`}
                             // style={{ background: "#fffce6", color: '#111' }} focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800
                             className="rounded-lg bg-[#fffce6] px-5 py-2.5 text-center text-sm font-medium text-black hover:bg-[#fcf8db] duration-[.5s] transition-colors">
-                            যোগ করুন
-                        </a>
+                            বিস্তারিত
+                        </Link>
                     </div>
                 </Card>
             )}

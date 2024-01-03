@@ -3,7 +3,7 @@ import { Carousel } from "keep-react";
 export default function Hero() {
     return (
         <div className="relative"> 
-            <Carousel className="h-screen carousel-custom-css" slideInterval={5000} showControls={true} indicators={true}>
+            <Carousel className="" slideInterval={5000} showControls={true} indicators={true}>
             <img
                 src="https://i.ibb.co/j6HrBgW/In-Shot-20231231-233228185.jpg"
                 alt="slider-1"
@@ -25,8 +25,8 @@ export default function Hero() {
             <img
                 src="https://i.ibb.co/ZY197bB/orca-image-964297579.jpg"
                 alt="slider-4"
-                height={400}
-                width={910}
+                // height={400}
+                // width={910}
             />
             <img
                 src="https://i.ibb.co/TmWH8dr/orca-image-1713589519.jpg"
