@@ -28,7 +28,6 @@ import { useGetCategoriesQuery } from "../features/categorySlice/categoryApi";
 
 const Static_nav = () => {
     const { data: categories, isSuccess } = useGetCategoriesQuery();
-    console.log(categories);
     // const [selectLang, setSelectLang] = useState(1);
     // const [lgdroper, setLgdroper] = useState(false);
     const [cateDroper, setCateDroper] = useState(false);
@@ -209,7 +208,7 @@ const Static_nav = () => {
                                 <div className="grid grid-cols-3 gap-3">
                                     <ul className="p-2">
                                         {isSuccess &&
-                                            categories['results']?.map((category) => (
+                                            categories.map((category) => (
                                                 <li
                                                     key={category.id}
                                                     className="py-2 px-2 text-[.950rem] text-[#111] font-[400] tracking-[.5px] hover:bg-[#fde102] duration-[.3s] transition-colors cursor-pointer rounded-sm">

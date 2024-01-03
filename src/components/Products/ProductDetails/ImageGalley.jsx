@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "./Image";
 
 export default function ImageGalley({ product, isSuccess }) {
-    const { image } = product || {};
+    const { image, product_title } = product || {};
     const [changeImage, setChangeImage] = useState(null);
 
     useEffect(() => {
@@ -27,15 +27,34 @@ export default function ImageGalley({ product, isSuccess }) {
         ));
     }
 
+    const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
+
+    const handleMouseMove = (e) => {
+        const { left, top, width, height } = e.target.getBoundingClientRect();
+        const x = ((e.pageX - left) / width) * 100;
+        const y = ((e.pageY - top) / height) * 100;
+        setBackgroundPosition(`${x}% ${y}%`);
+    };
+
     return (
         <>
             <div className="container mx-auto px-4">
                 <div className="w-full h-[350px]">
-                    <img
+                    {/* <img
                         className="w-full h-full"
                         src={changeImage}
-                        alt="Sofa image"
-                    />
+                        alt={product_title}
+                    /> */}
+
+                    <figure
+                        className="w-full h-full cursor-move"
+                        onMouseMove={handleMouseMove}
+                        style={{
+                            backgroundImage: `url(${changeImage})`,
+                            backgroundPosition,
+                        }}>
+                        <img className="w-full h-full" src={changeImage} alt="Zoomable Image" />
+                    </figure>
                 </div>
 
                 <div className="mt-3 grid grid-cols-4 gap-4">

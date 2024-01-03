@@ -2,4 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-  
+
+@layer utilities {
+    figure {
+        width: 600px;
+        background-repeat: no-repeat;
+      }
+      
+      figure:hover img {
+        opacity: 0;
+      }
+}
